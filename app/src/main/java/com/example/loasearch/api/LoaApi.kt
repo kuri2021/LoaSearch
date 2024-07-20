@@ -58,4 +58,8 @@ class LoaApi:LoaApiInf {
 
         })
     }
+
+    fun getNews(){
+
+    }
 }

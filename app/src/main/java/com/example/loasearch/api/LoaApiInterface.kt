@@ -15,4 +15,16 @@ interface LoaApiInterface {
     @GET("/gamecontents/challenge-abyss-dungeons")
     fun getChallengeAbyssData(
     ):Call<GetChallengeAbyssData>
+
+    @GET("/news/notices")
+    fun getNews(
+    ):Call<Any>
+
+    @GET("/news/events")
+    fun getEvents(
+    ):Call<Any>
+
+    @GET("/gamecontents/challenge-guardian-raids")
+    fun getChallengeGuardian(
+    ):Call<Any>
 }

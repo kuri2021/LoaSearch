@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">LoaSearch</string>
     <string name="update">새로운 소식</string>
+    <string name="weekly_guardian">주간 가디언 토벌</string>
 </resources>

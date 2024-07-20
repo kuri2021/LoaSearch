@@ -19,12 +19,12 @@ class MainActivity : AppCompatActivity() {
         bindding.bottomNav.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.nav_main ->{
-                    supportFragmentManager.beginTransaction().replace(R.id.frg,InformationFragment()).commit()
+                    supportFragmentManager.beginTransaction().replace(R.id.frg,InformationFragment()).addToBackStack(null).commit()
                     true
                 }
 
                 R.id.nav_search ->{
-                    supportFragmentManager.beginTransaction().replace(R.id.frg,SearchFragment()).commit()
+                    supportFragmentManager.beginTransaction().replace(R.id.frg,SearchFragment()).addToBackStack(null).commit()
                     true
                 }
 

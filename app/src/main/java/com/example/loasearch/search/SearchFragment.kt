@@ -3,10 +3,12 @@ package com.example.loasearch.search
 import android.content.Context
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.example.loasearch.api.LoaApi
 import com.example.loasearch.databinding.FragmentSearchBinding
 
@@ -31,6 +33,9 @@ class SearchFragment : Fragment() {
             if (name != "") {
                 LoaApi().getCharacterData(name) {
                     if (it == "성공") {
+                        Glide.with(mContext).load(LoaApi.character.ArmoryProfile.CharacterImage)
+                            .into(binding.characterIv)
+
                         binding.statusTv.text =
                             "${LoaApi.character.ArmoryProfile.CharacterName}" +
                                     "\n${LoaApi.character.ArmoryProfile.CharacterLevel}" +
@@ -40,6 +45,7 @@ class SearchFragment : Fragment() {
                                     "\n${LoaApi.character.ArmoryProfile.GuildMemberGrade}" +
                                     "\n${LoaApi.character.ArmoryProfile.ItemAvgLevel}" +
                                     "\n${LoaApi.character.ArmoryProfile.ServerName}"
+                        Log.d("states",LoaApi.character.ArmoryProfile.Stats.toString())
                     } else {
                         binding.statusTv.text = "불러오기 실패"
                     }

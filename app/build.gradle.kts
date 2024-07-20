@@ -53,4 +53,10 @@ dependencies {
     // Retrofit: 서버와 통신
     implementation(libs.retrofit)
     implementation (libs.converter.gson)
+    // Glide
+    implementation (libs.glide)
+    annotationProcessor (libs.compiler)
+    implementation(kotlin("script-runtime"))
+
+    implementation (libs.jsoup)
 }

@@ -1,7 +1,9 @@
-package com.example.loasearch
+package com.example.loasearch.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.viewModelScope
+import com.example.loasearch.R
 import com.example.loasearch.databinding.ActivityMainBinding
 import com.example.loasearch.information.InformationFragment
 import com.example.loasearch.search.SearchFragment
@@ -12,7 +14,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        enableEdgeToEdge()
         bindding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(bindding.root)
 

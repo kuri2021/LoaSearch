@@ -5,5 +5,10 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.LoaSearch" parent="Base.Theme.LoaSearch" />
+    <style name="Theme.LoaSearch" parent="Base.Theme.LoaSearch" >
+        <item name="android:textColorPrimary">@color/white</item> <!-- 기본 텍스트 색상 -->
+        <item name="android:textColorSecondary">@color/white</item> <!-- 보조 텍스트 색상 -->
+        <item name="android:textColor">@color/white</item> <!-- 일반 텍스트 색상 -->
+        <item name="android:windowBackground">@color/main</item>
+    </style>
 </resources>

@@ -59,4 +59,10 @@ dependencies {
     implementation(kotlin("script-runtime"))
 
     implementation (libs.jsoup)
+
+    implementation (libs.androidx.lifecycle.viewmodel.ktx)
+
+    implementation (libs.jetbrains.kotlinx.coroutines.core)
+    implementation (libs.kotlinx.coroutines.android)
+
 }

@@ -17,15 +17,10 @@ class LoaApi : LoaApiInf {
 
     override fun getCharacterData(name: String, callback: (String) -> Unit) {
         api.getCharacter(name).enqueue(object : Callback<GetCharacterData> {
-            override fun onResponse(
-                call: Call<GetCharacterData>,
-                response: Response<GetCharacterData>
-            ) {
+            override fun onResponse(call: Call<GetCharacterData>, response: Response<GetCharacterData>) {
                 val body = response.body()
-                Log.d("getCharacterData", body.toString())
-                Log.d("getCharacterData", response.message())
-                Log.d("getCharacterData", response.code().toString())
-                Log.d("getCharacterData", response.raw().toString())
+                val code = response.code()
+                Log.d("확인",code.toString())
                 if (body != null) {
                     GlobalVariable.character = body
                     callback("성공")
@@ -46,10 +41,7 @@ class LoaApi : LoaApiInf {
             override fun onResponse(call: Call<GetNewsData>, response: Response<GetNewsData>) {
                 val body = response.body()
                 val code = response.code()
-                Log.d("getNews", body.toString())
-                Log.d("getNews", response.message())
-                Log.d("getNews", response.code().toString())
-                Log.d("getNews", response.raw().toString())
+                Log.d("확인",code.toString())
                 if (body != null && code == 200) {
                     GlobalVariable.news = body
                     callback("완료")
@@ -70,10 +62,7 @@ class LoaApi : LoaApiInf {
             override fun onResponse(call: Call<GetEventsData>, response: Response<GetEventsData>) {
                 val body = response.body()
                 val code = response.code()
-                Log.d("getEvents", body.toString())
-                Log.d("getEvents", response.message())
-                Log.d("getEvents", response.code().toString())
-                Log.d("getEvents", response.raw().toString())
+                Log.d("확인",code.toString())
                 if (body != null && code == 200) {
                     GlobalVariable.events = body
                     callback("완료")
@@ -82,6 +71,7 @@ class LoaApi : LoaApiInf {
 
             override fun onFailure(call: Call<GetEventsData>, t: Throwable) {
                 Log.d("getEvents", "${call}/${t}")
+                callback("실패")
             }
 
         })
@@ -96,10 +86,7 @@ class LoaApi : LoaApiInf {
             ) {
                 val body = response.body()
                 val code = response.code()
-                Log.d("getChallengeGuardian", body.toString())
-                Log.d("getChallengeGuardian", response.message())
-                Log.d("getChallengeGuardian", response.code().toString())
-                Log.d("getChallengeGuardian", response.raw().toString())
+                Log.d("확인",code.toString())
                 if (body != null && code == 200)  {
                     GlobalVariable.challengeGuardian = body
                     callback("완료")
@@ -108,6 +95,7 @@ class LoaApi : LoaApiInf {
 
             override fun onFailure(call: Call<GetChallengeGuardianData>, t: Throwable) {
                 Log.d("getChallengeGuardian", "${call}/${t}")
+                callback("실패")
             }
 
         })
@@ -119,7 +107,8 @@ class LoaApi : LoaApiInf {
             override fun onResponse(call: Call<GetChallengeAbyssData>, response: Response<GetChallengeAbyssData>) {
                 val body = response.body()
                 val code = response.code()
-                if (body != null && code == 200)  {
+                Log.d("확인",code.toString())
+                if (body != null && code == 200) {
                     GlobalVariable.challengeAbyss = body
                     callback("완료")
                 }
@@ -127,6 +116,7 @@ class LoaApi : LoaApiInf {
 
             override fun onFailure(call: Call<GetChallengeAbyssData>, t: Throwable) {
                 Log.d("getChallengeAbyss", "${call}/${t}")
+                callback("실패")
             }
 
         })

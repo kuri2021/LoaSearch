@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">LoaSearch</string>
     <string name="update">새로운 소식</string>
+    <string name="event">이벤트</string>
     <string name="weekly_guardian">주간 가디언 토벌</string>
+    <string name="weekly_abyss">주간 어비스 던전</string>
+    <string name="textDefault">default</string>
 </resources>

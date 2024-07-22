@@ -3,4 +3,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="main">#FF212429</color>
+    <color name="recyclerBackground">#66212429</color>
+    <color name="textColor">#FF333333</color>
 </resources>

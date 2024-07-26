@@ -122,4 +122,8 @@ class LoaApi : LoaApiInf {
         })
     }
 
+    fun postMarkets(callback: (String) -> Unit){
+
+    }
+
 }

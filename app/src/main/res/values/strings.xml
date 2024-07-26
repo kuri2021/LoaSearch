@@ -5,4 +5,7 @@
     <string name="weekly_guardian">주간 가디언 토벌</string>
     <string name="weekly_abyss">주간 어비스 던전</string>
     <string name="textDefault">default</string>
+    <string name="main">메인</string>
+    <string name="search">캐릭터 검색</string>
+    <string name="auction_house">경매장</string>
 </resources>

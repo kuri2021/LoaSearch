@@ -5,10 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.loasearch.api.LoaApi
-import com.example.loasearch.api.LoaApiInterface
 import com.example.loasearch.api.data.GlobalVariable
-import com.example.loasearch.util.Connect
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 

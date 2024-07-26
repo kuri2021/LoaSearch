@@ -5,4 +5,5 @@
     <color name="main">#FF212429</color>
     <color name="recyclerBackground">#66212429</color>
     <color name="textColor">#FF333333</color>
+    <color name="hintColor">#B0B0B0</color>
 </resources>

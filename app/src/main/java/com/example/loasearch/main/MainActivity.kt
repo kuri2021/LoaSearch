@@ -1,12 +1,14 @@
 package com.example.loasearch.main
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.viewModelScope
 import com.example.loasearch.R
+import com.example.loasearch.auction_house.AuctionHouseFragment
 import com.example.loasearch.databinding.ActivityMainBinding
 import com.example.loasearch.information.InformationFragment
-import com.example.loasearch.search.SearchFragment
+import com.example.loasearch.search.SearchActivity
+import com.example.loasearch.util.page.PageMove
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,7 +27,13 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_search ->{
-                    supportFragmentManager.beginTransaction().replace(R.id.frg,SearchFragment()).addToBackStack(null).commit()
+                    PageMove(this).nextActivateActivity(SearchActivity())
+//                    val intent = Intent(this,SearchActivity()::class.java)
+//                    startActivity(intent)
+                    true
+                }
+                R.id.nav_auction_house ->{
+                    supportFragmentManager.beginTransaction().replace(R.id.frg, AuctionHouseFragment()).addToBackStack(null).commit()
                     true
                 }
 

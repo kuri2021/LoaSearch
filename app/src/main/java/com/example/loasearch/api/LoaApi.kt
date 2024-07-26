@@ -7,7 +7,7 @@ import com.example.loasearch.api.data.challenge_guardian.GetChallengeGuardianDat
 import com.example.loasearch.api.data.character.GetCharacterData
 import com.example.loasearch.api.data.event.GetEventsData
 import com.example.loasearch.api.data.news.GetNewsData
-import com.example.loasearch.util.Connect
+import com.example.loasearch.util.connet.Connect
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

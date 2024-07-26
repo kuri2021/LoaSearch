@@ -1,4 +1,4 @@
-package com.example.loasearch.util
+package com.example.loasearch.util.connet
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder

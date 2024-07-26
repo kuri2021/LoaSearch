@@ -1,4 +1,4 @@
-package com.example.loasearch.util
+package com.example.loasearch.util.connet
 
 import retrofit2.Retrofit
 

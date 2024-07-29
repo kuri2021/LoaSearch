@@ -1,4 +1,4 @@
-package com.example.loasearch.information.adapter.guardian
+package com.example.loasearch.main.information.adapter.guardian
 
 import android.content.Context
 import android.view.LayoutInflater

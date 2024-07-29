@@ -12,7 +12,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class LoaApi : LoaApiInf {
+class LoaApi() : LoaApiInf {
     val api: LoaApiInterface = Connect().connect().create(LoaApiInterface::class.java)
 
     override fun getCharacterData(name: String, callback: (String) -> Unit) {
@@ -45,6 +45,8 @@ class LoaApi : LoaApiInf {
                 if (body != null && code == 200) {
                     GlobalVariable.news = body
                     callback("완료")
+                }else{
+                    callback("실패")
                 }
             }
 

@@ -1,4 +1,4 @@
-package com.example.loasearch.information.adapter.abyss
+package com.example.loasearch.main.information.adapter.event
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -12,9 +12,10 @@ import com.example.loasearch.R
 import com.example.loasearch.api.data.challenge_abyss.GetChallengeAbyssData
 import com.example.loasearch.api.data.challenge_guardian.GetChallengeGuardianData
 import com.example.loasearch.api.data.challenge_guardian.Raid
+import com.example.loasearch.api.data.event.GetEventsData
 import com.example.loasearch.api.data.news.GetNewsData
 
-class AbyssAdapter(private var context:Context, val items: GetChallengeAbyssData) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class EventAdapter(private var context:Context, val items: GetEventsData) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var listener: OnItemClickListener? = null
 
@@ -28,12 +29,11 @@ class AbyssAdapter(private var context:Context, val items: GetChallengeAbyssData
         val vh: VH = holder as VH
         val item = items[position]
 
-        Glide.with(context).load(item.Image).into(vh.itemView.findViewById(R.id.weeklyIv))
-        vh.itemView.findViewById<TextView>(R.id.weeklyNameTv).text = item.Name
-        val start = item.StartTime.substring(0 until 10)
-        val end = item.EndTime.substring(0 until 10)
+        Glide.with(context).load(item.Thumbnail).into(vh.itemView.findViewById(R.id.weeklyIv))
+        vh.itemView.findViewById<TextView>(R.id.weeklyNameTv).visibility = View.INVISIBLE
+        val start = item.StartDate.substring(0 until 10)
+        val end = item.EndDate.substring(0 until 10)
         vh.itemView.findViewById<TextView>(R.id.weeklyDate).text = "$start ~ $end"
-
     }
 
     override fun getItemCount(): Int {

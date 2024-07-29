@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.loasearch.R
 import com.example.loasearch.auction_house.AuctionHouseFragment
 import com.example.loasearch.databinding.ActivityMainBinding
-import com.example.loasearch.information.InformationFragment
+import com.example.loasearch.main.information.InformationFragment
 import com.example.loasearch.search.SearchActivity
 import com.example.loasearch.util.page.PageMove
 
@@ -22,7 +22,9 @@ class MainActivity : AppCompatActivity() {
         bindding.bottomNav.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.nav_main ->{
-                    supportFragmentManager.beginTransaction().replace(R.id.frg,InformationFragment()).addToBackStack(null).commit()
+                    supportFragmentManager.beginTransaction().replace(R.id.frg,
+                        InformationFragment()
+                    ).addToBackStack(null).commit()
                     true
                 }
 
@@ -44,6 +46,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        supportFragmentManager.beginTransaction().replace(R.id.frg,InformationFragment()).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.frg, InformationFragment()).commit()
     }
 }

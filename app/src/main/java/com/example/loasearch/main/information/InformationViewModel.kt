@@ -1,4 +1,4 @@
-package com.example.loasearch.information
+package com.example.loasearch.main.information
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

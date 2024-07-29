@@ -8,4 +8,6 @@
     <string name="main">메인</string>
     <string name="search">캐릭터 검색</string>
     <string name="auction_house">경매장</string>
+    <string name="apiHyperlink">API 가져오기</string>
+    <string name="success">확인</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.loasearch.information.adapter.news
+package com.example.loasearch.main.information.adapter.news
 
 import android.content.Context
 import android.view.LayoutInflater

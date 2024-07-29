@@ -1,4 +1,4 @@
-package com.example.loasearch.information
+package com.example.loasearch.main.information
 
 import android.content.Context
 import android.content.Intent
@@ -13,17 +13,17 @@ import com.bumptech.glide.Glide
 import com.example.loasearch.R
 import com.example.loasearch.api.data.GlobalVariable
 import com.example.loasearch.databinding.FragmentInformationBinding
-import com.example.loasearch.information.adapter.abyss.AbyssAdapter
-import com.example.loasearch.information.adapter.event.EventAdapter
-import com.example.loasearch.information.adapter.guardian.GuardianAdapter
-import com.example.loasearch.information.adapter.news.NewsAdapter
+import com.example.loasearch.main.information.adapter.abyss.AbyssAdapter
+import com.example.loasearch.main.information.adapter.event.EventAdapter
+import com.example.loasearch.main.information.adapter.guardian.GuardianAdapter
+import com.example.loasearch.main.information.adapter.news.NewsAdapter
 
 
 class InformationFragment: Fragment() {
     private lateinit var mContext: Context
     private lateinit var binding : FragmentInformationBinding
-    private lateinit var inforViewModel:InformationViewModel
-    private lateinit var newsAdapter:NewsAdapter
+    private lateinit var inforViewModel: InformationViewModel
+    private lateinit var newsAdapter: NewsAdapter
     private lateinit var eventAdapter: EventAdapter
     private lateinit var abyssAdapter: AbyssAdapter
     private lateinit var guardianAdapter: GuardianAdapter

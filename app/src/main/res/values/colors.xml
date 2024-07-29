@@ -6,4 +6,5 @@
     <color name="recyclerBackground">#66212429</color>
     <color name="textColor">#FF333333</color>
     <color name="hintColor">#B0B0B0</color>
+    <color name="activateColor">#FF79EDFF</color>
 </resources>

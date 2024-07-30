@@ -8,6 +8,6 @@
         android:icon="@drawable/search"/>
     <item android:id="@+id/nav_auction_house"
         android:title="@string/auction_house"
-        android:icon="@drawable/search"/>
+        android:icon="@drawable/auction_house"/>
 
 </menu>

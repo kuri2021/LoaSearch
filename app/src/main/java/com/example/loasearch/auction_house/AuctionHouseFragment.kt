@@ -25,6 +25,7 @@ class AuctionHouseFragment : Fragment() {
         binding = FragmentAuctionHouseBinding.inflate(layoutInflater)
         binding.itemSearchEt.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
+
                 true
             } else {
                 false

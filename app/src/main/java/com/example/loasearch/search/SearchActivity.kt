@@ -49,7 +49,6 @@ class SearchActivity : AppCompatActivity() {
                                 binding.statusTv2.text = "엘릭서 : 진군 (Point : 40)\n" +
                                         "초월 : 78"
                             }
-
                         } else {
                             binding.statusTv.text = "불러오기 실패"
                         }

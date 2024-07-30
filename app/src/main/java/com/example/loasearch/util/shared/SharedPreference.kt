@@ -11,6 +11,7 @@ class SharedPreference(var context: Context):SharedPreferenceInterface {
         val sharedPreference = context.getSharedPreferences("api", AppCompatActivity.MODE_PRIVATE)
         val editor = sharedPreference.edit()
         editor.putString("api", api)
+        editor.apply()
         Log.d("tagwe",sharedPreference.getString("api", "").toString())
         Connect.accessToken = api
     }
@@ -24,5 +25,6 @@ class SharedPreference(var context: Context):SharedPreferenceInterface {
         val sharedPreference = context.getSharedPreferences("api", AppCompatActivity.MODE_PRIVATE)
         val editor = sharedPreference.edit()
         editor.remove("api")
+
     }
 }

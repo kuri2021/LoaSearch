@@ -1,7 +1,9 @@
 package com.example.loasearch.util.shared
 
 import android.content.Context
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.example.loasearch.util.connet.Connect
 
 class SharedPreference(var context: Context):SharedPreferenceInterface {
 
@@ -9,11 +11,13 @@ class SharedPreference(var context: Context):SharedPreferenceInterface {
         val sharedPreference = context.getSharedPreferences("api", AppCompatActivity.MODE_PRIVATE)
         val editor = sharedPreference.edit()
         editor.putString("api", api)
+        Log.d("tagwe",sharedPreference.getString("api", "").toString())
+        Connect.accessToken = api
     }
 
     override fun getApiKey():String{
         val sharedPreference = context.getSharedPreferences("api", AppCompatActivity.MODE_PRIVATE)
-        return sharedPreference.getString("api", "null").toString()
+        return sharedPreference.getString("api", "").toString()
     }
 
     override fun deleteApiKey(){

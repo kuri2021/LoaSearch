@@ -12,7 +12,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class LoaApi() : LoaApiInf {
+class LoaApi : LoaApiInf {
     val api: LoaApiInterface = Connect().connect().create(LoaApiInterface::class.java)
 
     override fun getCharacterData(name: String, callback: (String) -> Unit) {

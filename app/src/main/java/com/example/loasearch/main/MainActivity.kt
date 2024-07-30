@@ -2,6 +2,7 @@ package com.example.loasearch.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.loasearch.R
 import com.example.loasearch.auction_house.AuctionHouseFragment
@@ -9,6 +10,7 @@ import com.example.loasearch.databinding.ActivityMainBinding
 import com.example.loasearch.main.information.InformationFragment
 import com.example.loasearch.search.SearchActivity
 import com.example.loasearch.util.page.PageMove
+import com.example.loasearch.util.shared.SharedPreference
 
 class MainActivity : AppCompatActivity() {
 
@@ -46,6 +48,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        Log.d("tagwe", SharedPreference(this).getApiKey())
         supportFragmentManager.beginTransaction().replace(R.id.frg, InformationFragment()).commit()
     }
 }

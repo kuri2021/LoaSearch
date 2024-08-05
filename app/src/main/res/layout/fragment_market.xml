@@ -6,17 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="7dp"
     android:orientation="vertical">
-    <EditText
-        android:id="@+id/itemSearchEt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:autofillHints=""
-        android:imeOptions="actionDone"
-        android:inputType="text"
-        tools:ignore="LabelFor"
-        android:textColorHint="@color/hintColor"
-        android:textStyle="bold"
-        android:hint="@string/auctionHouseEtHint"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

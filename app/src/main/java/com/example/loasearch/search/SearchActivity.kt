@@ -2,6 +2,7 @@ package com.example.loasearch.search
 
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
+import android.util.Log
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide

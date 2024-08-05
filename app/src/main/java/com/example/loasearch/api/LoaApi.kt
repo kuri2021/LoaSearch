@@ -6,6 +6,7 @@ import com.example.loasearch.api.data.challenge_abyss.GetChallengeAbyssData
 import com.example.loasearch.api.data.challenge_guardian.GetChallengeGuardianData
 import com.example.loasearch.api.data.character.GetCharacterData
 import com.example.loasearch.api.data.event.GetEventsData
+import com.example.loasearch.api.data.get_markets_options.GetMarketsOptionsData
 import com.example.loasearch.api.data.news.GetNewsData
 import com.example.loasearch.util.connet.Connect
 import retrofit2.Call
@@ -117,7 +118,28 @@ class LoaApi : LoaApiInf {
             }
 
             override fun onFailure(call: Call<GetChallengeAbyssData>, t: Throwable) {
-                Log.d("getChallengeAbyss", "${call}/${t}")
+                callback("실패")
+            }
+
+        })
+    }
+
+    fun getMarketOptions(callback: (String) -> Unit){
+        api.getMarketsOptions().enqueue(object : Callback<GetMarketsOptionsData>{
+            override fun onResponse(
+                call: Call<GetMarketsOptionsData>,
+                response: Response<GetMarketsOptionsData>
+            ) {
+                val body = response.body()
+                val code = response.code()
+                Log.d("확인",code.toString())
+                if (body != null && code == 200) {
+                    GlobalVariable.marketOption = body
+                    callback("완료")
+                }
+            }
+
+            override fun onFailure(call: Call<GetMarketsOptionsData>, t: Throwable) {
                 callback("실패")
             }
 

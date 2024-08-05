@@ -6,7 +6,6 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.example.loasearch.R
-import com.example.loasearch.auction_house.AuctionHouseFragment
 import com.example.loasearch.databinding.ActivityMainBinding
 import com.example.loasearch.main.information.InformationFragment
 import com.example.loasearch.search.SearchActivity
@@ -40,10 +39,10 @@ class MainActivity : AppCompatActivity() {
 //                    startActivity(intent)
                     true
                 }
-                R.id.nav_auction_house ->{
-                    supportFragmentManager.beginTransaction().replace(R.id.frg, AuctionHouseFragment()).addToBackStack(null).commit()
-                    true
-                }
+//                R.id.nav_auction_house ->{
+//                    supportFragmentManager.beginTransaction().replace(R.id.frg, AuctionHouseFragment()).addToBackStack(null).commit()
+//                    true
+//                }
 
                 else -> false
             }

@@ -11,7 +11,6 @@ import com.example.loasearch.main.information.InformationFragment
 import com.example.loasearch.search.SearchActivity
 import com.example.loasearch.transaction.TransactionActivity
 import com.example.loasearch.util.page.PageMove
-import com.example.loasearch.util.shared.SharedPreference
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,7 +23,6 @@ class MainActivity : AppCompatActivity() {
         bindding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(bindding.root)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
-
 
         bindding.bottomNav.setOnItemSelectedListener {
             when(it.itemId){
@@ -62,7 +60,6 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
-//        bindding.bottomNav.itemBackground = null
     }
 
     private val onBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {

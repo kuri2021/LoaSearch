@@ -17,28 +17,48 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
         <ImageView
-            android:id="@+id/toolbar_logo"
+            android:id="@+id/trs_back"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/arrow_back"
+            android:layout_marginEnd="21dp"
+            android:contentDescription="@string/error" />
+        <TextView
+            android:id="@+id/trs_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="거래소"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+        <ImageView
+            android:id="@+id/trs_search_img"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="end"
             android:background="@drawable/search_white"
-            android:layout_marginEnd="21dp"/>
+            android:layout_marginEnd="21dp"
+            android:contentDescription="@string/error" />
     </androidx.appcompat.widget.Toolbar>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="?attr/colorPrimary">
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="7dp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:text="경매장"
+            android:background="@color/main"/>
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="7dp"
+            android:text="시장"
             android:gravity="center"/>
     </LinearLayout>
     <FrameLayout

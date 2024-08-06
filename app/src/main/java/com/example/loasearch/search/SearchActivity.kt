@@ -5,11 +5,13 @@ import android.text.method.ScrollingMovementMethod
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.loasearch.api.LoaApi
 import com.example.loasearch.api.data.GlobalVariable
 import com.example.loasearch.databinding.ActivitySearchBinding
+import com.example.loasearch.util.page.PageMove
 
 
 class SearchActivity : AppCompatActivity() {
@@ -20,8 +22,15 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+
+        binding.searchBack.setOnClickListener {
+            PageMove(this).getBackActivity()
+        }
+
         binding.statusTv.movementMethod = ScrollingMovementMethod()
-        binding.searchToolbar.title = "캐릭터 검색"
+
         binding.searchImg.setOnClickListener {
             edittextEnable()
         }
@@ -30,7 +39,7 @@ class SearchActivity : AppCompatActivity() {
         }
 
 
-        binding.nameEt.setOnEditorActionListener{ v, actionId, event ->
+        binding.nameEt.setOnEditorActionListener{ _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 val name = binding.nameEt.text.toString()
                 if (name != "") {
@@ -51,6 +60,12 @@ class SearchActivity : AppCompatActivity() {
             } else {
                 false
             }
+        }
+    }
+
+    private val onBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            PageMove(this@SearchActivity).getBackActivity()
         }
     }
 
@@ -84,11 +99,11 @@ class SearchActivity : AppCompatActivity() {
             binding.profileName.text = characterName
             binding.statusTv.text =
                         "전투 레벨 : $level" +
-                        "\n캐릭터 이름 : ${className}" +
-                        "\n길드 이름 : ${guildName}" +
-                        "\n길드 등급 : ${guildMemberGrade}" +
-                        "\n아이템 레벨 : ${itemAvgLevel}" +
-                        "\n서버 이름 : ${serverName}"
+                        "\n캐릭터 이름 : $className" +
+                        "\n길드 이름 : $guildName" +
+                        "\n길드 등급 : $guildMemberGrade" +
+                        "\n아이템 레벨 : $itemAvgLevel" +
+                        "\n서버 이름 : $serverName"
             binding.statusTv2.text = "엘릭서 : 진군 (Point : 40)\n" +
                     "초월 : 78"
         }

@@ -1,4 +1,5 @@
 <resources>
+    <string name="error">불러오지 못함</string>
     <string name="app_name">LoaSearch</string>
     <string name="update">새로운 소식</string>
     <string name="event">이벤트</string>

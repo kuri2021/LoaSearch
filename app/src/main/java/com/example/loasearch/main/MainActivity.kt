@@ -9,6 +9,7 @@ import com.example.loasearch.R
 import com.example.loasearch.databinding.ActivityMainBinding
 import com.example.loasearch.main.information.InformationFragment
 import com.example.loasearch.search.SearchActivity
+import com.example.loasearch.transaction.TransactionActivity
 import com.example.loasearch.util.page.PageMove
 import com.example.loasearch.util.shared.SharedPreference
 
@@ -16,6 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var bindding : ActivityMainBinding
     private var backPressedTime: Long = 0
+    private var selectedItemId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,26 +29,40 @@ class MainActivity : AppCompatActivity() {
         bindding.bottomNav.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.nav_main ->{
-                    supportFragmentManager.beginTransaction().replace(R.id.frg,
-                        InformationFragment()
-                    ).addToBackStack(null).commit()
-                    true
+                    if (it.itemId == selectedItemId) {
+                        false
+                    }else{
+                        supportFragmentManager.beginTransaction().replace(R.id.frg,
+                            InformationFragment()
+                        ).addToBackStack(null).commit()
+                        selectedItemId = it.itemId
+                        true
+                    }
                 }
 
                 R.id.nav_search ->{
-                    PageMove(this).nextActivateActivity(SearchActivity())
-//                    val intent = Intent(this,SearchActivity()::class.java)
-//                    startActivity(intent)
-                    true
+                    if (it.itemId == selectedItemId) {
+                        false
+                    }else{
+                        PageMove(this).nextActivateActivity(SearchActivity())
+                        selectedItemId = it.itemId
+                        true
+                    }
                 }
-//                R.id.nav_auction_house ->{
-//                    supportFragmentManager.beginTransaction().replace(R.id.frg, AuctionHouseFragment()).addToBackStack(null).commit()
-//                    true
-//                }
+                R.id.nav_transaction ->{
+                    if (it.itemId == selectedItemId) {
+                        false
+                    }else{
+                        PageMove(this).nextActivateActivity(TransactionActivity())
+                        selectedItemId = it.itemId
+                        true
+                    }
+                }
 
                 else -> false
             }
         }
+//        bindding.bottomNav.itemBackground = null
     }
 
     private val onBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
@@ -62,7 +78,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        Log.d("tagwe", SharedPreference(this).getApiKey())
         supportFragmentManager.beginTransaction().replace(R.id.frg, InformationFragment()).commit()
+        if (selectedItemId == 0){
+            selectedItemId = R.id.nav_main
+        }
     }
 }

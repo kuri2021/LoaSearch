@@ -6,8 +6,8 @@
     <item android:id="@+id/nav_search"
         android:title="@string/search"
         android:icon="@drawable/search"/>
-    <item android:id="@+id/nav_auction_house"
+    <item android:id="@+id/nav_transaction"
         android:title="@string/auction_house"
-        android:icon="@drawable/auction_house"/>
+        android:icon="@drawable/transaction"/>
 
 </menu>

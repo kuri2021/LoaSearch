@@ -11,4 +11,9 @@
         <item name="android:textColor">@color/white</item> <!-- 일반 텍스트 색상 -->
         <item name="android:windowBackground">@color/main</item>
     </style>
+<!--    <style name="AppBottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">-->
+<!--        <item name="itemBackground">@null</item>-->
+<!--        <item name="itemIconTint">@null</item>-->
+<!--        <item name="itemTextColor">@null</item>-->
+<!--    </style>-->
 </resources>

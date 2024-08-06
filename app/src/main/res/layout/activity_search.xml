@@ -8,23 +8,82 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <ScrollView
+        android:id="@+id/search_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/nameEt">
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:padding="7dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+        <EditText
+            android:id="@+id/nameEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="이름 입력"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:textColorHint="@color/hintColor"
+            android:textStyle="bold"
+            android:layout_marginEnd="21dp"
+            android:visibility="gone"/>
+        <ImageView
+            android:id="@+id/search_img"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="end"
+            android:background="@drawable/search_white"
+            android:layout_marginEnd="21dp"
+            android:contentDescription="@string/error" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:id="@+id/search_default_region"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="140dp"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/search_toolbar">
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="@drawable/search_white"
+            />
+        <TextView
+            android:id="@+id/result_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="캐릭터 이름을 검색해 주세요."
+            android:gravity="center"
+            android:textSize="21sp"/>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/profile_region"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/search_toolbar">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/profile_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="7dp"
+                android:textSize="21sp"
+                android:textStyle="bold"/>
+
             <ImageView
                 android:id="@+id/characterIv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/error" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -51,32 +110,4 @@
 
     </ScrollView>
 
-    <EditText
-        android:id="@+id/nameEt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="이름 입력"
-        android:imeOptions="actionDone"
-        android:inputType="text"
-        android:textColorHint="@color/hintColor"
-        android:textStyle="bold" />
-
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/characterLevel"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="vertical" />
-        </LinearLayout>
-    </ScrollView>
 </RelativeLayout>

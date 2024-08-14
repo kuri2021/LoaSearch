@@ -5,17 +5,20 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:animateLayoutChanges="true"
+    android:orientation="vertical"
     android:padding="7dp">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:ignore="UselessParent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/update_title"
                 android:layout_width="wrap_content"
@@ -38,63 +41,73 @@
                     android:paddingTop="3dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
             </androidx.cardview.widget.CardView>
-            <LinearLayout
-                android:id="@+id/event_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginTop="14dp">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/event"
-                    android:textSize="24sp" />
-                <ImageView
-                    android:id="@+id/event_active"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="TODO"
-                    android:src="@drawable/arrow_down"
-                    android:layout_marginEnd="21dp"/>
-            </LinearLayout>
-            <androidx.cardview.widget.CardView
-                android:id="@+id/event_list_card"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                app:cardCornerRadius="16dp"
-                android:visibility="gone">
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/event_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/recyclerBackground"
-                    android:elevation="20dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-            </androidx.cardview.widget.CardView>
+
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="@string/event"-->
+<!--                android:textSize="24sp" />-->
+
+                        <LinearLayout
+                            android:id="@+id/event_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="14dp">
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/event"
+                                android:textSize="24sp" />
+                            <ImageView
+                                android:id="@+id/event_active"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:contentDescription="TODO"
+                                android:src="@drawable/arrow_down"
+                                android:layout_marginEnd="21dp"/>
+                        </LinearLayout>
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/event_list_card"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            app:cardCornerRadius="16dp"
+                            android:visibility="gone">
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/event_list"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/recyclerBackground"
+                                android:elevation="20dp"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                        </androidx.cardview.widget.CardView>
 
 
             <LinearLayout
                 android:id="@+id/weekly_guardian_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginTop="14dp"
                 android:gravity="center_vertical"
-                android:layout_marginTop="14dp">
+                android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/weekly_guardian"
                     android:textSize="24sp" />
+
                 <ImageView
                     android:id="@+id/weekly_guardian_active"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/arrow_down"
-                    android:layout_marginEnd="21dp"/>
+                    android:layout_marginEnd="21dp"
+                    android:src="@drawable/arrow_down" />
             </LinearLayout>
 
             <androidx.cardview.widget.CardView
@@ -102,8 +115,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
-                app:cardCornerRadius="16dp"
-                android:visibility="gone">
+                android:visibility="gone"
+                app:cardCornerRadius="16dp">
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/weekly_guardian_list"
                     android:layout_width="match_parent"
@@ -117,21 +131,23 @@
                 android:id="@+id/weekly_abyss_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginTop="14dp"
                 android:gravity="center_vertical"
-                android:layout_marginTop="14dp">
+                android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/weekly_abyss"
                     android:textSize="24sp" />
+
                 <ImageView
                     android:id="@+id/weekly_abyss_active"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/arrow_down"
-                    android:layout_marginEnd="21dp"/>
+                    android:layout_marginEnd="21dp"
+                    android:src="@drawable/arrow_down" />
             </LinearLayout>
 
             <androidx.cardview.widget.CardView
@@ -139,8 +155,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
-                app:cardCornerRadius="16dp"
-                android:visibility="gone">
+                android:visibility="gone"
+                app:cardCornerRadius="16dp">
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/weekly_abyss_list"
                     android:layout_width="match_parent"
@@ -153,7 +170,6 @@
         </LinearLayout>
 
     </ScrollView>
-
 
 
 </LinearLayout>

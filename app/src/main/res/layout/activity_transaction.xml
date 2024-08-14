@@ -46,19 +46,21 @@
         android:orientation="horizontal"
         android:background="?attr/colorPrimary">
         <TextView
+            android:id="@+id/market_tap"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="7dp"
             android:gravity="center"
-            android:text="경매장"
+            android:text="거래소"
             android:background="@color/main"/>
         <TextView
+            android:id="@+id/auction_tap"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="7dp"
-            android:text="시장"
+            android:text="경매장"
             android:gravity="center"/>
     </LinearLayout>
     <FrameLayout

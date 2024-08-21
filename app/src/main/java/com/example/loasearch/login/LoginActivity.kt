@@ -25,10 +25,11 @@ class LoginActivity : AppCompatActivity() {
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         binding.apiBtn.setOnClickListener {
             val api = binding.apiEt.text.toString()
-            SharedPreference(this).saveApiKey(api)
+            Connect.accessToken = api
             LoaApi().getNews {
                 if (it == "완료"){
                     Toast.makeText(this,"api가 확인 되었습니다.",Toast.LENGTH_SHORT).show()
+                    SharedPreference(this).saveApiKey(api)
                     PageMove(this).nextActivateActivity(MainActivity())
                     finish()
                 }else{

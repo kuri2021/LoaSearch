@@ -5,6 +5,7 @@ import com.example.loasearch.api.data.challenge_guardian.GetChallengeGuardianDat
 import com.example.loasearch.api.data.character.GetCharacterData
 import com.example.loasearch.api.data.event.GetEventsData
 import com.example.loasearch.api.data.get_markets_options.GetMarketsOptionsData
+import com.example.loasearch.api.data.get_markets_options.Sub
 import com.example.loasearch.api.data.news.GetNewsData
 
 object GlobalVariable {
@@ -14,6 +15,8 @@ object GlobalVariable {
     var news: GetNewsData? = null
     var events: GetEventsData? = null
 
-//    마켓 옵션
+//    거래소 옵션
     var marketOption : GetMarketsOptionsData? = null
+    val marketCategory : List<Sub>? = null
+//    경매장 옵션
 }

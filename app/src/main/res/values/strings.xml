@@ -1,5 +1,5 @@
 <resources>
-    <string name="error">불러오지 못함</string>
+    <string name="error">불러오지 실패</string>
     <string name="app_name">LoaSearch</string>
     <string name="update">새로운 소식</string>
     <string name="event">진행 중인 이벤트</string>
@@ -12,4 +12,8 @@
     <string name="apiHyperlink">API 가져오기</string>
     <string name="success">확인</string>
     <string name="auctionHouseEtHint">아이템 검색</string>
+    <string name="news">새소식</string>
+    <string name="market">거래소</string>
+    <string name="auction">경매장</string>
+    <string name="market_conditions">시세</string>
 </resources>

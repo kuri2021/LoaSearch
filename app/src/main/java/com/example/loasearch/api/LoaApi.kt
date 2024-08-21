@@ -7,6 +7,7 @@ import com.example.loasearch.api.data.challenge_guardian.GetChallengeGuardianDat
 import com.example.loasearch.api.data.character.GetCharacterData
 import com.example.loasearch.api.data.event.GetEventsData
 import com.example.loasearch.api.data.get_markets_options.GetMarketsOptionsData
+import com.example.loasearch.api.data.get_markets_options.Sub
 import com.example.loasearch.api.data.news.GetNewsData
 import com.example.loasearch.util.connet.Connect
 import retrofit2.Call
@@ -126,27 +127,25 @@ class LoaApi : LoaApiInf {
 
     fun getMarketOptions(callback: (String) -> Unit){
         api.getMarketsOptions().enqueue(object : Callback<GetMarketsOptionsData>{
-            override fun onResponse(
-                call: Call<GetMarketsOptionsData>,
-                response: Response<GetMarketsOptionsData>
-            ) {
+            override fun onResponse(call: Call<GetMarketsOptionsData>, response: Response<GetMarketsOptionsData>) {
                 val body = response.body()
                 val code = response.code()
-                Log.d("확인",code.toString())
+                Log.d("getMarket확인","${body}/$code")
                 if (body != null && code == 200) {
                     GlobalVariable.marketOption = body
-                    callback("완료")
+                    callback("성공")
+//                    (GlobalVariable.marketCategory as MutableList).add(Sub(body.Categories[0].Code,body.Categories[0].CodeName))
+
                 }
             }
 
             override fun onFailure(call: Call<GetMarketsOptionsData>, t: Throwable) {
-                callback("실패")
             }
 
         })
     }
 
-    fun postMarkets(callback: (String) -> Unit){
+    fun postMarkets(sort:String,code:Int,characterClass:String,itemTier:Int,itemGrade:String,itemName:String,pageNo:Int,sortCondition:String,callback: (String) -> Unit){
 
     }
 

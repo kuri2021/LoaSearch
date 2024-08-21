@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="거래소"
+            android:text="@string/market"
             android:textSize="20sp"
             android:textStyle="bold"/>
         <ImageView
@@ -52,7 +52,7 @@
             android:layout_weight="1"
             android:padding="7dp"
             android:gravity="center"
-            android:text="거래소"
+            android:text="@string/market"
             android:background="@color/main"/>
         <TextView
             android:id="@+id/auction_tap"
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="7dp"
-            android:text="경매장"
+            android:text="@string/auction"
             android:gravity="center"/>
     </LinearLayout>
     <FrameLayout

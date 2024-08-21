@@ -3,6 +3,7 @@ package com.example.loasearch.transaction
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -18,6 +19,7 @@ class TransactionActivity : AppCompatActivity() {
     private lateinit var binding : ActivityTransactionBinding
     private lateinit var selectTapId: Fragment
     private var tapStatus :String = ""
+    private lateinit var bottomSheetDialog:BottomSheetDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,18 +58,17 @@ class TransactionActivity : AppCompatActivity() {
 
     @SuppressLint("MissingInflatedId")
     private fun dialogSet(){
-
-        val bottomSheetDialog = BottomSheetDialog(this)
-
-        val view = layoutInflater.inflate(R.layout.market_dialog, null)
-
-        view.findViewById<Button>(R.id.result).setOnClickListener {
+        if(tapStatus == "" ||tapStatus == "market"){
             val fragment = supportFragmentManager.findFragmentById(R.id.transition_frg) as MarketFragment
-            fragment.toastease()
+            fragment.marketBottomDialogSet()
+        }else{
+            val fragment = supportFragmentManager.findFragmentById(R.id.transition_frg) as AuctionsFragment
+            fragment.auctionBottomDialogSet()
         }
+    }
 
-        bottomSheetDialog.setContentView(view)
-        bottomSheetDialog.show()
+    fun dialogClose(){
+        bottomSheetDialog.cancel()
     }
 
 }

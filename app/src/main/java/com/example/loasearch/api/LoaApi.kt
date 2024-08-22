@@ -8,6 +8,7 @@ import com.example.loasearch.api.data.character.GetCharacterData
 import com.example.loasearch.api.data.event.GetEventsData
 import com.example.loasearch.api.data.get_markets_options.GetMarketsOptionsData
 import com.example.loasearch.api.data.get_markets_options.Sub
+import com.example.loasearch.api.data.market.PostMarketData
 import com.example.loasearch.api.data.news.GetNewsData
 import com.example.loasearch.util.connet.Connect
 import retrofit2.Call
@@ -19,10 +20,13 @@ class LoaApi : LoaApiInf {
 
     override fun getCharacterData(name: String, callback: (String) -> Unit) {
         api.getCharacter(name).enqueue(object : Callback<GetCharacterData> {
-            override fun onResponse(call: Call<GetCharacterData>, response: Response<GetCharacterData>) {
+            override fun onResponse(
+                call: Call<GetCharacterData>,
+                response: Response<GetCharacterData>
+            ) {
                 val body = response.body()
                 val code = response.code()
-                Log.d("확인",code.toString())
+                Log.d("확인", code.toString())
                 if (body != null) {
                     GlobalVariable.character = body
                     callback("성공")
@@ -43,11 +47,11 @@ class LoaApi : LoaApiInf {
             override fun onResponse(call: Call<GetNewsData>, response: Response<GetNewsData>) {
                 val body = response.body()
                 val code = response.code()
-                Log.d("확인",code.toString())
+                Log.d("확인", code.toString())
                 if (body != null && code == 200) {
                     GlobalVariable.news = body
                     callback("완료")
-                }else{
+                } else {
                     callback("실패")
                 }
             }
@@ -66,7 +70,7 @@ class LoaApi : LoaApiInf {
             override fun onResponse(call: Call<GetEventsData>, response: Response<GetEventsData>) {
                 val body = response.body()
                 val code = response.code()
-                Log.d("확인",code.toString())
+                Log.d("확인", code.toString())
                 if (body != null && code == 200) {
                     GlobalVariable.events = body
                     callback("완료")
@@ -90,8 +94,8 @@ class LoaApi : LoaApiInf {
             ) {
                 val body = response.body()
                 val code = response.code()
-                Log.d("확인",code.toString())
-                if (body != null && code == 200)  {
+                Log.d("확인", code.toString())
+                if (body != null && code == 200) {
                     GlobalVariable.challengeGuardian = body
                     callback("완료")
                 }
@@ -108,10 +112,13 @@ class LoaApi : LoaApiInf {
     //    fun getChallengeAbyssData(callback: (String) -> Unit) {
     fun getChallengeAbyss(callback: (String) -> Unit) {
         api.getChallengeAbyssData().enqueue(object : Callback<GetChallengeAbyssData> {
-            override fun onResponse(call: Call<GetChallengeAbyssData>, response: Response<GetChallengeAbyssData>) {
+            override fun onResponse(
+                call: Call<GetChallengeAbyssData>,
+                response: Response<GetChallengeAbyssData>
+            ) {
                 val body = response.body()
                 val code = response.code()
-                Log.d("확인",code.toString())
+                Log.d("확인", code.toString())
                 if (body != null && code == 200) {
                     GlobalVariable.challengeAbyss = body
                     callback("완료")
@@ -125,17 +132,18 @@ class LoaApi : LoaApiInf {
         })
     }
 
-    fun getMarketOptions(callback: (String) -> Unit){
-        api.getMarketsOptions().enqueue(object : Callback<GetMarketsOptionsData>{
-            override fun onResponse(call: Call<GetMarketsOptionsData>, response: Response<GetMarketsOptionsData>) {
+    fun getMarketOptions(callback: (String) -> Unit) {
+        api.getMarketsOptions().enqueue(object : Callback<GetMarketsOptionsData> {
+            override fun onResponse(
+                call: Call<GetMarketsOptionsData>,
+                response: Response<GetMarketsOptionsData>
+            ) {
                 val body = response.body()
                 val code = response.code()
-                Log.d("getMarket확인","${body}/$code")
+                Log.d("getMarket확인", "${body}/$code")
                 if (body != null && code == 200) {
                     GlobalVariable.marketOption = body
                     callback("성공")
-//                    (GlobalVariable.marketCategory as MutableList).add(Sub(body.Categories[0].Code,body.Categories[0].CodeName))
-
                 }
             }
 
@@ -145,8 +153,52 @@ class LoaApi : LoaApiInf {
         })
     }
 
-    fun postMarkets(sort:String,code:Int,characterClass:String,itemTier:Int,itemGrade:String,itemName:String,pageNo:Int,sortCondition:String,callback: (String) -> Unit){
 
+
+    fun postMarkets(
+        sort: String,
+        code: Int,
+        characterClass: String,
+        itemTier: String,
+        itemGrade: String,
+        itemName: String,
+        pageNo: Int,
+        sortCondition: String,
+        callback: (PostMarketData) -> Unit
+    ) {
+        val params : HashMap<String,Any> = HashMap()
+        params["Sort"]=sort
+        params["CategoryCode"]=code
+        params["CharacterClass"]=characterClass
+        if (itemTier == "전체 티어"){
+            params["ItemTier"]=""
+        }else{
+            params["ItemTier"] = itemTier.toInt()
+        }
+        if (itemGrade == "전체 등급"){
+            params["ItemGrade"]=""
+        }else{
+            params["ItemGrade"]=itemGrade
+        }
+
+        params["ItemName"]=itemName
+        params["PageNo"]=pageNo
+        params["SortCondition"]=sortCondition
+        Log.d("postMarkets","$sort/$code/$characterClass/$itemTier/$itemGrade/$itemName")
+        api.postMarkets(params).enqueue(object : Callback<PostMarketData>{
+            override fun onResponse(call: Call<PostMarketData>, response: Response<PostMarketData>) {
+                val body = response.body()
+                val code = response.code()
+                Log.d("postMarkets확인", "${body}/$code")
+                if (body != null && code == 200) {
+                    callback(body)
+                }
+            }
+
+            override fun onFailure(call: Call<PostMarketData>, t: Throwable) {
+            }
+
+        })
     }
 
 }

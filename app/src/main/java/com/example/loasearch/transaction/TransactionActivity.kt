@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.loasearch.R
@@ -26,6 +27,8 @@ class TransactionActivity : AppCompatActivity() {
         binding = ActivityTransactionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+
         binding.trsBack.setOnClickListener {
             PageMove(this).getBackActivity()
         }
@@ -46,11 +49,11 @@ class TransactionActivity : AppCompatActivity() {
 
     private fun pageSet(){
         if (tapStatus == "" ||  tapStatus == "market"){
-            supportFragmentManager.beginTransaction().replace(R.id.transition_frg, MarketFragment()).addToBackStack(null).commit()
+            supportFragmentManager.beginTransaction().replace(R.id.transition_frg, MarketFragment()).commit()
             binding.marketTap.setBackgroundColor(resources.getColor(R.color.main))
             binding.auctionTap.setBackgroundColor(Color.parseColor("#00ffffff"))
         }else{
-            supportFragmentManager.beginTransaction().replace(R.id.transition_frg, AuctionsFragment()).addToBackStack(null).commit()
+            supportFragmentManager.beginTransaction().replace(R.id.transition_frg, AuctionsFragment()).commit()
             binding.auctionTap.setBackgroundColor(resources.getColor(R.color.main))
             binding.marketTap.setBackgroundColor(Color.parseColor("#00ffffff"))
         }
@@ -64,6 +67,12 @@ class TransactionActivity : AppCompatActivity() {
         }else{
             val fragment = supportFragmentManager.findFragmentById(R.id.transition_frg) as AuctionsFragment
             fragment.auctionBottomDialogSet()
+        }
+    }
+
+    private val onBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            PageMove(this@TransactionActivity).getBackActivity()
         }
     }
 

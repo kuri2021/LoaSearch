@@ -7,7 +7,7 @@
     android:padding="7dp"
     android:orientation="vertical">
     <LinearLayout
-        android:id="@+id/auction_default_region"
+        android:id="@+id/market_default_region"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -19,6 +19,7 @@
             android:background="@drawable/search_white"
             />
         <TextView
+            android:id="@+id/market_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="거래소 검색 조건을\n 정해 주세요."
@@ -28,6 +29,7 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/market_recycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"

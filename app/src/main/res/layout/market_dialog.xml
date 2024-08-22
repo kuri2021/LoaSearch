@@ -59,9 +59,29 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:textSize="19sp"
-            android:text="카테고리 명" />
+            android:text="카테고리1" />
         <Spinner
-            android:id="@+id/market_category_sp"
+            android:id="@+id/market_category1_sp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="8"
+            android:background="@drawable/st_1dp_ffffff_co_4dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/market_category2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="7dp"
+        android:visibility="gone">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:textSize="19sp"
+            android:text="카테고리2" />
+        <Spinner
+            android:id="@+id/market_category2_sp"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="8"

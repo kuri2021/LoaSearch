@@ -12,7 +12,6 @@ class SharedPreference(var context: Context):SharedPreferenceInterface {
         val editor = sharedPreference.edit()
         editor.putString("api", api)
         editor.apply()
-        Log.d("tagwe",sharedPreference.getString("api", "").toString())
         Connect.accessToken = api
     }
 

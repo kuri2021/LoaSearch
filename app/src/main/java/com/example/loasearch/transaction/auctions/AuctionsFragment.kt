@@ -10,8 +10,12 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.loasearch.R
+import com.example.loasearch.api.LoaApi
+import com.example.loasearch.api.data.GlobalVariable
 import com.example.loasearch.databinding.FragmentAuctionBinding
 import com.example.loasearch.transaction.TransactionActivity
+import com.example.loasearch.util.dialog.custom.CustomDialog
+import com.example.loasearch.util.page.PageMove
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class AuctionsFragment:Fragment() {
@@ -32,12 +36,27 @@ class AuctionsFragment:Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentAuctionBinding.inflate(layoutInflater)
 
+        binding.auctionDefaultRegion.setOnClickListener {
+            auctionBottomDialogSet()
+        }
+        if (GlobalVariable.auctionOption==null){
+            LoaApi().getAuctionsOptions{
+                if (it != "성공"){
+                    CustomDialog(dialog).defaultSetting(R.layout.error_dialog){
+                        PageMove(mActivity).getBackActivity()
+                    }
+                }
+            }
+        }
+
         return binding.root
     }
     fun auctionBottomDialogSet(){
         bottomSheetDialog = BottomSheetDialog(mContext)
-        val view: View = layoutInflater.inflate(R.layout.aucrion_dialog, null)
-        view.findViewById<Button>(R.id.result).setOnClickListener {
+        val view: View = layoutInflater.inflate(R.layout.auction_dialog, null)
+
+
+        view.findViewById<Button>(R.id.auction_result).setOnClickListener {
             listSetting()
         }
         bottomSheetDialog.setContentView(view)
@@ -47,6 +66,48 @@ class AuctionsFragment:Fragment() {
     fun listSetting(){
         Toast.makeText(mContext,"작동2", Toast.LENGTH_SHORT).show()
         mActivity.dialogClose()
+    }
+
+    private fun getAuctionHighCategory():ArrayList<String> {
+        val list = ArrayList<String>()
+        for (i in 0..<GlobalVariable.marketOption!!.Categories.size) {
+            list.add(GlobalVariable.marketOption!!.Categories[i].CodeName)
+        }
+        return list
+    }
+
+    private fun getAuctionLowCategory(index:Int):ArrayList<String> {
+        val list = ArrayList<String>()
+        for (i in 0..<GlobalVariable.marketOption!!.Categories[1].Subs.size) {
+            list.add(GlobalVariable.marketOption!!.Categories[1].Subs[i].CodeName)
+        }
+        return list
+    }
+
+    private fun getAuctionClasses():ArrayList<String> {
+        val list = ArrayList<String>()
+        for (i in 0..<GlobalVariable.marketOption!!.Classes.size) {
+            list.add(GlobalVariable.marketOption!!.Classes[i])
+        }
+        return list
+    }
+
+    private fun getAuctionGrades():ArrayList<String>  {
+        val list = ArrayList<String>()
+        list.add("전체 등급")
+        for (i in 0..<GlobalVariable.marketOption!!.ItemGrades.size) {
+            list.add(GlobalVariable.marketOption!!.ItemGrades[i])
+        }
+        return list
+    }
+
+    private fun getAuctionTiers():ArrayList<String>  {
+        val list = ArrayList<String>()
+        list.add("전체 티어")
+        for (i in 0..<GlobalVariable.marketOption!!.ItemTiers.size) {
+            list.add(GlobalVariable.marketOption!!.ItemTiers[i].toString())
+        }
+        return list
     }
 
 

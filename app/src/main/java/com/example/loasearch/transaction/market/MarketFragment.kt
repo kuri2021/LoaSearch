@@ -3,7 +3,6 @@ package com.example.loasearch.transaction.market
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,19 +12,17 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Spinner
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.loasearch.R
 import com.example.loasearch.api.LoaApi
 import com.example.loasearch.api.data.GlobalVariable
-import com.example.loasearch.api.data.get_markets_options.Sub
 import com.example.loasearch.api.data.market.PostMarketData
 import com.example.loasearch.databinding.FragmentMarketBinding
 import com.example.loasearch.transaction.TransactionActivity
-import com.example.loasearch.transaction.market.adapter.MarketAdapter
-import com.example.loasearch.transaction.market.adapter.MarketListItem
+import com.example.loasearch.transaction.market.adapter.AuctionAdapter
+import com.example.loasearch.transaction.market.adapter.AuctionListItem
 import com.example.loasearch.util.dialog.custom.CustomDialog
 import com.example.loasearch.util.page.PageMove
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -38,8 +35,8 @@ class MarketFragment:Fragment() {
     private lateinit var dialog:Dialog
     private lateinit var bottomSheetDialog:BottomSheetDialog
 
-    private lateinit var adapter: MarketAdapter
-    var listItem = ArrayList<MarketListItem>()
+    private lateinit var adapter: AuctionAdapter
+    var listItem = ArrayList<AuctionListItem>()
 
     private lateinit var itemName:String
     private lateinit var className :String
@@ -174,9 +171,9 @@ class MarketFragment:Fragment() {
             val recentPrice = data.Items[i].RecentPrice
             val tradeRemainCount = data.Items[i].TradeRemainCount
             val yDayAvgPrice = data.Items[i].YDayAvgPrice
-            listItem.add(MarketListItem(icon,currentMinPrice,name,recentPrice,tradeRemainCount,yDayAvgPrice))
+            listItem.add(AuctionListItem(icon,currentMinPrice,name,recentPrice,tradeRemainCount,yDayAvgPrice))
         }
-        adapter = MarketAdapter(mContext,listItem)
+        adapter = AuctionAdapter(mContext,listItem)
         binding.marketRecycler.adapter = adapter
         binding.marketRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

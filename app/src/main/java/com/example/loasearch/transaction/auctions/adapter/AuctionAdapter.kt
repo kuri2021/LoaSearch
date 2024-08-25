@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.loasearch.R
 
-class MarketAdapter(private var context:Context, val items: List<AuctionListItem>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class AuctionAdapter(private var context:Context, val items: List<AuctionListItem>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 //    private var listener: OnItemClickListener? = null
 

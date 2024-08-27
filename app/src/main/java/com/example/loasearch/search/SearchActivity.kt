@@ -104,8 +104,8 @@ class SearchActivity : AppCompatActivity() {
                         "\n길드 등급 : $guildMemberGrade" +
                         "\n아이템 레벨 : $itemAvgLevel" +
                         "\n서버 이름 : $serverName"
-            binding.statusTv2.text = "엘릭서 : 진군 (Point : 40)\n" +
-                    "초월 : 78"
+//            binding.statusTv2.text = "엘릭서 : 진군 (Point : 40)\n" +
+//                    "초월 : 78"
         }
     }
 

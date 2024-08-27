@@ -51,9 +51,9 @@ class LoaApi : LoaApiInf {
                 Log.d("확인", code.toString())
                 if (body != null && code == 200) {
                     GlobalVariable.news = body
-                    callback("완료")
+                    callback(code.toString())
                 } else {
-                    callback("실패")
+                    callback(code.toString())
                 }
             }
 
@@ -207,7 +207,7 @@ class LoaApi : LoaApiInf {
             override fun onResponse(call: Call<GetAuctionsOptionsData>, response: Response<GetAuctionsOptionsData>) {
                 val body = response.body()
                 val code = response.code()
-                Log.d("postMarkets확인", "${body}/$code")
+                Log.d("postAuctions확인", "${body}/$code")
                 if (body != null && code == 200) {
                     GlobalVariable.auctionOption = body
                     callback("성공")

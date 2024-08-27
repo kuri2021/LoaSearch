@@ -9,6 +9,7 @@
     android:padding="7dp">
 
     <TextView
+        android:id="@+id/error_massage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/error"

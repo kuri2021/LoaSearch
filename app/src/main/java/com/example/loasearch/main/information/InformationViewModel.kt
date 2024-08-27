@@ -23,11 +23,12 @@ class InformationViewModel : ViewModel() {
         viewModelScope.launch {
             if (GlobalVariable.news == null) {
                 LoaApi().getNews { newsIt ->
-                    if (newsIt == "완료") {
-                        _newsData.postValue("완료")
-                    } else {
-                        _newsData.postValue("실패")
-                    }
+//                    if (newsIt == "완료") {
+//                        _newsData.postValue("완료")
+//                    } else {
+//                        _newsData.postValue("실패")
+//                    }
+                    _newsData.postValue(newsIt)
                 }
             }else{
                 _newsData.postValue("완료")

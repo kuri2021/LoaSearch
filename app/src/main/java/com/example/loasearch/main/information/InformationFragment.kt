@@ -1,5 +1,7 @@
 package com.example.loasearch.main.information
 
+import android.app.Activity
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -13,20 +15,26 @@ import com.bumptech.glide.Glide
 import com.example.loasearch.R
 import com.example.loasearch.api.data.GlobalVariable
 import com.example.loasearch.databinding.FragmentInformationBinding
+import com.example.loasearch.main.MainActivity
 import com.example.loasearch.main.information.adapter.abyss.AbyssAdapter
 import com.example.loasearch.main.information.adapter.event.EventAdapter
 import com.example.loasearch.main.information.adapter.guardian.GuardianAdapter
 import com.example.loasearch.main.information.adapter.news.NewsAdapter
+import com.example.loasearch.util.dialog.custom.CustomDialog
+import com.example.loasearch.util.page.PageMove
 
 
 class InformationFragment: Fragment() {
     private lateinit var mContext: Context
+    private lateinit var mActivity:Activity
     private lateinit var binding : FragmentInformationBinding
     private lateinit var inforViewModel: InformationViewModel
     private lateinit var newsAdapter: NewsAdapter
     private lateinit var eventAdapter: EventAdapter
     private lateinit var abyssAdapter: AbyssAdapter
     private lateinit var guardianAdapter: GuardianAdapter
+
+    private lateinit var dialog:Dialog
 
     private var evnetFlag:Int = 0
     private var guardianFlag:Int = 0
@@ -35,6 +43,8 @@ class InformationFragment: Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
+        mActivity = context as MainActivity
+        dialog = Dialog(context)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -54,6 +64,11 @@ class InformationFragment: Fragment() {
                         }
                     })
                 }
+            }else{
+                CustomDialog(dialog).errorDialog(it,mActivity)
+//                CustomDialog(dialog).defaultSetting(R.layout.error_dialog){
+//                    PageMove(mActivity).getBackActivity()
+//                }
             }
         }
         inforViewModel.eventsData.observe(viewLifecycleOwner){

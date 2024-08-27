@@ -6,7 +6,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.loasearch.R
@@ -25,6 +28,8 @@ class AuctionsFragment:Fragment() {
     private lateinit var mActivity : TransactionActivity
     private lateinit var dialog: Dialog
     private lateinit var bottomSheetDialog:BottomSheetDialog
+
+    private lateinit var className :String
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -54,7 +59,17 @@ class AuctionsFragment:Fragment() {
     fun auctionBottomDialogSet(){
         bottomSheetDialog = BottomSheetDialog(mContext)
         val view: View = layoutInflater.inflate(R.layout.auction_dialog, null)
+        val classAdapter = ArrayAdapter(mContext, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, getAuctionClasses())
+        val aClassSp = view.findViewById<Spinner>(R.id.auction_class_sp)
 
+        classAdapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item)
+        aClassSp.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                className = parent.getItemAtPosition(position).toString()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
 
         view.findViewById<Button>(R.id.auction_result).setOnClickListener {
             listSetting()
@@ -70,8 +85,8 @@ class AuctionsFragment:Fragment() {
 
     private fun getAuctionHighCategory():ArrayList<String> {
         val list = ArrayList<String>()
-        for (i in 0..<GlobalVariable.marketOption!!.Categories.size) {
-            list.add(GlobalVariable.marketOption!!.Categories[i].CodeName)
+        for (i in 0..<GlobalVariable.auctionOption!!.Categories.size) {
+            list.add(GlobalVariable.auctionOption!!.Categories[i].CodeName)
         }
         return list
     }
@@ -86,8 +101,8 @@ class AuctionsFragment:Fragment() {
 
     private fun getAuctionClasses():ArrayList<String> {
         val list = ArrayList<String>()
-        for (i in 0..<GlobalVariable.marketOption!!.Classes.size) {
-            list.add(GlobalVariable.marketOption!!.Classes[i])
+        for (i in 0..<GlobalVariable.auctionOption!!.Classes.size) {
+            list.add(GlobalVariable.auctionOption!!.Classes[i])
         }
         return list
     }

@@ -39,7 +39,7 @@ class SearchActivity : AppCompatActivity() {
         }
 
 
-        binding.nameEt.setOnEditorActionListener{ _, actionId, _ ->
+        binding.nameEt.setOnEditorActionListener{ v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 val name = binding.nameEt.text.toString()
                 if (name != "") {

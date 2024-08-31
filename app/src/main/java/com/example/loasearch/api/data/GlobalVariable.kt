@@ -1,4 +1,4 @@
-package com.example.loasearch. api.data
+package com.example.loasearch.api.data
 
 import com.example.loasearch.api.data.challenge_abyss.GetChallengeAbyssData
 import com.example.loasearch.api.data.challenge_guardian.GetChallengeGuardianData
@@ -17,11 +17,11 @@ object GlobalVariable {
     var news: GetNewsData? = null
     var events: GetEventsData? = null
 
-//    거래소 옵션
-    var marketOption : GetMarketsOptionsData? = null
-//    경매장 옵션
-var auctionOption : GetAuctionsOptionsData? = null
+    //    거래소 옵션
+    var marketOption: GetMarketsOptionsData? = null
 
+    //    경매장 옵션
+    var auctionOption: GetAuctionsOptionsData? = null
 
 
 }

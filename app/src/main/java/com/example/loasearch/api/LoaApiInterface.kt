@@ -42,7 +42,8 @@ interface LoaApiInterface {
     ):Call<GetAuctionsOptionsData>
 
     @POST("/auctions/items")
-    fun postAuctionsItems(
+    fun postAuctions(
+        @Body parameters: HashMap<String, Any>
     ):Call<PostAuctionsItemData>
 
     @GET("/markets/options")

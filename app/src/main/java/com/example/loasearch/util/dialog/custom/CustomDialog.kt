@@ -24,21 +24,32 @@ class CustomDialog(var dialog: Dialog): AppCompatActivity(), CustomDialogInforma
         dialog.show()
     }
 
-    override fun errorDialog(code:String,activity:Activity){
+    override fun errorDialog(kind:String,activity:Activity){
         dialog.setCancelable(false)
         dialog.setContentView(R.layout.error_dialog)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        Log.d("code",code)
-        when(code){
+        Log.d("code",kind)
+        when(kind){
+            "auctions_label"->{
+                dialog.findViewById<TextView>(R.id.error_massage).text = "레벨 범위가 맞지 않습니다."
+            }
+            "itemName"->{
+                dialog.findViewById<TextView>(R.id.error_massage).text = "아이템 명을 입력해 주세요."
+            }
             "503"->{
                 dialog.findViewById<TextView>(R.id.error_massage).text = "현재 서버가 임시 점검중 입니다."
             }
         }
         dialog.findViewById<Button>(R.id.result).setOnClickListener {
-            if (code == "503"){
-                activity.finish()
+            when(kind){
+                "503"->{
+                    activity.finish()
+                    dialog.dismiss()
+                }
+                else->{
+                    dialog.dismiss()
+                }
             }
-            dialog.dismiss()
         }
         dialog.show()
     }

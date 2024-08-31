@@ -66,9 +66,6 @@ class InformationFragment: Fragment() {
                 }
             }else{
                 CustomDialog(dialog).errorDialog(it,mActivity)
-//                CustomDialog(dialog).defaultSetting(R.layout.error_dialog){
-//                    PageMove(mActivity).getBackActivity()
-//                }
             }
         }
         inforViewModel.eventsData.observe(viewLifecycleOwner){

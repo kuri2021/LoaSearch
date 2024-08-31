@@ -22,7 +22,6 @@ class Connect : ConnectInf {
             .connectTimeout(10, TimeUnit.SECONDS)
             .readTimeout(10, TimeUnit.SECONDS)
             .writeTimeout(10, TimeUnit.SECONDS)
-        Log.d("accessToken확인",accessToken)
         httpClient.addInterceptor {
             val request: Request = it.request().newBuilder().addHeader("authorization", "Bearer $accessToken").build()
             it.proceed(request)

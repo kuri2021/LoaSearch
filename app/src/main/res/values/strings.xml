@@ -1,5 +1,5 @@
 <resources>
-    <string name="error">불러오지 실패</string>
+    <string name="error">불러오기 실패</string>
     <string name="app_name">LoaSearch</string>
     <string name="update">새로운 소식</string>
     <string name="event">진행 중인 이벤트</string>

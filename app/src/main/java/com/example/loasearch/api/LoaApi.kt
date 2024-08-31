@@ -11,6 +11,7 @@ import com.example.loasearch.api.data.get_markets_options.GetMarketsOptionsData
 import com.example.loasearch.api.data.get_markets_options.Sub
 import com.example.loasearch.api.data.market.PostMarketData
 import com.example.loasearch.api.data.news.GetNewsData
+import com.example.loasearch.api.data.post_auctions_item.PostAuctionsItemData
 import com.example.loasearch.util.connet.Connect
 import retrofit2.Call
 import retrofit2.Callback
@@ -21,10 +22,7 @@ class LoaApi : LoaApiInf {
 
     override fun getCharacterData(name: String, callback: (String) -> Unit) {
         api.getCharacter(name).enqueue(object : Callback<GetCharacterData> {
-            override fun onResponse(
-                call: Call<GetCharacterData>,
-                response: Response<GetCharacterData>
-            ) {
+            override fun onResponse(call: Call<GetCharacterData>, response: Response<GetCharacterData>) {
                 val body = response.body()
                 val code = response.code()
                 Log.d("확인", code.toString())
@@ -43,7 +41,7 @@ class LoaApi : LoaApiInf {
         })
     }
 
-    fun getNews(callback: (String) -> Unit) {
+    override fun getNews(callback: (String) -> Unit) {
         api.getNews().enqueue(object : Callback<GetNewsData> {
             override fun onResponse(call: Call<GetNewsData>, response: Response<GetNewsData>) {
                 val body = response.body()
@@ -66,7 +64,7 @@ class LoaApi : LoaApiInf {
     }
 
     //    fun getEvents(callback: (String) -> Unit) {
-    fun getEvents(callback: (String) -> Unit) {
+    override fun getEvents(callback: (String) -> Unit) {
         api.getEvents().enqueue(object : Callback<GetEventsData> {
             override fun onResponse(call: Call<GetEventsData>, response: Response<GetEventsData>) {
                 val body = response.body()
@@ -87,7 +85,7 @@ class LoaApi : LoaApiInf {
     }
 
     //    fun getChallengeGuardian(callback: (String) -> Unit) {
-    fun getChallengeGuardian(callback: (String) -> Unit) {
+    override fun getChallengeGuardian(callback: (String) -> Unit) {
         api.getChallengeGuardian().enqueue(object : Callback<GetChallengeGuardianData> {
             override fun onResponse(
                 call: Call<GetChallengeGuardianData>,
@@ -111,7 +109,7 @@ class LoaApi : LoaApiInf {
     }
 
     //    fun getChallengeAbyssData(callback: (String) -> Unit) {
-    fun getChallengeAbyss(callback: (String) -> Unit) {
+    override fun getChallengeAbyss(callback: (String) -> Unit) {
         api.getChallengeAbyssData().enqueue(object : Callback<GetChallengeAbyssData> {
             override fun onResponse(
                 call: Call<GetChallengeAbyssData>,
@@ -133,7 +131,7 @@ class LoaApi : LoaApiInf {
         })
     }
 
-    fun getMarketOptions(callback: (String) -> Unit) {
+    override fun getMarketOptions(callback: (String) -> Unit) {
         api.getMarketsOptions().enqueue(object : Callback<GetMarketsOptionsData> {
             override fun onResponse(
                 call: Call<GetMarketsOptionsData>,
@@ -156,9 +154,9 @@ class LoaApi : LoaApiInf {
 
 
 
-    fun postMarkets(
+    override fun postMarkets(
         sort: String,
-        code: Int,
+        categoryCode: Int,
         characterClass: String,
         itemTier: String,
         itemGrade: String,
@@ -169,7 +167,7 @@ class LoaApi : LoaApiInf {
     ) {
         val params : HashMap<String,Any> = HashMap()
         params["Sort"]=sort
-        params["CategoryCode"]=code
+        params["CategoryCode"]=categoryCode
         params["CharacterClass"]=characterClass
         if (itemTier == "전체 티어"){
             params["ItemTier"]=""
@@ -185,7 +183,7 @@ class LoaApi : LoaApiInf {
         params["ItemName"]=itemName
         params["PageNo"]=pageNo
         params["SortCondition"]=sortCondition
-        Log.d("postMarkets","$sort/$code/$characterClass/$itemTier/$itemGrade/$itemName")
+        Log.d("postMarkets","$sort/$categoryCode/$characterClass/$itemTier/$itemGrade/$itemName")
         api.postMarkets(params).enqueue(object : Callback<PostMarketData>{
             override fun onResponse(call: Call<PostMarketData>, response: Response<PostMarketData>) {
                 val body = response.body()
@@ -197,25 +195,73 @@ class LoaApi : LoaApiInf {
             }
 
             override fun onFailure(call: Call<PostMarketData>, t: Throwable) {
+                Log.d("postMarkets확인", "${call}/$t")
             }
 
         })
     }
 
-    fun getAuctionsOptions(callback: (String) -> Unit){
+    override fun getAuctionsOptions(callback: (String) -> Unit){
         api.getAuctionsOptions().enqueue(object : Callback<GetAuctionsOptionsData>{
             override fun onResponse(call: Call<GetAuctionsOptionsData>, response: Response<GetAuctionsOptionsData>) {
                 val body = response.body()
                 val code = response.code()
-                Log.d("postAuctions확인", "${body}/$code")
+                Log.d("getAuctionsOptions", "${body}/$code")
                 if (body != null && code == 200) {
                     GlobalVariable.auctionOption = body
-                    callback("성공")
+                    callback(code.toString())
                 }
             }
 
             override fun onFailure(call: Call<GetAuctionsOptionsData>, t: Throwable) {
 
+            }
+
+        })
+    }
+
+    override fun postAuctions(
+    sort: String,
+    categoryCode: Int,
+    characterClass: String,
+    itemTier: String,
+    itemGrade: String,
+    itemName: String,
+    pageNo: Int,
+    sortCondition: String,
+    callback: (PostAuctionsItemData) -> Unit
+    ) {
+        val params : HashMap<String,Any> = HashMap()
+        params["Sort"]=sort
+        params["CategoryCode"]=categoryCode
+        params["CharacterClass"]=characterClass
+        if (itemTier == "전체 티어"){
+            params["ItemTier"]=""
+        }else{
+            params["ItemTier"] = itemTier.toInt()
+        }
+        if (itemGrade == "전체 등급"){
+            params["ItemGrade"]=""
+        }else{
+            params["ItemGrade"]=itemGrade
+        }
+
+        params["ItemName"]=itemName
+        params["PageNo"]=pageNo
+        params["SortCondition"]=sortCondition
+        Log.d("postMarkets","$sort/$categoryCode/$characterClass/$itemTier/$itemGrade/$itemName")
+        api.postAuctions(params).enqueue(object : Callback<PostAuctionsItemData>{
+            override fun onResponse(call: Call<PostAuctionsItemData>, response: Response<PostAuctionsItemData>) {
+                val body = response.body()
+                val code = response.code()
+                Log.d("postMarkets확인", "${body}/$code")
+                if (body != null && code == 200) {
+                    callback(body)
+                }
+            }
+
+            override fun onFailure(call: Call<PostAuctionsItemData>, t: Throwable) {
+                Log.d("postMarkets확인", "${call}/$t")
             }
 
         })

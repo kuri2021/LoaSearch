@@ -3,6 +3,7 @@ package com.example.loasearch.transaction.market
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,7 @@ import com.example.loasearch.api.data.GlobalVariable
 import com.example.loasearch.api.data.market.PostMarketData
 import com.example.loasearch.databinding.FragmentMarketBinding
 import com.example.loasearch.transaction.TransactionActivity
+import com.example.loasearch.transaction.adapter.SpinnerAdapter
 import com.example.loasearch.transaction.market.adapter.AuctionAdapter
 import com.example.loasearch.transaction.market.adapter.AuctionListItem
 import com.example.loasearch.util.dialog.custom.CustomDialog
@@ -38,7 +40,7 @@ class MarketFragment:Fragment() {
     private lateinit var adapter: AuctionAdapter
     var listItem = ArrayList<AuctionListItem>()
 
-    private lateinit var itemName:String
+    private  var itemName:String = " "
     private lateinit var className :String
     private var categoryCode :Int = 0
     private lateinit var tire :String
@@ -74,10 +76,9 @@ class MarketFragment:Fragment() {
         bottomSheetDialog = BottomSheetDialog(mContext)
         val view: View = layoutInflater.inflate(R.layout.market_dialog, null)
 
-        val classAdapter = ArrayAdapter(mContext, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, getMarketClasses())
+
         val mClassSp = view.findViewById<Spinner>(R.id.market_class_sp)
-        classAdapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item)
-        mClassSp.adapter = classAdapter
+        spinnerSetting(mClassSp,getMarketClasses())
         mClassSp.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 className = parent.getItemAtPosition(position).toString()
@@ -86,9 +87,8 @@ class MarketFragment:Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
-        val tierAdapter = ArrayAdapter(mContext, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, getMarketTiers())
         val mTierSp = view.findViewById<Spinner>(R.id.market_tier_sp)
-        mTierSp.adapter = tierAdapter
+        spinnerSetting(mTierSp,getMarketTiers())
         mTierSp.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 tire = parent.getItemAtPosition(position).toString()
@@ -97,9 +97,8 @@ class MarketFragment:Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>) {
             }
         }
-        val gradeAdapter = ArrayAdapter(mContext, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, getMarketGrades())
         val mGradeSp = view.findViewById<Spinner>(R.id.market_grade_sp)
-        mGradeSp.adapter = gradeAdapter
+        spinnerSetting(mGradeSp,getMarketGrades())
         mGradeSp.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 gradeName = parent.getItemAtPosition(position).toString()
@@ -108,19 +107,17 @@ class MarketFragment:Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>) {
             }
         }
-        val category1Adapter = ArrayAdapter(mContext, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,getMarketHighCategory())
         val mCategory1Sp = view.findViewById<Spinner>(R.id.market_category1_sp)
         val marketCategory2 = view.findViewById<LinearLayout>(R.id.market_category2)
         val mCategory2Sp = view.findViewById<Spinner>(R.id.market_category2_sp)
-        mCategory1Sp.adapter = category1Adapter
+        spinnerSetting(mCategory1Sp,getMarketHighCategory())
         mCategory1Sp.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 val categoryName = parent.getItemAtPosition(position).toString()
                 val index = GlobalVariable.marketOption!!.Categories.indexOfFirst { it.CodeName == categoryName }
                 if (GlobalVariable.marketOption!!.Categories[index].Subs.isNotEmpty()){
                     marketCategory2.visibility = View.VISIBLE
-                    val category2Adapter = ArrayAdapter(mContext, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,getMarketLowCategory(index))
-                    mCategory2Sp.adapter = category2Adapter
+                    spinnerSetting(mCategory2Sp,getMarketLowCategory(index))
                     mCategory2Sp.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                         override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                             val category2Name = parent.getItemAtPosition(position).toString()
@@ -143,9 +140,14 @@ class MarketFragment:Fragment() {
 
 
         view.findViewById<Button>(R.id.market_result).setOnClickListener {
-            itemName = view.findViewById<EditText>(R.id.market_item_name_et).text.toString()
-            listItem.clear()
-            itemSearch()
+            val checkName = view.findViewById<EditText>(R.id.market_item_name_et).text.toString().replace(" ","")
+            if (checkName!=""){
+                itemName = checkName
+                listItem.clear()
+                itemSearch()
+            }else{
+                CustomDialog(dialog).errorDialog("itemName",mActivity)
+            }
         }
         bottomSheetDialog.setContentView(view)
         bottomSheetDialog.show()
@@ -159,6 +161,11 @@ class MarketFragment:Fragment() {
             }
             bottomSheetDialog.cancel()
         }
+    }
+
+    private fun spinnerSetting(sp:Spinner,list:ArrayList<String>){
+        val adapter = SpinnerAdapter(mContext, R.layout.spinner_item, list)
+        sp.adapter = adapter
     }
 
     private fun listSetting(data: PostMarketData){
@@ -200,8 +207,8 @@ class MarketFragment:Fragment() {
 
     private fun getMarketLowCategory(index:Int):ArrayList<String> {
         val list = ArrayList<String>()
-        for (i in 0..<GlobalVariable.marketOption!!.Categories[1].Subs.size) {
-            list.add(GlobalVariable.marketOption!!.Categories[1].Subs[i].CodeName)
+        for (i in 0..<GlobalVariable.marketOption!!.Categories[index].Subs.size) {
+            list.add(GlobalVariable.marketOption!!.Categories[index].Subs[i].CodeName)
         }
         return list
     }

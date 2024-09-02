@@ -1,4 +1,4 @@
-package com.example.loasearch.transaction.market.adapter
+package com.example.loasearch.transaction.auctions.adapter
 
 class AuctionListItem(
     var icon:String,
@@ -6,6 +6,7 @@ class AuctionListItem(
     var name:String,
     var recentPrice:Int,
     var tradeRemainCount:Any?,
-    var yDayAvgPrice:Int
+    var yDayAvgPrice:Int,
+    var grade:String
 ) {
 }

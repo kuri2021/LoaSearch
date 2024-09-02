@@ -6,6 +6,7 @@ class MarketListItem(
     var name:String,
     var recentPrice:Int,
     var tradeRemainCount:Any?,
-    var yDayAvgPrice:Int
+    var yDayAvgPrice:Int,
+    var grade:String
 ) {
 }

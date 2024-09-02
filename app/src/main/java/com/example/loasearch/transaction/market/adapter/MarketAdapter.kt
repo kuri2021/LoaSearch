@@ -1,15 +1,17 @@
 package com.example.loasearch.transaction.market.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.loasearch.R
 
-class MarketAdapter(private var context:Context, val items: List<AuctionListItem>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MarketAdapter(private var context:Context, val items: List<MarketListItem>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 //    private var listener: OnItemClickListener? = null
 
@@ -24,6 +26,17 @@ class MarketAdapter(private var context:Context, val items: List<AuctionListItem
         val item = items[position]
 
         Glide.with(context).load(item.icon).into(vh.itemView.findViewById(R.id.m_item_icon))
+        val iconBack = vh.itemView.findViewById<CardView>(R.id.m_item_icon_back)
+        when(item.grade){
+            "일반"->iconBack.background.setTint(context.resources.getColor(R.color.normal))
+            "고급"->iconBack.background.setTint(context.resources.getColor(R.color.advanced))
+            "희귀"->iconBack.background.setTint(context.resources.getColor(R.color.rare))
+            "영웅"->iconBack.background.setTint(context.resources.getColor(R.color.hero))
+            "전설"->iconBack.background.setTint(context.resources.getColor(R.color.legend))
+            "유물"->iconBack.background.setTint(context.resources.getColor(R.color.relics))
+            "고대"->iconBack.background.setTint(context.resources.getColor(R.color.ancient))
+            else -> iconBack.background.setTint(context.resources.getColor(R.color.hintColor))
+        }
         vh.itemView.findViewById<TextView>(R.id.m_item_name).text = item.name
         if (item.tradeRemainCount!=null){
             vh.itemView.findViewById<TextView>(R.id.m_item_remain_count).visibility = View.VISIBLE

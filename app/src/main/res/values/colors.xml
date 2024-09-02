@@ -8,4 +8,12 @@
     <color name="textColor">#FF333333</color>
     <color name="hintColor">#B0B0B0</color>
     <color name="activateColor">#FF79EDFF</color>
+    
+    <color name="normal">#FF535353</color>
+    <color name="advanced">#FF273A0E</color>
+    <color name="rare">#FF112e44</color>
+    <color name="hero">#FF331142</color>
+    <color name="legend">#FF8E5504</color>
+    <color name="relics">#FF783208</color>
+    <color name="ancient">#FFD0BE90</color>
 </resources>

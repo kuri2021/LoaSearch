@@ -114,7 +114,6 @@ class InformationFragment: Fragment() {
             }
         }
 
-
         binding.weeklyGuardianTitle.setOnClickListener {
             if (guardianFlag == 0){
                 Glide.with(mContext).load(R.drawable.arrow_up).into(binding.weeklyGuardianActive)

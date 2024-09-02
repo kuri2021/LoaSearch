@@ -8,7 +8,7 @@ import com.example.loasearch.api.data.get_auctions_option.GetAuctionsOptionsData
 import com.example.loasearch.api.data.get_markets_options.GetMarketsOptionsData
 import com.example.loasearch.api.data.market.PostMarketData
 import com.example.loasearch.api.data.news.GetNewsData
-import com.example.loasearch.api.data.post_auctions_item.PostAuctionsItemData
+import com.example.loasearch.api.data.post_auctions.PostAuctionsItemData
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -43,7 +43,7 @@ interface LoaApiInterface {
 
     @POST("/auctions/items")
     fun postAuctions(
-        @Body parameters: HashMap<String, Any>
+        @Body parameters: HashMap<String, Any?>
     ):Call<PostAuctionsItemData>
 
     @GET("/markets/options")

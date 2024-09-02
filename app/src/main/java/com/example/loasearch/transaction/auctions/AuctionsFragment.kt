@@ -17,10 +17,11 @@ import androidx.fragment.app.Fragment
 import com.example.loasearch.R
 import com.example.loasearch.api.LoaApi
 import com.example.loasearch.api.data.GlobalVariable
-import com.example.loasearch.api.data.post_auctions_item.PostAuctionsItemData
+import com.example.loasearch.api.data.post_auctions.PostAuctionsItemData
 import com.example.loasearch.databinding.FragmentAuctionBinding
 import com.example.loasearch.transaction.TransactionActivity
 import com.example.loasearch.transaction.adapter.SpinnerAdapter
+import com.example.loasearch.transaction.auctions.adapter.AuctionAdapter
 import com.example.loasearch.util.dialog.custom.CustomDialog
 import com.example.loasearch.util.page.PageMove
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -32,9 +33,10 @@ class AuctionsFragment:Fragment() {
     private lateinit var mActivity : TransactionActivity
     private lateinit var dialog: Dialog
     private lateinit var bottomSheetDialog:BottomSheetDialog
+    private lateinit var adapter: AuctionAdapter
 
     private lateinit var className :String
-    private lateinit var itemName:String
+    private var itemName:String = ""
     private var categoryCode :Int = 0
     private lateinit var tire :String
     private lateinit var gradeName :String
@@ -76,7 +78,6 @@ class AuctionsFragment:Fragment() {
 
         lowLevelEt.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE){
-
                 true
             }else{
                 false
@@ -151,10 +152,26 @@ class AuctionsFragment:Fragment() {
         view.findViewById<Button>(R.id.auction_result).setOnClickListener {
             val checkName = view.findViewById<EditText>(R.id.auction_item_name_et).text.toString().replace(" ","")
             if (checkName!=""){
-                val low = lowLevelEt.text.toString().toInt()
-                val high = highLevelEt.text.toString().toInt()
+                itemName = checkName
+                val low = if (lowLevelEt.text.toString()==""){
+                    0
+                }else{
+                    lowLevelEt.text.toString().toInt()
+                }
+                val high = if (highLevelEt.text.toString()==""){
+                    1800
+                }else{
+                    highLevelEt.text.toString().toInt()
+                }
                 if (labelCheck(low,high)){
-
+                    LoaApi().postAuctions("GRADE",categoryCode,className,tire,gradeName,itemName,pageNo,"ASC",lowLevel,highLevel,null){
+                        if (it.Items!=null){
+                            itemSearch(it)
+                        }else{
+                            binding.auctionStatus.text = "조건에 맞는 아이템이 없습니다."
+                        }
+                        bottomSheetDialog.cancel()
+                    }
                 }
             }else{
                 CustomDialog(dialog).errorDialog("itemName",mActivity)
@@ -227,10 +244,8 @@ class AuctionsFragment:Fragment() {
     private fun itemSearch(data:PostAuctionsItemData){
         binding.auctionDefaultRegion.visibility = View.GONE
         binding.auctionRecycler.visibility = View.VISIBLE
-
-        for(i in 0<..<data){
-
-        }
+        adapter= AuctionAdapter(mContext,data.Items)
+        binding.auctionRecycler.adapter = adapter
     }
 
 

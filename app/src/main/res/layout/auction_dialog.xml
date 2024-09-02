@@ -28,6 +28,7 @@
             android:paddingTop="3dp"
             android:paddingBottom="4dp"
             android:textColor="@color/white"
+            android:inputType="text"
             android:background="@drawable/st_1dp_ffffff_co_4dp"
             android:autofillHints="아이템 명" />
     </LinearLayout>
@@ -159,6 +160,7 @@
                 android:gravity="center"
                 android:hint="0"
                 android:inputType="number"
+                android:text="0"
                 android:textColorHint="@color/white"/>
             <TextView
                 android:layout_width="wrap_content"

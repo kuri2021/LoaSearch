@@ -1,4 +1,4 @@
-package com.example.loasearch.api.data.post_auctions_item
+package com.example.loasearch.api.data.post_auctions
 
 data class AuctionInfo(
     val BidCount: Int,

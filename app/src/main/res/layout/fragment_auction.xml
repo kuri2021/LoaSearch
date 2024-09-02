@@ -20,6 +20,7 @@
             android:background="@drawable/search_white"
             />
         <TextView
+            android:id="@+id/auction_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="경매장 검색 조건을\n 정해 주세요."

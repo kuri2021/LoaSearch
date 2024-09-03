@@ -25,22 +25,4 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"/>
 
-<!--    <LinearLayout-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:orientation="horizontal">-->
-<!--        <TextView-->
-<!--            android:id="@+id/weeklyStartDate"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="@string/textDefault"/>-->
-<!--        <TextView-->
-<!--            android:id="@+id/weeklyEndDate"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="@string/textDefault"/>-->
-<!--    </LinearLayout>-->
-
 </RelativeLayout>

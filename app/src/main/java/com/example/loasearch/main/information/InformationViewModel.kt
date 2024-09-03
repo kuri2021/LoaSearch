@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.loasearch.api.LoaApi
 import com.example.loasearch.api.data.GlobalVariable
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 
@@ -23,24 +24,25 @@ class InformationViewModel : ViewModel() {
         viewModelScope.launch {
             if (GlobalVariable.news == null) {
                 LoaApi().getNews { newsIt ->
-                    when(newsIt){
-                        "200"->_newsData.postValue("완료")
-                        else -> _newsData.postValue("실패")
+                    if (newsIt!="200"){
+                        _newsData.postValue(newsIt)
+                        this.cancel()
+                        return@getNews
                     }
                 }
             }else{
-                _newsData.postValue("완료")
+                _newsData.postValue("200")
             }
             if (GlobalVariable.events == null) {
                 LoaApi().getEvents { eventIt ->
-                    if (eventIt == "완료") {
-                        _eventsData.postValue("완료")
-                    } else {
-                        _eventsData.postValue("실패")
+                    if (eventIt!="200"){
+                        _eventsData.postValue(eventIt)
+                        this.cancel()
+                        return@getEvents
                     }
                 }
             }else{
-                _eventsData.postValue("완료")
+                _eventsData.postValue("200")
             }
             if (GlobalVariable.challengeAbyss == null) {
                 LoaApi().getChallengeAbyss { abyssIt ->

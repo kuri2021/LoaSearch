@@ -16,4 +16,6 @@
     <string name="market">거래소</string>
     <string name="auction">경매장</string>
     <string name="market_conditions">시세</string>
+
+    <string name="search_not_find">검색 결과가 없습니다.\n다시 검색을 진행해 주세요</string>
 </resources>

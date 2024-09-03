@@ -71,12 +71,13 @@ class AuctionsFragment:Fragment() {
     }
     fun auctionBottomDialogSet(){
         bottomSheetDialog = BottomSheetDialog(mContext)
-        val view: View = layoutInflater.inflate(R.layout.auction_dialog, null)
+        val bottomDialog = R.layout.auction_dialog
+        val view: View = layoutInflater.inflate(bottomDialog, null)
 
         val lowLevelEt = view.findViewById<EditText>(R.id.auction_low_label_et)
         val highLevelEt = view.findViewById<EditText>(R.id.auction_hite_label_et)
 
-        lowLevelEt.setOnEditorActionListener { v, actionId, event ->
+        lowLevelEt.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE){
                 true
             }else{
@@ -168,7 +169,7 @@ class AuctionsFragment:Fragment() {
                         if (it.Items!=null){
                             itemSearch(it)
                         }else{
-                            binding.auctionStatus.text = "조건에 맞는 아이템이 없습니다."
+                            binding.auctionStatus.text = resources.getText(R.string.search_not_find)
                         }
                         bottomSheetDialog.cancel()
                     }

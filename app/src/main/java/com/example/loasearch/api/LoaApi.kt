@@ -51,10 +51,8 @@ class LoaApi : LoaApiInf {
                 Log.d("확인", code.toString())
                 if (body != null && code == 200) {
                     GlobalVariable.news = body
-                    callback(code.toString())
-                } else {
-                    callback(code.toString())
                 }
+                callback(code.toString())
             }
 
             override fun onFailure(call: Call<GetNewsData>, t: Throwable) {
@@ -74,8 +72,8 @@ class LoaApi : LoaApiInf {
                 Log.d("확인", code.toString())
                 if (body != null && code == 200) {
                     GlobalVariable.events = body
-                    callback("완료")
                 }
+                callback(code.toString())
             }
 
             override fun onFailure(call: Call<GetEventsData>, t: Throwable) {

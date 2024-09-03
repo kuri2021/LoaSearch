@@ -3,8 +3,6 @@ package com.example.loasearch.transaction
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -74,10 +72,6 @@ class TransactionActivity : AppCompatActivity() {
         override fun handleOnBackPressed() {
             PageMove(this@TransactionActivity).getBackActivity()
         }
-    }
-
-    fun dialogClose(){
-        bottomSheetDialog.cancel()
     }
 
 }

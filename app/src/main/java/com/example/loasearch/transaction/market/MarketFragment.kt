@@ -3,7 +3,6 @@ package com.example.loasearch.transaction.market
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -74,7 +73,8 @@ class MarketFragment:Fragment() {
 
     fun marketBottomDialogSet(){
         bottomSheetDialog = BottomSheetDialog(mContext)
-        val view: View = layoutInflater.inflate(R.layout.market_dialog, null)
+        val bottomDialog = R.layout.market_dialog
+        val view: View = layoutInflater.inflate(bottomDialog, null)
 
 
         val mClassSp = view.findViewById<Spinner>(R.id.market_class_sp)
@@ -157,7 +157,7 @@ class MarketFragment:Fragment() {
             if (it.Items.isNotEmpty()){
                 listSetting(it)
             }else{
-                binding.marketStatus.text = "조건에 맞는 아이템이 없습니다."
+                binding.marketStatus.text = resources.getText(R.string.search_not_find)
             }
             bottomSheetDialog.cancel()
         }
@@ -186,9 +186,7 @@ class MarketFragment:Fragment() {
         binding.marketRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                // 마지막 스크롤된 항목 위치
                 val lastVisibleItemPosition = (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
-                // 항목 전체 개수
                 val itemTotalCount = recyclerView.adapter!!.itemCount - 1
                 if (lastVisibleItemPosition == itemTotalCount) {
                     pageNo+=1

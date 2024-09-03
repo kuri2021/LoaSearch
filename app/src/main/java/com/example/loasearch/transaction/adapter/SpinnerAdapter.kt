@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.example.loasearch.R
 
-class SpinnerAdapter(context:Context, design:Int, private val list: List<String>):
+class SpinnerAdapter(context:Context, design:Int, list: List<String>):
     ArrayAdapter<String>(context, design, list) {
     private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {

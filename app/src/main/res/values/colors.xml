@@ -8,6 +8,7 @@
     <color name="textColor">#FF333333</color>
     <color name="hintColor">#B0B0B0</color>
     <color name="activateColor">#FF79EDFF</color>
+<!--    <color name="transparency">##00FFFFFF</color>-->
     
     <color name="normal">#FF535353</color>
     <color name="advanced">#FF273A0E</color>

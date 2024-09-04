@@ -2,14 +2,16 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="7dp"
+    android:background="#00ffffff">
     <ImageView
-        android:id="@+id/weeklyIv"
+        android:id="@+id/weekly2Iv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:adjustViewBounds="true"/>
     <TextView
-        android:id="@+id/weeklyNameTv"
+        android:id="@+id/weekly2NameTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="7dp"
@@ -17,7 +19,7 @@
         android:textSize="21sp"/>
 
     <TextView
-        android:id="@+id/weeklyDate"
+        android:id="@+id/weekly2Date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/textDefault"

@@ -1,7 +1,6 @@
 package com.example.loasearch.main
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
@@ -64,12 +63,18 @@ class MainActivity : AppCompatActivity() {
 
     private val onBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
-            if (backPressedTime + 2000 > System.currentTimeMillis()) {
-                finish()
-            } else {
-                Toast.makeText(this@MainActivity, "한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
-                backPressedTime = System.currentTimeMillis()
+            val fragmentManager = supportFragmentManager
+            if (fragmentManager.backStackEntryCount>0){
+                fragmentManager.popBackStack()
+            }else{
+                if (backPressedTime + 2000 > System.currentTimeMillis()) {
+                    finish()
+                } else {
+                    Toast.makeText(this@MainActivity, "한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
+                    backPressedTime = System.currentTimeMillis()
+                }
             }
+
         }
     }
 

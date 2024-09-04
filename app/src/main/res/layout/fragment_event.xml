@@ -4,22 +4,62 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="7dp"
     tools:context=".main.event.EventFragment">
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/event_list_card"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        app:cardCornerRadius="16dp"
-        android:visibility="visible">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/event_list"
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/recyclerBackground"
-            android:elevation="20dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-    </androidx.cardview.widget.CardView>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/search_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary"
+                android:elevation="4dp"
+                android:padding="7dp"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+                <ImageView
+                    android:id="@+id/event_back"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/arrow_back"
+                    android:layout_marginEnd="21dp"
+                    android:contentDescription="@string/error" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="이벤트"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+                <EditText
+                    android:id="@+id/nameEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="이름 입력"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:textColorHint="@color/hintColor"
+                    android:textStyle="bold"
+                    android:layout_marginEnd="21dp"
+                    android:visibility="gone"/>
+            </androidx.appcompat.widget.Toolbar>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/event_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/recyclerBackground"
+                android:elevation="20dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginEnd="7dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        </LinearLayout>
+    </ScrollView>
+
+
+
 </FrameLayout>

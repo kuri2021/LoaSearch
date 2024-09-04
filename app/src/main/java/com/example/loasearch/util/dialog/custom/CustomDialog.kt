@@ -9,7 +9,6 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.loasearch.R
-import org.w3c.dom.Text
 
 class CustomDialog(var dialog: Dialog): AppCompatActivity(), CustomDialogInformation {
 

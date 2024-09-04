@@ -8,16 +8,19 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.replace
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.loasearch.R
 import com.example.loasearch.api.data.GlobalVariable
 import com.example.loasearch.databinding.FragmentInformationBinding
 import com.example.loasearch.main.MainActivity
+import com.example.loasearch.main.event.EventFragment
 import com.example.loasearch.main.information.adapter.abyss.AbyssAdapter
 import com.example.loasearch.main.information.adapter.event.EventAdapter
 import com.example.loasearch.main.information.adapter.guardian.GuardianAdapter
@@ -29,7 +32,7 @@ class InformationFragment : Fragment() {
     private lateinit var mContext: Context
     private lateinit var mActivity: Activity
     private lateinit var binding: FragmentInformationBinding
-    private lateinit var inforViewModel: InformationViewModel
+    private lateinit var infoViewModel: InformationViewModel
     private lateinit var newsAdapter: NewsAdapter
     private lateinit var eventAdapter: EventAdapter
     private lateinit var abyssAdapter: AbyssAdapter
@@ -39,8 +42,7 @@ class InformationFragment : Fragment() {
 
     private var guardianFlag: Int = 0
     private var abyssFlag: Int = 0
-
-    private var eventFlag: Int = 0
+    private var currentPage: Int = 0
 
     companion object {
         fun newInstance() = InformationFragment()
@@ -59,9 +61,9 @@ class InformationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentInformationBinding.inflate(layoutInflater)
-        inforViewModel = ViewModelProvider(this)[InformationViewModel::class.java]
-        inforViewModel.getInformationData()
-        inforViewModel.newsData.observe(viewLifecycleOwner) {
+        infoViewModel = ViewModelProvider(this)[InformationViewModel::class.java]
+        infoViewModel.getInformationData()
+        infoViewModel.newsData.observe(viewLifecycleOwner) {
             if (it == "200") {
                 val news = GlobalVariable.news
                 if (news != null) {
@@ -78,7 +80,7 @@ class InformationFragment : Fragment() {
                 CustomDialog(dialog).errorDialog(it, mActivity)
             }
         }
-        inforViewModel.eventsData.observe(viewLifecycleOwner) {
+        infoViewModel.eventsData.observe(viewLifecycleOwner) {
             if (it == "200") {
                 val events = GlobalVariable.events
                 if (events != null) {
@@ -86,18 +88,16 @@ class InformationFragment : Fragment() {
                     binding.eventList.adapter = eventAdapter
                     eventAdapter.setOnItemClickListener(object : EventAdapter.OnItemClickListener {
                         override fun webMove(position: Int) {
-                            val intent =
-                                Intent(Intent.ACTION_VIEW, Uri.parse(events[position].Link))
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(events[position].Link))
                             startActivity(intent)
                         }
                     })
                 }
             } else {
                 CustomDialog(dialog).errorDialog(it, mActivity)
-                eventFlag = 1
             }
         }
-        inforViewModel.challengeAbyssData.observe(viewLifecycleOwner) {
+        infoViewModel.challengeAbyssData.observe(viewLifecycleOwner) {
             if (it == "완료") {
                 val challengeAbyss = GlobalVariable.challengeAbyss
                 if (challengeAbyss != null) {
@@ -106,7 +106,7 @@ class InformationFragment : Fragment() {
                 }
             }
         }
-        inforViewModel.challengeGuardianData.observe(viewLifecycleOwner) {
+        infoViewModel.challengeGuardianData.observe(viewLifecycleOwner) {
             if (it == "완료") {
                 val challengeGuardian = GlobalVariable.challengeGuardian
                 if (challengeGuardian != null) {
@@ -117,7 +117,11 @@ class InformationFragment : Fragment() {
         }
 
         binding.eventAll.setOnClickListener {
-
+            val eventFragment = EventFragment.newInstance()
+            val trans = parentFragmentManager.beginTransaction()
+            trans.replace(R.id.frg,eventFragment)
+            trans.addToBackStack(null)
+            trans.commit()
         }
 
         binding.weeklyGuardianTitle.setOnClickListener {
@@ -145,24 +149,24 @@ class InformationFragment : Fragment() {
             }
         }
 
+        eventSlideStart()
+
         return binding.root
     }
 
     private val handler = Handler(Looper.getMainLooper())
     private val time: Long = 3000
+    private var scrollFlag = false
 
-    private val runnable: Runnable = object : Runnable {
+    private val updatePage = object : Runnable {
         override fun run() {
-            try {
-                val nextItem =
-                    (binding.eventList.currentItem + 1) % binding.eventList.adapter!!.itemCount
-                binding.eventList.setCurrentItem(nextItem, true)
-                handler.postDelayed(this, time)
-            } catch (e: Exception) {
-
+            if (currentPage == eventAdapter.itemCount) {
+                currentPage = 0
             }
+            binding.eventList.setCurrentItem(currentPage++, true)
+            Log.d("currentPage",currentPage.toString())
+            handler.postDelayed(this, time)
         }
-
     }
 
     override fun onResume() {
@@ -175,13 +179,19 @@ class InformationFragment : Fragment() {
         eventSlideStop()
     }
 
+
     private fun eventSlideStart() {
-        handler.postDelayed(runnable, time)
+        if (!scrollFlag) {
+            handler.postDelayed(updatePage, time)
+            scrollFlag = true
+        }
     }
 
     private fun eventSlideStop() {
-        handler.removeCallbacks(runnable)
+        if (scrollFlag) {
+            handler.removeCallbacks(updatePage)
+            scrollFlag = false
+        }
     }
-
 
 }

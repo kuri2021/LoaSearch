@@ -25,9 +25,10 @@ class InformationViewModel : ViewModel() {
             if (GlobalVariable.news == null) {
                 LoaApi().getNews { newsIt ->
                     if (newsIt!="200"){
-                        _newsData.postValue(newsIt)
                         this.cancel()
                         return@getNews
+                    }else{
+                        _newsData.postValue(newsIt)
                     }
                 }
             }else{
@@ -36,9 +37,10 @@ class InformationViewModel : ViewModel() {
             if (GlobalVariable.events == null) {
                 LoaApi().getEvents { eventIt ->
                     if (eventIt!="200"){
-                        _eventsData.postValue(eventIt)
                         this.cancel()
                         return@getEvents
+                    }else{
+                        _eventsData.postValue(eventIt)
                     }
                 }
             }else{

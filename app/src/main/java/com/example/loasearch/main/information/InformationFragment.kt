@@ -13,7 +13,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.replace
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.loasearch.R
@@ -62,7 +61,6 @@ class InformationFragment : Fragment() {
     ): View {
         binding = FragmentInformationBinding.inflate(layoutInflater)
         infoViewModel = ViewModelProvider(this)[InformationViewModel::class.java]
-        infoViewModel.getInformationData()
         infoViewModel.newsData.observe(viewLifecycleOwner) {
             if (it == "200") {
                 val news = GlobalVariable.news
@@ -92,6 +90,7 @@ class InformationFragment : Fragment() {
                             startActivity(intent)
                         }
                     })
+                    eventSlideStart()
                 }
             } else {
                 CustomDialog(dialog).errorDialog(it, mActivity)
@@ -171,7 +170,7 @@ class InformationFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        eventSlideStart()
+        infoViewModel.getInformationData()
     }
 
     override fun onPause() {

@@ -27,7 +27,7 @@ class LoaApi : LoaApiInf {
             ) {
                 val body = response.body()
                 val code = response.code()
-                Log.d("확인", code.toString())
+                Log.d("확인getCharacterData", code.toString())
                 if (body != null) {
                     GlobalVariable.character = body
                     callback("성공")
@@ -48,7 +48,7 @@ class LoaApi : LoaApiInf {
             override fun onResponse(call: Call<GetNewsData>, response: Response<GetNewsData>) {
                 val body = response.body()
                 val code = response.code()
-                Log.d("확인", code.toString())
+                Log.d("확인getNews", code.toString())
                 if (body != null && code == 200) {
                     GlobalVariable.news = body
                 }
@@ -69,7 +69,7 @@ class LoaApi : LoaApiInf {
             override fun onResponse(call: Call<GetEventsData>, response: Response<GetEventsData>) {
                 val body = response.body()
                 val code = response.code()
-                Log.d("확인", code.toString())
+                Log.d("확인getEvents", "$code/${body}")
                 if (body != null && code == 200) {
                     GlobalVariable.events = body
                 }

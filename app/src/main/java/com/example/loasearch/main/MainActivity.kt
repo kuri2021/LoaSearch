@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.loasearch.R
 import com.example.loasearch.databinding.ActivityMainBinding
 import com.example.loasearch.main.information.InformationFragment
-import com.example.loasearch.search.SearchActivity
+import com.example.loasearch.search.SearchFragment
 import com.example.loasearch.transaction.TransactionActivity
 import com.example.loasearch.util.page.PageMove
 
@@ -29,9 +29,7 @@ class MainActivity : AppCompatActivity() {
                     if (it.itemId == selectedItemId) {
                         false
                     }else{
-                        supportFragmentManager.beginTransaction().replace(R.id.frg,
-                            InformationFragment()
-                        ).addToBackStack(null).commit()
+                        supportFragmentManager.beginTransaction().replace(R.id.frg, InformationFragment()).addToBackStack(null).commit()
                         selectedItemId = it.itemId
                         true
                     }
@@ -41,7 +39,7 @@ class MainActivity : AppCompatActivity() {
                     if (it.itemId == selectedItemId) {
                         false
                     }else{
-                        PageMove(this).nextActivateActivity(SearchActivity())
+                        supportFragmentManager.beginTransaction().replace(R.id.frg, SearchFragment()).addToBackStack(null).commit()
                         selectedItemId = it.itemId
                         true
                     }
@@ -51,7 +49,6 @@ class MainActivity : AppCompatActivity() {
                         false
                     }else{
                         PageMove(this).nextActivateActivity(TransactionActivity())
-                        selectedItemId = it.itemId
                         true
                     }
                 }

@@ -25,6 +25,11 @@ class NewsAdapter(private var context:Context, val items: GetNewsData) : Recycle
 
         vh.itemView.findViewById<TextView>(R.id.newsTitle).text = item.Title
         vh.itemView.findViewById<TextView>(R.id.newsDate).text = item.Date.substring(0 until 10)
+        if (position==4){
+            vh.itemView.findViewById<View>(R.id.newsLine).visibility = View.INVISIBLE
+        }else{
+            vh.itemView.findViewById<View>(R.id.newsLine).visibility = View.VISIBLE
+        }
     }
 
     override fun getItemCount(): Int {

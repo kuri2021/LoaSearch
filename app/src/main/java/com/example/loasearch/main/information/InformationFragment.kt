@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.loasearch.R
 import com.example.loasearch.api.data.GlobalVariable
@@ -84,6 +85,7 @@ class InformationFragment : Fragment() {
                 if (events != null) {
                     eventAdapter = EventAdapter(mContext, events)
                     binding.eventList.adapter = eventAdapter
+                    binding.eventList.registerOnPageChangeCallback(pageChangeCallback)
                     eventAdapter.setOnItemClickListener(object : EventAdapter.OnItemClickListener {
                         override fun webMove(position: Int) {
                             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(events[position].Link))
@@ -163,7 +165,6 @@ class InformationFragment : Fragment() {
                 currentPage = 0
             }
             binding.eventList.setCurrentItem(currentPage++, true)
-            Log.d("currentPage",currentPage.toString())
             handler.postDelayed(this, time)
         }
     }
@@ -192,5 +193,11 @@ class InformationFragment : Fragment() {
             scrollFlag = false
         }
     }
-
+    private val pageChangeCallback = object :ViewPager2.OnPageChangeCallback(){
+        override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+            Log.w("$$$1 ", "$position")
+            currentPage = position
+        }
+    }
 }

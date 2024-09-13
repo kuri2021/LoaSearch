@@ -29,7 +29,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".search.SearchActivity"
+            android:name=".search.SearchFragment"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity

@@ -1,48 +1,62 @@
 package com.example.loasearch.search
 
+import android.app.Activity
+import android.app.Dialog
+import android.content.Context
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.loasearch.R
 import com.example.loasearch.api.LoaApi
 import com.example.loasearch.api.data.GlobalVariable
-import com.example.loasearch.databinding.ActivitySearchBinding
+import com.example.loasearch.databinding.FragmentSearchBinding
+import com.example.loasearch.main.MainActivity
+import com.example.loasearch.main.information.InformationFragment
 import com.example.loasearch.util.page.PageMove
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 
 
-class SearchActivity : AppCompatActivity() {
-    private lateinit var binding: ActivitySearchBinding
+class SearchFragment : Fragment() {
+    private lateinit var binding: FragmentSearchBinding
+    private lateinit var mContext: Context
+    private lateinit var mActivity: Activity
+    private lateinit var dialog: Dialog
     private var etFlag = 0
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivitySearchBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    companion object {
+        fun newInstance() = InformationFragment()
+    }
 
-        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mContext = context
+        mActivity = context as MainActivity
+        dialog = Dialog(context)
+    }
 
-        binding.searchBack.setOnClickListener {
-            PageMove(this).getBackActivity()
-        }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentSearchBinding.inflate(layoutInflater)
 
         binding.statusTv.movementMethod = ScrollingMovementMethod()
-
         binding.searchImg.setOnClickListener {
             edittextEnable()
         }
         binding.searchDefaultRegion.setOnClickListener {
             edittextEnable()
         }
-
-
         binding.nameEt.setOnEditorActionListener{ _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 val name = binding.nameEt.text.toString()
@@ -65,12 +79,12 @@ class SearchActivity : AppCompatActivity() {
                 false
             }
         }
-    }
 
-    private val onBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
-        override fun handleOnBackPressed() {
-            PageMove(this@SearchActivity).getBackActivity()
+        binding.searchBack.setOnClickListener {
+            PageMove(mActivity).getBackActivity()
         }
+
+        return binding.root
     }
 
     private fun edittextEnable(){
@@ -79,7 +93,7 @@ class SearchActivity : AppCompatActivity() {
             binding.searchImg.visibility = View.GONE
             binding.searchTitle.visibility = View.GONE
             binding.nameEt.requestFocus()
-            val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            val imm = mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(binding.nameEt, InputMethodManager.SHOW_IMPLICIT)
             etFlag = 1
         }else{
@@ -123,7 +137,7 @@ class SearchActivity : AppCompatActivity() {
         val jsonData = data.trimIndent()
         val gson = Gson()
         val jsonObject = gson.fromJson(jsonData, JsonObject::class.java)
-        LogLineBreak("$jsonData\n============================================================================================================")
+        logLineBreak("$jsonData\n============================================================================================================")
 
 //        val element000 = gson.fromJson(jsonObject.get("Element_000"), Element000::class.java)
 //        val element001 = gson.fromJson(jsonObject.get("Element_001"), Element001::class.java)
@@ -151,10 +165,10 @@ class SearchActivity : AppCompatActivity() {
 //        Log.d("확인","$itemName/$itemType/$itemQuality/$itemLevel/$exclusiveClass/$boundStatus/$tradeStatus/$enhancementStage/$baseEffect/$additionalEffect/$currentReinforcementExp/$maxReinforcementExp/$additionalAttackPower")
     }
 
-    fun LogLineBreak(str: String) {
+    private fun logLineBreak(str: String) {
         if (str.length > 3000) {
             Log.d("확인", str.substring(0, 3000))
-            LogLineBreak(str.substring(3000))
+            logLineBreak(str.substring(3000))
         } else {
             Log.d("확인", str)
         }

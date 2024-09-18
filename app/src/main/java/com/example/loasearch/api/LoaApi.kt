@@ -21,13 +21,9 @@ class LoaApi : LoaApiInf {
 
     override fun getCharacterData(name: String, callback: (String) -> Unit) {
         api.getCharacter(name).enqueue(object : Callback<GetCharacterData> {
-            override fun onResponse(
-                call: Call<GetCharacterData>,
-                response: Response<GetCharacterData>
-            ) {
+            override fun onResponse(call: Call<GetCharacterData>, response: Response<GetCharacterData>) {
                 val body = response.body()
                 val code = response.code()
-                Log.d("확인getCharacterData", code.toString())
                 if (body != null) {
                     GlobalVariable.character = body
                     callback("성공")
@@ -48,7 +44,6 @@ class LoaApi : LoaApiInf {
             override fun onResponse(call: Call<GetNewsData>, response: Response<GetNewsData>) {
                 val body = response.body()
                 val code = response.code()
-                Log.d("확인getNews", code.toString())
                 if (body != null && code == 200) {
                     GlobalVariable.news = body
                 }
@@ -57,11 +52,11 @@ class LoaApi : LoaApiInf {
 
             override fun onFailure(call: Call<GetNewsData>, t: Throwable) {
                 Log.d("getNews", "${call}/${t}")
-                callback("실패")
             }
 
         })
     }
+
 
     //    fun getEvents(callback: (String) -> Unit) {
     override fun getEvents(callback: (String) -> Unit) {
@@ -69,7 +64,6 @@ class LoaApi : LoaApiInf {
             override fun onResponse(call: Call<GetEventsData>, response: Response<GetEventsData>) {
                 val body = response.body()
                 val code = response.code()
-                Log.d("확인getEvents", "$code/${body}")
                 if (body != null && code == 200) {
                     GlobalVariable.events = body
                 }
@@ -78,7 +72,6 @@ class LoaApi : LoaApiInf {
 
             override fun onFailure(call: Call<GetEventsData>, t: Throwable) {
                 Log.d("getEvents", "${call}/${t}")
-                callback("실패")
             }
 
         })
@@ -93,16 +86,14 @@ class LoaApi : LoaApiInf {
             ) {
                 val body = response.body()
                 val code = response.code()
-                Log.d("확인", code.toString())
                 if (body != null && code == 200) {
                     GlobalVariable.challengeGuardian = body
-                    callback("완료")
                 }
+                callback(code.toString())
             }
 
             override fun onFailure(call: Call<GetChallengeGuardianData>, t: Throwable) {
                 Log.d("getChallengeGuardian", "${call}/${t}")
-                callback("실패")
             }
 
         })
@@ -111,21 +102,18 @@ class LoaApi : LoaApiInf {
     //    fun getChallengeAbyssData(callback: (String) -> Unit) {
     override fun getChallengeAbyss(callback: (String) -> Unit) {
         api.getChallengeAbyssData().enqueue(object : Callback<GetChallengeAbyssData> {
-            override fun onResponse(
-                call: Call<GetChallengeAbyssData>,
+            override fun onResponse(call: Call<GetChallengeAbyssData>,
                 response: Response<GetChallengeAbyssData>
             ) {
                 val body = response.body()
                 val code = response.code()
-                Log.d("확인", code.toString())
                 if (body != null && code == 200) {
                     GlobalVariable.challengeAbyss = body
-                    callback("완료")
                 }
+                callback(code.toString())
             }
 
             override fun onFailure(call: Call<GetChallengeAbyssData>, t: Throwable) {
-                callback("실패")
             }
 
         })
@@ -139,11 +127,11 @@ class LoaApi : LoaApiInf {
             ) {
                 val body = response.body()
                 val code = response.code()
-                Log.d("getMarket확인", "${body}/$code")
                 if (body != null && code == 200) {
                     GlobalVariable.marketOption = body
-                    callback("성공")
+
                 }
+                callback(code.toString())
             }
 
             override fun onFailure(call: Call<GetMarketsOptionsData>, t: Throwable) {

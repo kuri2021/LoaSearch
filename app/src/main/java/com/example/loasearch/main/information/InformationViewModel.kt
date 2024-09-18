@@ -48,26 +48,30 @@ class InformationViewModel : ViewModel() {
             }
             if (GlobalVariable.challengeAbyss == null) {
                 LoaApi().getChallengeAbyss { abyssIt ->
-                    if (abyssIt == "완료") {
-                        _challengeAbyssData.postValue("완료")
-                    } else {
-                        _challengeAbyssData.postValue("실패")
+                    if (abyssIt!="200"){
+                        this.cancel()
+                        return@getChallengeAbyss
+                    }else{
+                        _challengeAbyssData.postValue(abyssIt)
                     }
+
                 }
             }else{
-                _challengeAbyssData.postValue("완료")
+                _challengeAbyssData.postValue("200")
             }
             if (GlobalVariable.challengeGuardian == null) {
                 LoaApi().getChallengeGuardian { guardianIt ->
-                    if (guardianIt == "완료") {
-                        _challengeGuardianData.postValue("완료")
-                    } else {
-                        _challengeGuardianData.postValue("실패")
+                    if (guardianIt!="200"){
+                        this.cancel()
+                        return@getChallengeGuardian
+                    }else{
+                        _challengeGuardianData.postValue(guardianIt)
                     }
                 }
             }else{
-                _challengeGuardianData.postValue("완료")
+                _challengeGuardianData.postValue("200")
             }
         }
     }
+
 }

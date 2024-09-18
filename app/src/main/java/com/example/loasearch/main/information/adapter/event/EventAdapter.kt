@@ -1,20 +1,14 @@
 package com.example.loasearch.main.information.adapter.event
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.loasearch.R
-import com.example.loasearch.api.data.challenge_abyss.GetChallengeAbyssData
-import com.example.loasearch.api.data.challenge_guardian.GetChallengeGuardianData
-import com.example.loasearch.api.data.challenge_guardian.Raid
 import com.example.loasearch.api.data.event.GetEventsData
-import com.example.loasearch.api.data.news.GetNewsData
 
 class EventAdapter(private var context:Context, val items: GetEventsData) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -22,7 +16,7 @@ class EventAdapter(private var context:Context, val items: GetEventsData) : Recy
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(context)
-        val itemView = inflater.inflate(R.layout.weekly_item,parent,false)
+        val itemView = inflater.inflate(R.layout.view_pager_item,parent,false)
         return VH(itemView)
     }
 
@@ -30,11 +24,11 @@ class EventAdapter(private var context:Context, val items: GetEventsData) : Recy
         val vh: VH = holder as VH
         val item = items[position]
 
-        Glide.with(context).load(item.Thumbnail).into(vh.itemView.findViewById(R.id.weeklyIv))
-        vh.itemView.findViewById<TextView>(R.id.weeklyNameTv).visibility = View.INVISIBLE
+        Glide.with(context).load(item.Thumbnail).into(vh.itemView.findViewById(R.id.view_pager_iv))
+        vh.itemView.findViewById<TextView>(R.id.view_pager_Tv).visibility = View.INVISIBLE
         val start = item.StartDate.substring(0 until 10)
         val end = item.EndDate.substring(0 until 10)
-        vh.itemView.findViewById<TextView>(R.id.weeklyDate).text = "$start ~ $end"
+        vh.itemView.findViewById<TextView>(R.id.view_pager_Date).text = "이벤트 기간 : $start ~ $end"
     }
 
     override fun getItemCount(): Int {

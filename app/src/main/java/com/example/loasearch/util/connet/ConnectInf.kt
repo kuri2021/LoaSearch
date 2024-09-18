@@ -1,7 +1,10 @@
 package com.example.loasearch.util.connet
 
+import android.app.Activity
 import retrofit2.Retrofit
 
 interface ConnectInf {
     fun connect(): Retrofit
+    fun connectStart(activity: Activity)
+    fun connectEnd(activity: Activity)
 }

@@ -10,12 +10,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.loasearch.R
 import com.example.loasearch.api.data.GlobalVariable
 import com.example.loasearch.databinding.FragmentEventBinding
-import com.example.loasearch.databinding.FragmentInformationBinding
-import com.example.loasearch.main.event.adapter.EventAdapter2
-import com.example.loasearch.main.information.adapter.event.EventAdapter
+import com.example.loasearch.main.event.adapter.EventFragmentAdapter
 
 class EventFragment : Fragment() {
 
@@ -24,15 +21,11 @@ class EventFragment : Fragment() {
     }
 
     private lateinit var binding : FragmentEventBinding
-    private lateinit var adapter: EventAdapter2
+    private lateinit var adapter: EventFragmentAdapter
     private val viewModel: EventViewModel by viewModels()
 
     private lateinit var mContext:Context
     private lateinit var mActivity:Activity
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -53,9 +46,9 @@ class EventFragment : Fragment() {
     private fun eventSet(){
         val events = GlobalVariable.events
         if (events != null) {
-            adapter = EventAdapter2(mContext,events)
+            adapter = EventFragmentAdapter(mContext,events)
             binding.eventList.adapter= adapter
-            adapter.setOnItemClickListener(object : EventAdapter2.OnItemClickListener {
+            adapter.setOnItemClickListener(object : EventFragmentAdapter.OnItemClickListener {
                 override fun webMove(position: Int) {
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(events[position].Link))
                     startActivity(intent)

@@ -1,11 +1,14 @@
 package com.example.loasearch.main
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.example.loasearch.R
 import com.example.loasearch.databinding.ActivityMainBinding
+import com.example.loasearch.main.event.EventFragment
 import com.example.loasearch.main.information.InformationFragment
 import com.example.loasearch.search.SearchFragment
 import com.example.loasearch.transaction.TransactionActivity
@@ -13,9 +16,14 @@ import com.example.loasearch.util.page.PageMove
 
 class MainActivity : AppCompatActivity() {
 
+    companion object{
+        var selectedFragment: String = ""
+    }
+
     private lateinit var bindding : ActivityMainBinding
     private var backPressedTime: Long = 0
-    private var selectedItemId: Int = 0
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,31 +34,27 @@ class MainActivity : AppCompatActivity() {
         bindding.bottomNav.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.nav_main ->{
-                    if (it.itemId == selectedItemId) {
+                    if ("Information" == selectedFragment) {
                         false
                     }else{
                         supportFragmentManager.beginTransaction().replace(R.id.frg, InformationFragment()).addToBackStack(null).commit()
-                        selectedItemId = it.itemId
+                        selectedFragment = "Information"
                         true
                     }
                 }
 
                 R.id.nav_search ->{
-                    if (it.itemId == selectedItemId) {
+                    if ("Search" == selectedFragment) {
                         false
                     }else{
                         supportFragmentManager.beginTransaction().replace(R.id.frg, SearchFragment()).addToBackStack(null).commit()
-                        selectedItemId = it.itemId
+                        selectedFragment = "Search"
                         true
                     }
                 }
                 R.id.nav_transaction ->{
-                    if (it.itemId == selectedItemId) {
-                        false
-                    }else{
-                        PageMove(this).nextActivateActivity(TransactionActivity())
-                        true
-                    }
+                    PageMove(this).nextActivateActivity(TransactionActivity())
+                    true
                 }
 
                 else -> false
@@ -77,9 +81,24 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        supportFragmentManager.beginTransaction().replace(R.id.frg, InformationFragment()).commit()
-        if (selectedItemId == 0){
-            selectedItemId = R.id.nav_main
+        if (selectedFragment!=""){
+            when(selectedFragment){
+                "Information" ->{
+                    supportFragmentManager.beginTransaction().replace(R.id.frg, InformationFragment()).addToBackStack(null).commit()
+                }
+
+                "Search" ->{
+                    supportFragmentManager.beginTransaction().replace(R.id.frg, SearchFragment()).addToBackStack(null).commit()
+                }
+
+                "Event" ->{
+                    supportFragmentManager.beginTransaction().replace(R.id.frg, EventFragment()).addToBackStack(null).commit()
+                }
+                else -> supportFragmentManager.beginTransaction().replace(R.id.frg, InformationFragment()).commit()
+            }
+        }else{
+            supportFragmentManager.beginTransaction().replace(R.id.frg, InformationFragment()).commit()
         }
+
     }
 }

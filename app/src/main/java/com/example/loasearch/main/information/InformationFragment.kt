@@ -8,7 +8,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,11 +54,7 @@ class InformationFragment : Fragment() {
         dialog = Dialog(context)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentInformationBinding.inflate(layoutInflater)
         infoViewModel = ViewModelProvider(this)[InformationViewModel::class.java]
         infoViewModel.newsData.observe(viewLifecycleOwner) {
@@ -99,7 +94,7 @@ class InformationFragment : Fragment() {
             }
         }
         infoViewModel.challengeAbyssData.observe(viewLifecycleOwner) {
-            if (it == "완료") {
+            if (it == "200") {
                 val challengeAbyss = GlobalVariable.challengeAbyss
                 if (challengeAbyss != null) {
                     abyssAdapter = AbyssAdapter(mContext, challengeAbyss)
@@ -108,7 +103,7 @@ class InformationFragment : Fragment() {
             }
         }
         infoViewModel.challengeGuardianData.observe(viewLifecycleOwner) {
-            if (it == "완료") {
+            if (it == "200") {
                 val challengeGuardian = GlobalVariable.challengeGuardian
                 if (challengeGuardian != null) {
                     guardianAdapter = GuardianAdapter(mContext, challengeGuardian.Raids)
@@ -122,17 +117,18 @@ class InformationFragment : Fragment() {
             val trans = parentFragmentManager.beginTransaction()
             trans.replace(R.id.frg,eventFragment)
             trans.addToBackStack(null)
+            MainActivity.selectedFragment = "Event"
             trans.commit()
         }
 
         binding.weeklyGuardianTitle.setOnClickListener {
             if (guardianFlag == 0) {
                 Glide.with(mContext).load(R.drawable.arrow_up).into(binding.weeklyGuardianActive)
-                binding.weeklyGuardianListCard.visibility = View.VISIBLE
+                binding.weeklyGuardianList.visibility = View.VISIBLE
                 guardianFlag = 1
             } else {
                 Glide.with(mContext).load(R.drawable.arrow_down).into(binding.weeklyGuardianActive)
-                binding.weeklyGuardianListCard.visibility = View.GONE
+                binding.weeklyGuardianList.visibility = View.GONE
                 guardianFlag = 0
             }
         }
@@ -141,16 +137,15 @@ class InformationFragment : Fragment() {
         binding.weeklyAbyssTitle.setOnClickListener {
             if (abyssFlag == 0) {
                 Glide.with(mContext).load(R.drawable.arrow_up).into(binding.weeklyAbyssActive)
-                binding.weeklyAbyssListCard.visibility = View.VISIBLE
+                binding.weeklyAbyssList.visibility = View.VISIBLE
                 abyssFlag = 1
             } else {
                 Glide.with(mContext).load(R.drawable.arrow_down).into(binding.weeklyAbyssActive)
-                binding.weeklyAbyssListCard.visibility = View.GONE
+                binding.weeklyAbyssList.visibility = View.GONE
                 abyssFlag = 0
             }
         }
 
-        eventSlideStart()
 
         return binding.root
     }
@@ -172,6 +167,7 @@ class InformationFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         infoViewModel.getInformationData()
+//        infoViewModel.getInformationData2()
     }
 
     override fun onPause() {
@@ -196,7 +192,6 @@ class InformationFragment : Fragment() {
     private val pageChangeCallback = object :ViewPager2.OnPageChangeCallback(){
         override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
             super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-            Log.w("$$$1 ", "$position")
             currentPage = position
         }
     }

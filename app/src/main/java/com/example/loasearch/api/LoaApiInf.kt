@@ -1,6 +1,7 @@
 package com.example.loasearch.api
 
 import com.example.loasearch.api.data.market.PostMarketData
+import com.example.loasearch.api.data.news.GetNewsData
 import com.example.loasearch.api.data.post_auctions.PostAuctionsItemData
 import com.example.loasearch.api.data.post_auctions.etc_options.EtcOptions
 import com.example.loasearch.api.data.post_auctions.skill_options.SkillOptions

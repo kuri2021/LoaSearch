@@ -33,7 +33,7 @@ class SearchFragment : Fragment() {
     private var etFlag = 0
 
     companion object {
-        fun newInstance() = InformationFragment()
+        fun newInstance() = SearchFragment()
     }
 
     override fun onAttach(context: Context) {

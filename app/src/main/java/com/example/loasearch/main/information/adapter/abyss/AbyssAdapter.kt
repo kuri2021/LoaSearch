@@ -4,15 +4,11 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.loasearch.R
 import com.example.loasearch.api.data.challenge_abyss.GetChallengeAbyssData
-import com.example.loasearch.api.data.challenge_guardian.GetChallengeGuardianData
-import com.example.loasearch.api.data.challenge_guardian.Raid
-import com.example.loasearch.api.data.news.GetNewsData
 
 class AbyssAdapter(private var context:Context, val items: GetChallengeAbyssData) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

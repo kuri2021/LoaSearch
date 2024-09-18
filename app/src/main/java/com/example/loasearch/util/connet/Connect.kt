@@ -1,6 +1,8 @@
 package com.example.loasearch.util.connet
 
+import android.app.Activity
 import android.util.Log
+import android.view.WindowManager
 import com.example.loasearch.util.shared.SharedPreference
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -30,6 +32,14 @@ class Connect : ConnectInf {
         val gson: Gson = GsonBuilder().setLenient().create()
         retrofit = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(gson)).baseUrl("https://developer-lostark.game.onstove.com").client(httpClient.build()).build()
         return retrofit
+    }
+
+    override fun connectStart(activity:Activity){
+        activity.window?.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+    }
+
+    override fun connectEnd(activity: Activity){
+        activity.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
     }
 
 }

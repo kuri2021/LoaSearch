@@ -68,7 +68,7 @@ class SearchFragment : Fragment() {
                             binding.profileRegion.visibility = View.VISIBLE
                             profileSetting()
                         } else {
-                            binding.profileRegion.visibility = View.GONE
+                            binding.profileRegion.visibility = View.INVISIBLE
                             binding.searchDefaultRegion.visibility = View.VISIBLE
                             binding.resultTv.text = resources.getText(R.string.search_not_find)
                         }
@@ -129,7 +129,6 @@ class SearchFragment : Fragment() {
             for (i in 0..<data.ArmoryEquipment.size){
                 getClassificationData(data.ArmoryEquipment[0].Tooltip)
             }
-
 
         }
     }

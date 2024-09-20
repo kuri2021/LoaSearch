@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.loasearch.api.data.GlobalVariable
 import com.example.loasearch.databinding.FragmentEventBinding
+import com.example.loasearch.main.MainActivity
 import com.example.loasearch.main.event.adapter.EventFragmentAdapter
 
 class EventFragment : Fragment() {

@@ -7,6 +7,10 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.loasearch.R
+import com.example.loasearch.api.data.challenge_abyss.GetChallengeAbyssData
+import com.example.loasearch.api.data.challenge_guardian.GetChallengeGuardianData
+import com.example.loasearch.api.data.event.GetEventsData
+import com.example.loasearch.api.data.news.GetNewsData
 import com.example.loasearch.databinding.ActivityMainBinding
 import com.example.loasearch.main.event.EventFragment
 import com.example.loasearch.main.information.InformationFragment

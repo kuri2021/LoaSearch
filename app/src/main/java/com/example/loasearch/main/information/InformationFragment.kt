@@ -24,6 +24,7 @@ import com.example.loasearch.main.information.adapter.abyss.AbyssAdapter
 import com.example.loasearch.main.information.adapter.event.EventAdapter
 import com.example.loasearch.main.information.adapter.guardian.GuardianAdapter
 import com.example.loasearch.main.information.adapter.news.NewsAdapter
+import com.example.loasearch.main.information.viewmodel.InformationViewModel
 import com.example.loasearch.util.dialog.custom.CustomDialog
 
 
@@ -37,8 +38,6 @@ class InformationFragment : Fragment() {
     private lateinit var abyssAdapter: AbyssAdapter
     private lateinit var guardianAdapter: GuardianAdapter
 
-    private lateinit var dialog: Dialog
-
     private var guardianFlag: Int = 0
     private var abyssFlag: Int = 0
     private var currentPage: Int = 0
@@ -51,65 +50,34 @@ class InformationFragment : Fragment() {
         super.onAttach(context)
         mContext = context
         mActivity = context as MainActivity
-        dialog = Dialog(context)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentInformationBinding.inflate(layoutInflater)
         infoViewModel = ViewModelProvider(this)[InformationViewModel::class.java]
+
         infoViewModel.newsData.observe(viewLifecycleOwner) {
-            if (it == "200") {
-                val news = GlobalVariable.news
-                if (news != null) {
-                    newsAdapter = NewsAdapter(mContext, news)
-                    binding.updateList.adapter = newsAdapter
-                    newsAdapter.setOnItemClickListener(object : NewsAdapter.OnItemClickListener {
-                        override fun webMove(position: Int) {
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(news[position].Link))
-                            startActivity(intent)
-                        }
-                    })
-                }
-            } else {
-                CustomDialog(dialog).errorDialog(it, mActivity)
-            }
+            GlobalVariable.news = it
+            newSetting()
         }
+
         infoViewModel.eventsData.observe(viewLifecycleOwner) {
-            if (it == "200") {
-                val events = GlobalVariable.events
-                if (events != null) {
-                    eventAdapter = EventAdapter(mContext, events)
-                    binding.eventList.adapter = eventAdapter
-                    binding.eventList.registerOnPageChangeCallback(pageChangeCallback)
-                    eventAdapter.setOnItemClickListener(object : EventAdapter.OnItemClickListener {
-                        override fun webMove(position: Int) {
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(events[position].Link))
-                            startActivity(intent)
-                        }
-                    })
-                    eventSlideStart()
-                }
-            } else {
-                CustomDialog(dialog).errorDialog(it, mActivity)
-            }
+            GlobalVariable.events = it
+            eventSetting()
         }
+
         infoViewModel.challengeAbyssData.observe(viewLifecycleOwner) {
-            if (it == "200") {
-                val challengeAbyss = GlobalVariable.challengeAbyss
-                if (challengeAbyss != null) {
-                    abyssAdapter = AbyssAdapter(mContext, challengeAbyss)
-                    binding.weeklyAbyssList.adapter = abyssAdapter
-                }
-            }
+            GlobalVariable.challengeAbyss = it
+            abyssSetting()
         }
+
         infoViewModel.challengeGuardianData.observe(viewLifecycleOwner) {
-            if (it == "200") {
-                val challengeGuardian = GlobalVariable.challengeGuardian
-                if (challengeGuardian != null) {
-                    guardianAdapter = GuardianAdapter(mContext, challengeGuardian.Raids)
-                    binding.weeklyGuardianList.adapter = guardianAdapter
-                }
-            }
+            GlobalVariable.challengeGuardian = it
+            guardianSetting()
+        }
+
+        infoViewModel.error.observe(viewLifecycleOwner){
+            CustomDialog(mContext).errorDialog(it,mActivity)
         }
 
         binding.eventAll.setOnClickListener {
@@ -150,6 +118,52 @@ class InformationFragment : Fragment() {
         return binding.root
     }
 
+    private fun newSetting(){
+        val news = GlobalVariable.news
+        if (news!=null){
+            newsAdapter = NewsAdapter(mContext, news)
+            binding.updateList.adapter = newsAdapter
+            newsAdapter.setOnItemClickListener(object : NewsAdapter.OnItemClickListener {
+                override fun webMove(position: Int) {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(news[position].Link))
+                    startActivity(intent)
+                }
+            })
+        }
+    }
+
+    private fun eventSetting(){
+        val event = GlobalVariable.events
+        if (event != null) {
+            eventAdapter = EventAdapter(mContext, event)
+            binding.eventList.adapter = eventAdapter
+            binding.eventList.registerOnPageChangeCallback(pageChangeCallback)
+            eventAdapter.setOnItemClickListener(object : EventAdapter.OnItemClickListener {
+                override fun webMove(position: Int) {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(event[position].Link))
+                    startActivity(intent)
+                }
+            })
+            eventSlideStart()
+        }
+    }
+
+    private fun abyssSetting(){
+            val challengeAbyss = GlobalVariable.challengeAbyss
+            if (challengeAbyss != null) {
+                abyssAdapter = AbyssAdapter(mContext, challengeAbyss)
+                binding.weeklyAbyssList.adapter = abyssAdapter
+            }
+    }
+
+    private fun guardianSetting(){
+        val challengeGuardian = GlobalVariable.challengeGuardian
+        if (challengeGuardian != null) {
+            guardianAdapter = GuardianAdapter(mContext, challengeGuardian.Raids)
+            binding.weeklyGuardianList.adapter = guardianAdapter
+        }
+    }
+
     private val handler = Handler(Looper.getMainLooper())
     private val time: Long = 3000
     private var scrollFlag = false
@@ -167,7 +181,6 @@ class InformationFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         infoViewModel.getInformationData()
-//        infoViewModel.getInformationData2()
     }
 
     override fun onPause() {

@@ -60,11 +60,13 @@ class MarketFragment:Fragment() {
             marketBottomDialogSet()
         }
         if (GlobalVariable.marketOption==null){
-            LoaApi().getMarketOptions {
-                if (it != "성공"){
-                    CustomDialog(dialog).defaultSetting(R.layout.error_dialog){
+            LoaApi().getMarketOptions { data,code->
+                if (code != "200"){
+                    CustomDialog(mContext).defaultSetting(R.layout.error_dialog){
                         PageMove(mActivity).getBackActivity()
                     }
+                }else{
+                    GlobalVariable.marketOption = data
                 }
             }
         }
@@ -146,7 +148,7 @@ class MarketFragment:Fragment() {
                 listItem.clear()
                 itemSearch()
             }else{
-                CustomDialog(dialog).errorDialog("itemName",mActivity)
+                CustomDialog(mContext).errorDialog("itemName",mActivity)
             }
         }
         bottomSheetDialog.setContentView(view)

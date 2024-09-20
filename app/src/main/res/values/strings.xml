@@ -16,6 +16,13 @@
     <string name="market">거래소</string>
     <string name="auction">경매장</string>
     <string name="market_conditions">시세</string>
-
     <string name="search_not_find">검색 결과가 없습니다.\n다시 검색을 진행해 주세요</string>
+    
+    <string name="Unauthorized">로그인 인증을 실패했습니다.\n 로그인 화면으로 돌아갑니다.</string>
+    <string name="Forbidden">허용되지 않은 텍스트가 포함되어 있습니다.</string>
+    <string name="InternalServerError">서버에 문제가 발생하였습니다.</string>
+    <string name="BadGateway">서버를 불러올수 없습니다.</string>
+    <string name="ServiceUnavailable">현재 서버가 임시 점검중 입니다.</string>
+    <string name="Unknown">알수 없는 문제가 발생하였습니다.</string>
+
 </resources>

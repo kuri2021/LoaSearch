@@ -31,7 +31,6 @@ class AuctionsFragment:Fragment() {
     private lateinit var binding : FragmentAuctionBinding
     private lateinit var mContext: Context
     private lateinit var mActivity : TransactionActivity
-    private lateinit var dialog: Dialog
     private lateinit var bottomSheetDialog:BottomSheetDialog
     private lateinit var adapter: AuctionAdapter
 
@@ -48,7 +47,6 @@ class AuctionsFragment:Fragment() {
         super.onAttach(context)
         mContext = context
         mActivity = context as TransactionActivity
-        dialog = Dialog(context)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -58,11 +56,13 @@ class AuctionsFragment:Fragment() {
             auctionBottomDialogSet()
         }
         if (GlobalVariable.auctionOption==null){
-            LoaApi().getAuctionsOptions{
-                if (it != "200"){
-                    CustomDialog(dialog).defaultSetting(R.layout.error_dialog){
+            LoaApi().getAuctionsOptions{ data,code->
+                if (code != "200"){
+                    CustomDialog(mContext).defaultSetting(R.layout.error_dialog){
                         PageMove(mActivity).getBackActivity()
                     }
+                }else{
+                    GlobalVariable.auctionOption = data
                 }
             }
         }
@@ -175,7 +175,7 @@ class AuctionsFragment:Fragment() {
                     }
                 }
             }else{
-                CustomDialog(dialog).errorDialog("itemName",mActivity)
+                CustomDialog(mContext).errorDialog("itemName",mActivity)
             }
 
         }
@@ -237,7 +237,7 @@ class AuctionsFragment:Fragment() {
             highLevel = high
             return true
         }else{
-            CustomDialog(dialog).errorDialog("auctions_label",mActivity)
+            CustomDialog(mContext).errorDialog("auctions_label",mActivity)
             return false
         }
     }

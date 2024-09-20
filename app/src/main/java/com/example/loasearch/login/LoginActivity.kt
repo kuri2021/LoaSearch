@@ -26,8 +26,8 @@ class LoginActivity : AppCompatActivity() {
         binding.apiBtn.setOnClickListener {
             val api = binding.apiEt.text.toString()
             Connect.accessToken = api
-            LoaApi().getNews {
-                if (it == "200"){
+            LoaApi().getNews { _, code ->
+                if (code == "200"){
                     Toast.makeText(this,"api가 확인 되었습니다.",Toast.LENGTH_SHORT).show()
                     SharedPreference(this).saveApiKey(api)
                     PageMove(this).nextActivateActivity(MainActivity())

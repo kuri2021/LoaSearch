@@ -13,17 +13,12 @@ import com.example.loasearch.api.data.news.GetNewsData
 
 object GlobalVariable {
     var character: GetCharacterData? = null
-    var challengeAbyss: GetChallengeAbyssData? = null
-    var challengeGuardian: GetChallengeGuardianData? = null
     var news: GetNewsData? = null
     var events: GetEventsData? = null
-
+    var challengeAbyss: GetChallengeAbyssData? = null
+    var challengeGuardian: GetChallengeGuardianData? = null
     //    거래소 옵션
     var marketOption: GetMarketsOptionsData? = null
-
     //    경매장 옵션
     var auctionOption: GetAuctionsOptionsData? = null
-
-
-
 }

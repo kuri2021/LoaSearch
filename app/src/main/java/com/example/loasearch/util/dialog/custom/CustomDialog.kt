@@ -2,6 +2,7 @@ package com.example.loasearch.util.dialog.custom
 
 import android.app.Activity
 import android.app.Dialog
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.util.Log
@@ -10,7 +11,9 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.loasearch.R
 
-class CustomDialog(var dialog: Dialog): AppCompatActivity(), CustomDialogInformation {
+class CustomDialog(var context: Context): AppCompatActivity(), CustomDialogInformation {
+
+    private val dialog:Dialog = Dialog(context)
 
     override fun defaultSetting(layout:Int,callback:(String)->Unit){
         dialog.setCancelable(false)
@@ -35,8 +38,23 @@ class CustomDialog(var dialog: Dialog): AppCompatActivity(), CustomDialogInforma
             "itemName"->{
                 dialog.findViewById<TextView>(R.id.error_massage).text = "아이템 명을 입력해 주세요."
             }
+            "401" ->{
+                dialog.findViewById<TextView>(R.id.error_massage).text = context.getString(R.string.Unauthorized)
+            }
+            "403"->{
+                dialog.findViewById<TextView>(R.id.error_massage).text = context.getString(R.string.Forbidden)
+            }
+            "500"->{
+                dialog.findViewById<TextView>(R.id.error_massage).text = context.getString(R.string.InternalServerError)
+            }
+            "502"->{
+                dialog.findViewById<TextView>(R.id.error_massage).text = context.getString(R.string.BadGateway)
+            }
             "503"->{
-                dialog.findViewById<TextView>(R.id.error_massage).text = "현재 서버가 임시 점검중 입니다."
+                dialog.findViewById<TextView>(R.id.error_massage).text = context.getString(R.string.ServiceUnavailable)
+            }
+            else -> {
+                dialog.findViewById<TextView>(R.id.error_massage).text = context.getString(R.string.Unknown)
             }
         }
         dialog.findViewById<Button>(R.id.result).setOnClickListener {

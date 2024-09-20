@@ -17,25 +17,19 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class LoaApi : LoaApiInf {
-
-//    var dialog = Dialog(context)
     val api: LoaApiInterface = Connect().connect().create(LoaApiInterface::class.java)
 
-    override fun getCharacterData(name: String, callback: (String) -> Unit) {
+    override fun getCharacterData(name: String, callback: (GetCharacterData?,String) -> Unit) {
         api.getCharacter(name).enqueue(object : Callback<GetCharacterData> {
             override fun onResponse(call: Call<GetCharacterData>, response: Response<GetCharacterData>) {
                 val body = response.body()
                 val code = response.code()
-                if (body != null) {
-                    GlobalVariable.character = body
-                    callback("성공")
-                } else {
-                    callback("실패")
-                }
+                callback(body,code.toString())
             }
 
             override fun onFailure(call: Call<GetCharacterData>, t: Throwable) {
-                callback("통신 실패 : ${call}/${t}")
+                Log.d("getCharacterData", "${call}/${t}")
+                callback(null,t.toString())
             }
 
         })

@@ -13,24 +13,32 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.loasearch.R
-import com.example.loasearch.api.LoaApi
-import com.example.loasearch.api.data.GlobalVariable
+import com.example.loasearch.api.data.character.GetCharacterData
 import com.example.loasearch.databinding.FragmentSearchBinding
 import com.example.loasearch.main.MainActivity
-import com.example.loasearch.main.information.InformationFragment
+import com.example.loasearch.search.adapter.ArmoryAdapter
+import com.example.loasearch.search.data.ArmoryData
+import com.example.loasearch.search.viewmodel.SearchViewModel
 import com.example.loasearch.util.page.PageMove
-import com.google.gson.Gson
-import com.google.gson.JsonObject
+import com.example.loasearch.util.regex.RegexUtil
+import java.util.regex.Pattern
 
 
 class SearchFragment : Fragment() {
+    private lateinit var searchViewModel: SearchViewModel
     private lateinit var binding: FragmentSearchBinding
     private lateinit var mContext: Context
     private lateinit var mActivity: Activity
     private lateinit var dialog: Dialog
     private var etFlag = 0
+
+    private var armoryItem = ArrayList<ArmoryData>()
+    private lateinit var armoryAdapter : ArmoryAdapter
+
+    private var recordData: GetCharacterData? = null
 
     companion object {
         fun newInstance() = SearchFragment()
@@ -49,6 +57,7 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSearchBinding.inflate(layoutInflater)
+        searchViewModel = ViewModelProvider(this)[SearchViewModel::class.java]
 
         binding.statusTv.movementMethod = ScrollingMovementMethod()
         binding.searchImg.setOnClickListener {
@@ -61,18 +70,7 @@ class SearchFragment : Fragment() {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 val name = binding.nameEt.text.toString()
                 if (name != "") {
-                    LoaApi().getCharacterData(name) {
-                        edittextEnable()
-                        if (it == "성공") {
-                            binding.searchDefaultRegion.visibility = View.GONE
-                            binding.profileRegion.visibility = View.VISIBLE
-                            profileSetting()
-                        } else {
-                            binding.profileRegion.visibility = View.INVISIBLE
-                            binding.searchDefaultRegion.visibility = View.VISIBLE
-                            binding.resultTv.text = resources.getText(R.string.search_not_find)
-                        }
-                    }
+                    searchViewModel.getSearchCharacter(name)
                 }
                 true
             } else {
@@ -82,6 +80,20 @@ class SearchFragment : Fragment() {
 
         binding.searchBack.setOnClickListener {
             PageMove(mActivity).getBackActivity()
+        }
+
+        searchViewModel.characterData.observe(viewLifecycleOwner){
+            logLineBreak(it.toString())
+            edittextEnable()
+            binding.searchDefaultRegion.visibility = View.GONE
+            binding.profileRegion.visibility = View.VISIBLE
+            profileSetting(it)
+        }
+
+        searchViewModel.error.observe(viewLifecycleOwner){
+            binding.profileRegion.visibility = View.INVISIBLE
+            binding.searchDefaultRegion.visibility = View.VISIBLE
+            binding.resultTv.text = resources.getText(R.string.search_not_find)
         }
 
         return binding.root
@@ -104,9 +116,9 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun profileSetting(){
-        val data =GlobalVariable.character
+    private fun profileSetting(data: GetCharacterData?){
         if (data!=null){
+            recordData = data
             val img = data.ArmoryProfile.CharacterImage
             val characterName = data.ArmoryProfile.CharacterName
             val level = data.ArmoryProfile.CharacterLevel
@@ -118,25 +130,48 @@ class SearchFragment : Fragment() {
             Glide.with(this).load(img).into(binding.characterIv)
             binding.profileName.text = characterName
             binding.statusTv.text =
-                        "전투 레벨 : $level" +
+                "전투 레벨 : $level" +
                         "\n캐릭터 이름 : $className" +
                         "\n길드 이름 : $guildName" +
                         "\n길드 등급 : $guildMemberGrade" +
                         "\n아이템 레벨 : $itemAvgLevel" +
                         "\n서버 이름 : $serverName"
-//            binding.statusTv2.text = "엘릭서 : 진군 (Point : 40)\n" +
-//                    "초월 : 78"
-            for (i in 0..<data.ArmoryEquipment.size){
-                getClassificationData(data.ArmoryEquipment[0].Tooltip)
-            }
 
+            getClassificationData(data.ArmoryEquipment[0].Tooltip)
+            armorySetting(data)
         }
     }
+
+    private fun armorySetting(data: GetCharacterData){
+        for (i in 0..<data.ArmoryEquipment.size) {
+            val type = data.ArmoryEquipment[i].Type
+            val icon = data.ArmoryEquipment[i].Icon
+            val name = data.ArmoryEquipment[i].Name
+            val grade = data.ArmoryEquipment[i].Grade
+            val transcendenceValue:String
+            when(type){
+                "무기","투구","상의","하의","장갑","어깨"->{
+                    val transcendence = RegexUtil().transcendence(data.ArmoryEquipment[i].Tooltip)
+                    transcendenceValue = if (transcendence.isNotEmpty()) "초월 : ${transcendence[0]}" else ""
+                }
+                else->{
+                    transcendenceValue = ""
+                }
+            }
+//            val quality = "품질 : ${RegexUtil().qualityValue(data.ArmoryEquipment[i].Tooltip)[0].replace(",","")}"
+//            Log.d("quality",quality)
+
+            armoryItem.add(ArmoryData(type,icon,name,transcendenceValue,grade))
+        }
+        armoryAdapter = ArmoryAdapter(mContext,armoryItem)
+        binding.armoryList.adapter = armoryAdapter
+    }
+
     private fun getClassificationData(data:String){
-        val jsonData = data.trimIndent()
-        val gson = Gson()
-        val jsonObject = gson.fromJson(jsonData, JsonObject::class.java)
-        logLineBreak("$jsonData\n============================================================================================================")
+//        val jsonData = data.trimIndent()
+//        val gson = Gson()
+//        val jsonObject = gson.fromJson(jsonData, JsonObject::class.java)
+//        logLineBreak("$jsonData\n============================================================================================================")
 
 //        val element000 = gson.fromJson(jsonObject.get("Element_000"), Element000::class.java)
 //        val element001 = gson.fromJson(jsonObject.get("Element_001"), Element001::class.java)
@@ -170,6 +205,13 @@ class SearchFragment : Fragment() {
             logLineBreak(str.substring(3000))
         } else {
             Log.d("확인", str)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (recordData!=null){
+            profileSetting(recordData)
         }
     }
 

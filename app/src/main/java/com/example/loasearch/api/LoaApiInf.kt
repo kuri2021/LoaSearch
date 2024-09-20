@@ -2,6 +2,7 @@ package com.example.loasearch.api
 
 import com.example.loasearch.api.data.challenge_abyss.GetChallengeAbyssData
 import com.example.loasearch.api.data.challenge_guardian.GetChallengeGuardianData
+import com.example.loasearch.api.data.character.GetCharacterData
 import com.example.loasearch.api.data.event.GetEventsData
 import com.example.loasearch.api.data.get_auctions_option.GetAuctionsOptionsData
 import com.example.loasearch.api.data.get_markets_options.GetMarketsOptionsData
@@ -12,7 +13,7 @@ import com.example.loasearch.api.data.post_auctions.etc_options.EtcOptions
 import com.example.loasearch.api.data.post_auctions.skill_options.SkillOptions
 
 interface LoaApiInf {
-    fun getCharacterData(name:String,callback:(String)->Unit)
+    fun getCharacterData(name: String, callback: (GetCharacterData?, String) -> Unit)
     fun getNews(callback: (GetNewsData?,String) -> Unit)
     fun getEvents(callback: (GetEventsData?, String) -> Unit)
     fun getChallengeGuardian(callback: (GetChallengeGuardianData?, String) -> Unit)

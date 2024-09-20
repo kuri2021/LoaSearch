@@ -12,7 +12,6 @@ import com.example.loasearch.api.data.market.PostMarketData
 import com.example.loasearch.api.data.news.GetNewsData
 
 object GlobalVariable {
-    var character: GetCharacterData? = null
     var news: GetNewsData? = null
     var events: GetEventsData? = null
     var challengeAbyss: GetChallengeAbyssData? = null
@@ -21,4 +20,13 @@ object GlobalVariable {
     var marketOption: GetMarketsOptionsData? = null
     //    경매장 옵션
     var auctionOption: GetAuctionsOptionsData? = null
+
+    fun resetData(){
+        news = null
+        events = null
+        challengeAbyss = null
+        challengeGuardian = null
+        marketOption = null
+        auctionOption = null
+    }
 }

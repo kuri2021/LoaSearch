@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.loasearch.R
+import com.example.loasearch.api.data.GlobalVariable
 
 class CustomDialog(var context: Context): AppCompatActivity(), CustomDialogInformation {
 
@@ -26,12 +27,12 @@ class CustomDialog(var context: Context): AppCompatActivity(), CustomDialogInfor
         dialog.show()
     }
 
-    override fun errorDialog(kind:String,activity:Activity){
+    override fun errorDialog(code:String, activity:Activity){
         dialog.setCancelable(false)
         dialog.setContentView(R.layout.error_dialog)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        Log.d("code",kind)
-        when(kind){
+        Log.d("code",code)
+        when(code){
             "auctions_label"->{
                 dialog.findViewById<TextView>(R.id.error_massage).text = "레벨 범위가 맞지 않습니다."
             }
@@ -58,8 +59,9 @@ class CustomDialog(var context: Context): AppCompatActivity(), CustomDialogInfor
             }
         }
         dialog.findViewById<Button>(R.id.result).setOnClickListener {
-            when(kind){
+            when(code){
                 "503"->{
+                    GlobalVariable.resetData()
                     activity.finish()
                     dialog.dismiss()
                 }

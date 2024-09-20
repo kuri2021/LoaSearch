@@ -1,7 +1,6 @@
 package com.example.loasearch.util.shared
 
 import android.content.Context
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.loasearch.util.connet.Connect
 

@@ -122,7 +122,7 @@
                     android:contentDescription="@string/error" />
             </LinearLayout>
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/accessories_list"
+                android:id="@+id/armory_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>

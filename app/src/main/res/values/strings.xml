@@ -17,6 +17,8 @@
     <string name="auction">경매장</string>
     <string name="market_conditions">시세</string>
     <string name="search_not_find">검색 결과가 없습니다.\n다시 검색을 진행해 주세요</string>
+
+    <string name="exit">한 번 더 누르면 종료됩니다.</string>
     
     <string name="Unauthorized">로그인 인증을 실패했습니다.\n 로그인 화면으로 돌아갑니다.</string>
     <string name="Forbidden">허용되지 않은 텍스트가 포함되어 있습니다.</string>

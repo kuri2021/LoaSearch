@@ -1,16 +1,10 @@
 package com.example.loasearch.main
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import com.example.loasearch.R
-import com.example.loasearch.api.data.challenge_abyss.GetChallengeAbyssData
-import com.example.loasearch.api.data.challenge_guardian.GetChallengeGuardianData
-import com.example.loasearch.api.data.event.GetEventsData
-import com.example.loasearch.api.data.news.GetNewsData
 import com.example.loasearch.databinding.ActivityMainBinding
 import com.example.loasearch.main.event.EventFragment
 import com.example.loasearch.main.information.InformationFragment
@@ -75,7 +69,7 @@ class MainActivity : AppCompatActivity() {
                 if (backPressedTime + 2000 > System.currentTimeMillis()) {
                     finish()
                 } else {
-                    Toast.makeText(this@MainActivity, "한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@MainActivity, R.string.exit, Toast.LENGTH_SHORT).show()
                     backPressedTime = System.currentTimeMillis()
                 }
             }
@@ -88,7 +82,7 @@ class MainActivity : AppCompatActivity() {
         if (selectedFragment!=""){
             when(selectedFragment){
                 "Information" ->{
-                    supportFragmentManager.beginTransaction().replace(R.id.frg, InformationFragment()).addToBackStack(null).commit()
+                    supportFragmentManager.beginTransaction().replace(R.id.frg, InformationFragment()).commit()
                 }
 
                 "Search" ->{

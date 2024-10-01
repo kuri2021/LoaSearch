@@ -1,5 +1,6 @@
 package com.example.loasearch.login
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -16,6 +17,7 @@ import com.example.loasearch.util.shared.SharedPreference
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding : ActivityLoginBinding
     private var backPressedTime: Long = 0
+    val customProgress: ProgressDialog by lazy { ProgressDialog(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

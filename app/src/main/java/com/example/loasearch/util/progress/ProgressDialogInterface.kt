@@ -1,6 +1,8 @@
 package com.example.loasearch.util.progress
 
+import android.app.ProgressDialog
+
 interface ProgressDialogInterface {
-    fun customProgress_start(customProgress: ProgressDialog)
-    fun customProgress_end(customProgress:ProgressDialog)
+    fun customProgressStart(customProgress: ProgressDialog)
+    fun customProgressEnd(customProgress:ProgressDialog)
 }

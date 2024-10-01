@@ -2,6 +2,7 @@ package com.example.loasearch.main.information
 
 import android.app.Activity
 import android.app.Dialog
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -26,9 +27,12 @@ import com.example.loasearch.main.information.adapter.guardian.GuardianAdapter
 import com.example.loasearch.main.information.adapter.news.NewsAdapter
 import com.example.loasearch.main.information.viewmodel.InformationViewModel
 import com.example.loasearch.util.dialog.custom.CustomDialog
+import com.example.loasearch.util.progress.CustomProgressDialog
 
 
 class InformationFragment : Fragment() {
+
+    private val customProgress: ProgressDialog by lazy { ProgressDialog(context) }
     private lateinit var mContext: Context
     private lateinit var mActivity: Activity
     private lateinit var binding: FragmentInformationBinding
@@ -72,6 +76,7 @@ class InformationFragment : Fragment() {
         }
 
         infoViewModel.challengeGuardianData.observe(viewLifecycleOwner) {
+            CustomProgressDialog(mContext).customProgressEnd(customProgress)
             GlobalVariable.challengeGuardian = it
             guardianSetting()
         }
@@ -180,6 +185,7 @@ class InformationFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        CustomProgressDialog(mContext).customProgressStart(customProgress)
         infoViewModel.getInformationData()
     }
 

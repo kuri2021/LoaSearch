@@ -10,9 +10,6 @@ import com.example.loasearch.api.data.challenge_abyss.GetChallengeAbyssData
 import com.example.loasearch.api.data.challenge_guardian.GetChallengeGuardianData
 import com.example.loasearch.api.data.event.GetEventsData
 import com.example.loasearch.api.data.news.GetNewsData
-import com.example.loasearch.main.MainActivity
-import com.example.loasearch.util.dialog.custom.CustomDialog
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 
@@ -35,6 +32,7 @@ class InformationViewModel : ViewModel() {
 
     fun getInformationData() {
         viewModelScope.launch {
+
             if (GlobalVariable.news == null) {
                 LoaApi().getNews { newsIt,code ->
                     if (newsIt != null) {

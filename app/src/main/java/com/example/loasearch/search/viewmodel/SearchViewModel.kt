@@ -16,7 +16,7 @@ class SearchViewModel: ViewModel() {
 
     fun getSearchCharacter(name:String){
         LoaApi().getCharacterData(name) { data, code ->
-            if (code == "200"){
+            if (code == "200"&&data != null){
                 _characterData.postValue(data)
             }else{
                 _error.postValue(code)

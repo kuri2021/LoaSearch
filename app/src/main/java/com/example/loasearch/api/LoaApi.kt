@@ -24,6 +24,7 @@ class LoaApi : LoaApiInf {
             override fun onResponse(call: Call<GetCharacterData>, response: Response<GetCharacterData>) {
                 val body = response.body()
                 val code = response.code()
+                Log.d("getCharacterData",body.toString())
                 callback(body,code.toString())
             }
 

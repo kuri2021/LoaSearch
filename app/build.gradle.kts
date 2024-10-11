@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -38,6 +39,9 @@ android {
         //noinspection DataBindingWithoutKapt
         dataBinding = true
     }
+//    dependencies{
+//        classpath ('com.google.gms:google-services:4.3.10')
+//    }
 }
 
 dependencies {
@@ -67,5 +71,14 @@ dependencies {
 
     implementation (libs.jetbrains.kotlinx.coroutines.core)
     implementation (libs.kotlinx.coroutines.android)
+    // 카카오 로그인 API 모듈
+    implementation (libs.v2.user)
+
+    implementation(platform(libs.firebase.bom))
+
+    implementation (platform(libs.firebase.bom.v3210))
+    implementation (libs.firebase.auth.ktx)
+    implementation (libs.play.services.auth)
+
 
 }

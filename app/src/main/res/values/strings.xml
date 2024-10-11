@@ -17,6 +17,7 @@
     <string name="auction">경매장</string>
     <string name="market_conditions">시세</string>
     <string name="search_not_find">검색 결과가 없습니다.\n다시 검색을 진행해 주세요</string>
+    <string name="login">로그인</string>
 
     <string name="exit">한 번 더 누르면 종료됩니다.</string>
     

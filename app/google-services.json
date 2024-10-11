@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "756835700024",
+    "project_id": "loasearch-3ad25",
+    "storage_bucket": "loasearch-3ad25.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:756835700024:android:600b3dc3e0a766e08f05cd",
+        "android_client_info": {
+          "package_name": "com.example.loasearch"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAioZHlE5WCPgttvcf3HGbFiy1vnWUzEh4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

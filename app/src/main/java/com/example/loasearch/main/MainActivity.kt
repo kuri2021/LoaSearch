@@ -1,9 +1,14 @@
 package com.example.loasearch.main
 
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.util.Base64
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.loasearch.R
 import com.example.loasearch.databinding.ActivityMainBinding
 import com.example.loasearch.main.event.EventFragment
@@ -11,6 +16,8 @@ import com.example.loasearch.main.information.InformationFragment
 import com.example.loasearch.search.SearchFragment
 import com.example.loasearch.transaction.TransactionActivity
 import com.example.loasearch.util.page.PageMove
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,6 +27,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var bindding : ActivityMainBinding
     private var backPressedTime: Long = 0
+    val TAG = "MainActivity"
 
 
 
@@ -28,6 +36,8 @@ class MainActivity : AppCompatActivity() {
         bindding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(bindding.root)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+
+        Log.d(TAG, "keyhash : ${getKeyHash()}")
 
         bindding.bottomNav.setOnItemSelectedListener {
             when(it.itemId){
@@ -98,5 +108,20 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction().replace(R.id.frg, InformationFragment()).commit()
         }
 
+    }
+
+    private fun getKeyHash() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            val packageInfo = this.packageManager.getPackageInfo(this.packageName, PackageManager.GET_SIGNING_CERTIFICATES)
+            for (signature in packageInfo.signingInfo.apkContentsSigners) {
+                try {
+                    val md = MessageDigest.getInstance("SHA")
+                    md.update(signature.toByteArray())
+                    Log.d("getKeyHash", "key hash: ${Base64.encodeToString(md.digest(), Base64.NO_WRAP)}")
+                } catch (e: NoSuchAlgorithmException) {
+                    Log.w("getKeyHash", "Unable to get MessageDigest. signature=$signature", e)
+                }
+            }
+        }
     }
 }

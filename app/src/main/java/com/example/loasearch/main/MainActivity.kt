@@ -8,7 +8,6 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.loasearch.R
 import com.example.loasearch.databinding.ActivityMainBinding
 import com.example.loasearch.main.event.EventFragment
@@ -27,7 +26,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var bindding : ActivityMainBinding
     private var backPressedTime: Long = 0
-    val TAG = "MainActivity"
 
 
 
@@ -37,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(bindding.root)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
 
-        Log.d(TAG, "keyhash : ${getKeyHash()}")
+        Log.d("MainActivity", "keyhash : ${getKeyHash()}")
 
         bindding.bottomNav.setOnItemSelectedListener {
             when(it.itemId){
@@ -61,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 R.id.nav_transaction ->{
-                    PageMove(this).nextActivateActivity(TransactionActivity())
+                    PageMove(this).nextActivateActivity(TransactionActivity(),null)
                     true
                 }
 

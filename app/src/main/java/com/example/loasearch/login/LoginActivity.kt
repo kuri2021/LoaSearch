@@ -1,18 +1,15 @@
 package com.example.loasearch.login
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import com.example.loasearch.api.LoaApi
 import com.example.loasearch.databinding.ActivityLoginBinding
-import com.example.loasearch.main.MainActivity
-import com.example.loasearch.util.connet.Connect
+import com.example.loasearch.signup.SignUpAcrivity
 import com.example.loasearch.util.page.PageMove
-import com.example.loasearch.util.shared.SharedPreference
+import com.example.loasearch.util.page.PageMoveExtraData
 import com.kakao.sdk.user.UserApiClient
 
 class LoginActivity : AppCompatActivity() {
@@ -20,6 +17,7 @@ class LoginActivity : AppCompatActivity() {
     private var backPressedTime: Long = 0
 
     var TAG = "LoginActivityTAG"
+    var signupKind  = ArrayList<PageMoveExtraData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +26,10 @@ class LoginActivity : AppCompatActivity() {
 
 //        kakaoCheck()
 
+        binding.loginSignupNormalBtn.setOnClickListener {
+            signupKind.add(PageMoveExtraData("kind","normal"))
+            PageMove(this).nextActivateActivity(SignUpAcrivity(),signupKind)
+        }
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         binding.apiBtn.setOnClickListener {
 //            val api = binding.apiEt.text.toString()
@@ -71,6 +73,11 @@ class LoginActivity : AppCompatActivity() {
 //            PageMove(this).nextActivateActivity(MainActivity())
 //            finish()
 //        }
+    }
+
+    fun moveActivity(){
+        val intent = Intent(this,SignUpAcrivity::class.java)
+        startActivity(intent)
     }
 
     private val onBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {

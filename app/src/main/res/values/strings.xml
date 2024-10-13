@@ -20,7 +20,8 @@
     <string name="login">로그인</string>
 
     <string name="exit">한 번 더 누르면 종료됩니다.</string>
-    
+    <string name="signup">회원 가입</string>
+
     <string name="Unauthorized">로그인 인증을 실패했습니다.\n 로그인 화면으로 돌아갑니다.</string>
     <string name="Forbidden">허용되지 않은 텍스트가 포함되어 있습니다.</string>
     <string name="InternalServerError">서버에 문제가 발생하였습니다.</string>

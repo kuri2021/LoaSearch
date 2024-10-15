@@ -1,5 +1,6 @@
 package com.example.loasearch.login
 
+import android.R.id
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -7,10 +8,19 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.example.loasearch.databinding.ActivityLoginBinding
+import com.example.loasearch.main.MainActivity
 import com.example.loasearch.signup.SignUpAcrivity
+import com.example.loasearch.util.connet.Connect
 import com.example.loasearch.util.page.PageMove
 import com.example.loasearch.util.page.PageMoveExtraData
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.getValue
 import com.kakao.sdk.user.UserApiClient
+
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding : ActivityLoginBinding
@@ -18,6 +28,10 @@ class LoginActivity : AppCompatActivity() {
 
     var TAG = "LoginActivityTAG"
     var signupKind  = ArrayList<PageMoveExtraData>()
+    private var fAuth: FirebaseAuth? = null // 파이어베이스 인증
+    private lateinit var database: DatabaseReference
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +39,8 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 //        kakaoCheck()
+
+        database = FirebaseDatabase.getInstance().getReference();
 
         binding.loginSignupNormalBtn.setOnClickListener {
             signupKind.add(PageMoveExtraData("kind","normal"))
@@ -43,6 +59,35 @@ class LoginActivity : AppCompatActivity() {
 //                }else{
 //                    SharedPreference(this).deleteApiKey()
 //                    Toast.makeText(this,"잘못된 api입니다. 다시 입력해주세요.",Toast.LENGTH_SHORT).show()
+//                }
+//            }
+            val id = binding.idEt.text.toString()
+            val pw = binding.pwEt.text.toString()
+            database.child("users").child(id).get().addOnSuccessListener {
+                if (pw == it.child("pw").value){
+//                    Connect.accessToken = it.child("api").value as String
+                    Connect.accessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyIsImtpZCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyJ9.eyJpc3MiOiJodHRwczovL2x1ZHkuZ2FtZS5vbnN0b3ZlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbHVkeS5nYW1lLm9uc3RvdmUuY29tL3Jlc291cmNlcyIsImNsaWVudF9pZCI6IjEwMDAwMDAwMDAwNTExMjYifQ.hPLEYINABECIth-rTjJX_Xq8en-Bsq6aLZtnXbcIJkhE1EAkCsyShB7iRhsgVzgd1FrD6g5ZOnbLShxbmuyRDiyanmM1lzzjvKNn5N7rF_VPNHo3hVl1LG37HORBKmAf3vaX6IHb6JKMRmbhdfb3Jz34zkF6K5K6pizA2SnjYmHycmvqtVHXYwyhsx24nbfWn3J8JFrvKODlN1wcRxNQRsev1XZz_BRXl1x1D6hgbPvO9cCKPU092npfc3lWtR8_r6wFQ-P0A5Pb7ASKSO1cqg1gMeEjocCnhHj2ccxtBuxGGk0JiYrM7C5Jd0xis3aBiQ_BLSYP5foOZKlYQli7kg"
+                    val intent = Intent(this,MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+                Log.d("firebase", "Got value ${it.value}/${it.child("pw").value}/${it.child("api").value as String}")
+            }.addOnFailureListener{
+                Log.d("firebase", "Error getting data", it)
+            }
+//            fAuth!!.signInWithEmailAndPassword(id, pw).addOnCompleteListener(this) { task ->
+//                Log.d("MainActivity", "로그인 시도 완료")
+//                if (task.isSuccessful) {
+//                    Log.d("MainActivity", "로그인 성공")
+//                    val intent: Intent = Intent(this, MainActivity::class.java)
+//                    startActivity(intent)
+//                } else {
+//                    Log.d("MainActivity", "로그인 실패", task.exception)
+//                    Toast.makeText(
+//                        this,
+//                        "로그인 실패: " + task.exception!!.message,
+//                        Toast.LENGTH_SHORT
+//                    ).show()
 //                }
 //            }
         }

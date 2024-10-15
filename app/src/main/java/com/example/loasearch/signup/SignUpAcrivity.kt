@@ -3,6 +3,7 @@ package com.example.loasearch.signup
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
@@ -11,7 +12,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.loasearch.databinding.ActivitySignUpAcrivityBinding
 import com.example.loasearch.signup.viewmodel.SignUpViewmodel
+import com.example.loasearch.util.dialog.custom.CustomDialog
 import com.example.loasearch.util.page.PageMove
+import com.example.loasearch.util.shared.SharedPreference
 import com.google.firebase.Firebase
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -68,7 +71,11 @@ class SignUpAcrivity : AppCompatActivity() {
             userData.id = id
             userData.pw = pw
             userData.api = api
-            database.child("users").child(id).setValue(userData)
+            database.child("users").child(id).setValue(userData).addOnSuccessListener {
+                SharedPreference(this).saveApiKey(api)
+            }.addOnFailureListener{
+                CustomDialog(this).errorDialog("signupFail",this)
+            }
         }
         signUpViewModel.toast.observe(this){
             Toast.makeText(this,it,Toast.LENGTH_SHORT).show()

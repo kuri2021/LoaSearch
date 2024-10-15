@@ -33,6 +33,9 @@ class CustomDialog(var context: Context): AppCompatActivity(), CustomDialogInfor
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         Log.d("code",code)
         when(code){
+            "signupFail"->{
+                dialog.findViewById<TextView>(R.id.error_massage).text = "회원 등록에 실패하였습니다\n다시 시도 해 주세요"
+            }
             "auctions_label"->{
                 dialog.findViewById<TextView>(R.id.error_massage).text = "레벨 범위가 맞지 않습니다."
             }

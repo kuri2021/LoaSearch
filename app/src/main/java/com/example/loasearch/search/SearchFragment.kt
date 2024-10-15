@@ -24,7 +24,6 @@ import com.example.loasearch.search.data.ArmoryData
 import com.example.loasearch.search.viewmodel.SearchViewModel
 import com.example.loasearch.util.page.PageMove
 import com.example.loasearch.util.regex.RegexUtil
-import java.util.regex.Pattern
 
 
 class SearchFragment : Fragment() {

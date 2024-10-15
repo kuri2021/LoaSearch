@@ -33,6 +33,7 @@
                 android:background="@drawable/et_back"
                 android:textColor="@color/textColor"
                 android:gravity="top"
+                android:inputType="text"
                 android:padding="7dp"
                 android:hint="ID"/>
             <EditText
@@ -43,10 +44,11 @@
                 android:textColor="@color/textColor"
                 android:gravity="top"
                 android:hint="PW"
+                android:inputType="textPassword"
                 android:layout_marginTop="7dp"
                 android:padding="7dp"/>
             <Button
-                android:id="@+id/apiBtn"
+                android:id="@+id/login_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/login_btn"

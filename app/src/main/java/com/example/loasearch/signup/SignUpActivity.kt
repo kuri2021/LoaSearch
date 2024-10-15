@@ -3,41 +3,38 @@ package com.example.loasearch.signup
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.example.loasearch.R
 import com.example.loasearch.databinding.ActivitySignUpAcrivityBinding
+import com.example.loasearch.main.MainActivity
 import com.example.loasearch.signup.viewmodel.SignUpViewmodel
 import com.example.loasearch.util.dialog.custom.CustomDialog
 import com.example.loasearch.util.page.PageMove
 import com.example.loasearch.util.shared.SharedPreference
 import com.google.firebase.Firebase
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.database
 
 
-class SignUpAcrivity : AppCompatActivity() {
+class SignUpActivity : AppCompatActivity() {
 
     private lateinit var signUpViewModel : SignUpViewmodel
     private lateinit var binding : ActivitySignUpAcrivityBinding
     private lateinit var database: DatabaseReference
     private var userData = UserData()
 
-    var kind =""
+    private var kind =""
     private lateinit var id:String
     private lateinit var pw:String
     private lateinit var api: String
 
     private val onBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
-            PageMove(this@SignUpAcrivity).getBackActivity()
+            PageMove(this@SignUpActivity).getBackActivity()
         }
     }
 
@@ -72,7 +69,11 @@ class SignUpAcrivity : AppCompatActivity() {
             userData.pw = pw
             userData.api = api
             database.child("users").child(id).setValue(userData).addOnSuccessListener {
-                SharedPreference(this).saveApiKey(api)
+                SharedPreference(this).saveIdPw(id,pw)
+                CustomDialog(this).defaultSetting(R.layout.signup_success_dialog){
+                    val intent = Intent(this,MainActivity::class.java)
+                    startActivity(intent)
+                }
             }.addOnFailureListener{
                 CustomDialog(this).errorDialog("signupFail",this)
             }

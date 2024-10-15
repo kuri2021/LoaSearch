@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:orientation="vertical"
-    tools:context=".signup.SignUpAcrivity">
+    tools:context=".signup.SignUpActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/signup_toolbar"
@@ -124,7 +124,7 @@
                         android:layout_height="0dp"
                         android:layout_weight="8"
                         android:background="@drawable/et_back"
-                        android:inputType="text"
+                        android:inputType="textPassword"
                         android:padding="4dp"
                         android:textColor="@color/black"
                         android:textSize="21sp" />

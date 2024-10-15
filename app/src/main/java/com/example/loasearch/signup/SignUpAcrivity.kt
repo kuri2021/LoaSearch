@@ -1,5 +1,7 @@
 package com.example.loasearch.signup
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
@@ -23,11 +25,12 @@ class SignUpAcrivity : AppCompatActivity() {
     private lateinit var signUpViewModel : SignUpViewmodel
     private lateinit var binding : ActivitySignUpAcrivityBinding
     private lateinit var database: DatabaseReference
+    private var userData = UserData()
 
     var kind =""
-    lateinit var id:String
+    private lateinit var id:String
     private lateinit var pw:String
-    var api: String? = null
+    private lateinit var api: String
 
     private val onBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
@@ -47,28 +50,29 @@ class SignUpAcrivity : AppCompatActivity() {
         database = Firebase.database.reference
 
 
-        binding.signupIdPwDoneBtn.setOnClickListener {
+        binding.signupDoneBtn.setOnClickListener {
             id = binding.signupIdEt.text.toString()
             pw = binding.signupPwEt.text.toString()
-            signUpViewModel.idPwCheck(id,pw)
-        }
-
-        binding.signupApiDoneBtn.setOnClickListener {
-            api = "1234567890"
-            database.child("users").child(id).child("api").setValue(api)
+            api = binding.signupApiEt.text.toString()
+            signUpViewModel.inputCheck(id,pw,api)
         }
         binding.signupBack.setOnClickListener{
             PageMove(this).getBackActivity()
         }
         binding.signupGetApi.setOnClickListener {
-
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://developer-lostark.game.onstove.com/"))
+            startActivity(intent)
         }
 
-        signUpViewModel.idCheck.observe(this){
-            binding.signupNormal.visibility = View.GONE
-            binding.signupApi.visibility = View.VISIBLE
+        signUpViewModel.inputCheck.observe(this){
+            userData.id = id
+            userData.pw = pw
+            userData.api = api
+            database.child("users").child(id).setValue(userData)
         }
-
+        signUpViewModel.toast.observe(this){
+            Toast.makeText(this,it,Toast.LENGTH_SHORT).show()
+        }
     }
 
 
@@ -76,12 +80,12 @@ class SignUpAcrivity : AppCompatActivity() {
         kind = intent.getStringExtra("kind").toString()
         when(kind){
             "normal"->{
-                binding.signupNormal.visibility = View.VISIBLE
-                binding.signupApi.visibility = View.GONE
+                binding.signupIdInput.visibility = View.VISIBLE
+                binding.signupPwInput.visibility = View.VISIBLE
             }
             "kakao","google"->{
-                binding.signupApi.visibility = View.VISIBLE
-                binding.signupNormal.visibility = View.GONE
+                binding.signupIdInput.visibility = View.INVISIBLE
+                binding.signupPwInput.visibility = View.INVISIBLE
             }
         }
     }

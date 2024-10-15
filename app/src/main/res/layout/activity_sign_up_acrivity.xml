@@ -35,174 +35,181 @@
             android:textStyle="bold"/>
     </androidx.appcompat.widget.Toolbar>
 
-    <LinearLayout
-        android:id="@+id/signup_normal"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:padding="7dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="아이디/비밀번호 입력"
-            android:textSize="30sp"
-            android:layout_gravity="center"
-            android:layout_marginTop="40dp"
-            android:textStyle="bold"/>
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
+        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textSize="21sp"
-                android:layout_weight="3"
-                android:text="아이디"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="8"
-                android:orientation="vertical">
-                <EditText
-                    android:id="@+id/signup_id_et"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="8"
-                    android:background="@drawable/et_back"
-                    android:padding="4dp"
-                    android:textColor="@color/black"
-                    android:textSize="21sp" />
+                android:id="@+id/signup_normal"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="7dp">
                 <TextView
-                    android:id="@+id/signup_id_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="아이디는 최소 7자에서 15자 사이로 가능합니다."
-                    android:textSize="10sp"
-                    android:visibility="invisible"/>
-            </LinearLayout>
-            </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="7dp">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:textSize="21sp"
-                android:text="비밀번호"/>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="8"
-                android:orientation="vertical">
-                <EditText
-                    android:id="@+id/signup_pw_et"
+                    android:text="아이디/비밀번호 입력"
+                    android:textSize="30sp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="80dp"
+                    android:textStyle="bold"/>
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="8"
-                    android:background="@drawable/et_back"
-                    android:padding="4dp"
-                    android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:orientation="horizontal"
+                    android:layout_marginTop="80dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="21sp"
+                        android:layout_weight="3"
+                        android:text="아이디"/>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="8"
+                        android:orientation="vertical">
+                        <EditText
+                            android:id="@+id/signup_id_et"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="8"
+                            android:background="@drawable/et_back"
+                            android:padding="4dp"
+                            android:textColor="@color/black"
+                            android:textSize="21sp"
+                            android:inputType="text"/>
+                        <TextView
+                            android:id="@+id/signup_id_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="아이디는 최소 7자에서 15자 사이로 가능합니다."
+                            android:textSize="10sp"
+                            android:visibility="invisible"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="7dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:textSize="21sp"
+                        android:text="비밀번호"/>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="8"
+                        android:orientation="vertical">
+                        <EditText
+                            android:id="@+id/signup_pw_et"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="8"
+                            android:background="@drawable/et_back"
+                            android:padding="4dp"
+                            android:textColor="@color/black"
+                            android:textSize="21sp"
+                            android:inputType="text"/>
+                        <TextView
+                            android:id="@+id/signup_pw_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="비밀번호는 최소 7자에서 15자 사이로 가능합니다."
+                            android:textSize="10sp"
+                            android:visibility="invisible"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/signup_id_pw_done_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/login_btn"
+                    android:layout_marginTop="14dp"
+                    android:text="아이디 및 비밀번호 입력"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/signup_api"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="7dp">
                 <TextView
-                    android:id="@+id/signup_pw_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="비밀번호는 최소 7자에서 15자 사이로 가능합니다."
-                    android:textSize="10sp"
-                    android:visibility="invisible"/>
+                    android:text="API 입력"
+                    android:textSize="30sp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="40dp"
+                    android:textStyle="bold"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="7dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:textSize="21sp"
+                        android:text="Api 키"/>
+                    <EditText
+                        android:id="@+id/signup_api_et"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="8"
+                        android:padding="4dp"
+                        android:textColor="@color/black"
+                        android:background="@drawable/et_back"/>
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/signup_get_api"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="21sp"
+                    android:text="@string/apiHyperlink"
+                    android:layout_marginTop="14dp"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <Button
+                    android:id="@+id/signup_api_done_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/login_btn"
+                    android:layout_marginTop="14dp"
+                    android:text="가입"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
             </LinearLayout>
         </LinearLayout>
-
-        <Button
-            android:id="@+id/signup_id_pw_done_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/login_btn"
-            android:layout_marginTop="14dp"
-            android:text="아이디 및 비밀번호 입력"/>
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/signup_api"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:padding="7dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="API 입력"
-            android:textSize="30sp"
-            android:layout_gravity="center"
-            android:layout_marginTop="40dp"
-            android:textStyle="bold"/>
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="7dp">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:textSize="21sp"
-                android:text="Api 키"/>
-            <EditText
-                android:id="@+id/signup_api_et"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="8"
-                android:padding="4dp"
-                android:textColor="@color/black"
-                android:background="@drawable/et_back"/>
-        </LinearLayout>
-        <TextView
-            android:id="@+id/signup_get_api"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="21sp"
-            android:text="@string/apiHyperlink"
-            android:layout_marginTop="14dp"/>
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-
-        <Button
-            android:id="@+id/signup_api_done_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/login_btn"
-            android:layout_marginTop="14dp"
-            android:text="가입"/>
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-    </LinearLayout>
+    </ScrollView>
 
 
 

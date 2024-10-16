@@ -62,8 +62,8 @@ class MarketFragment:Fragment() {
         if (GlobalVariable.marketOption==null){
             LoaApi().getMarketOptions { data,code->
                 if (code != "200"){
-                    CustomDialog(mContext).defaultSetting(R.layout.error_dialog){
-                        PageMove(mActivity).getBackActivity()
+                    CustomDialog(mContext).errorDialog("",requireActivity()){
+                        PageMove(requireActivity()).getBackActivity()
                     }
                 }else{
                     GlobalVariable.marketOption = data
@@ -148,7 +148,8 @@ class MarketFragment:Fragment() {
                 listItem.clear()
                 itemSearch()
             }else{
-                CustomDialog(mContext).errorDialog("itemName",mActivity)
+                CustomDialog(mContext).errorDialog("itemName",mActivity){
+                }
             }
         }
         bottomSheetDialog.setContentView(view)

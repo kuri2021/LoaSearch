@@ -27,7 +27,7 @@ class CustomDialog(var context: Context): AppCompatActivity(), CustomDialogInfor
         dialog.show()
     }
 
-    override fun errorDialog(code:String, activity:Activity){
+    override fun errorDialog(code:String, activity:Activity,callback:(Boolean)->Unit){
         dialog.setCancelable(false)
         dialog.setContentView(R.layout.error_dialog)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -69,6 +69,7 @@ class CustomDialog(var context: Context): AppCompatActivity(), CustomDialogInfor
                     dialog.dismiss()
                 }
                 else->{
+                    callback(true)
                     dialog.dismiss()
                 }
             }

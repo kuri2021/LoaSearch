@@ -41,5 +41,6 @@ class SharedPreference(var context: Context):SharedPreferenceInterface {
         val sharedPreference = context.getSharedPreferences("users", AppCompatActivity.MODE_PRIVATE)
         val editor = sharedPreference.edit()
         editor.clear()
+        editor.apply()
     }
 }

@@ -140,7 +140,13 @@
                 android:layout_marginTop="7dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-
+            <TextView
+                android:id="@+id/logout_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="로그아웃"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"/>
         </LinearLayout>
 
     </ScrollView>

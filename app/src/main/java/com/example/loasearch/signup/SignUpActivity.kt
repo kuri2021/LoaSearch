@@ -71,11 +71,10 @@ class SignUpActivity : AppCompatActivity() {
             database.child("users").child(id).setValue(userData).addOnSuccessListener {
                 SharedPreference(this).saveIdPw(id,pw)
                 CustomDialog(this).defaultSetting(R.layout.signup_success_dialog){
-                    val intent = Intent(this,MainActivity::class.java)
-                    startActivity(intent)
+                    PageMove(this).nextActivateActivity(MainActivity(),null)
                 }
             }.addOnFailureListener{
-                CustomDialog(this).errorDialog("signupFail",this)
+                CustomDialog(this).errorDialog("signupFail",this){}
             }
         }
         signUpViewModel.toast.observe(this){

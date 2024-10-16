@@ -58,8 +58,8 @@ class AuctionsFragment:Fragment() {
         if (GlobalVariable.auctionOption==null){
             LoaApi().getAuctionsOptions{ data,code->
                 if (code != "200"){
-                    CustomDialog(mContext).defaultSetting(R.layout.error_dialog){
-                        PageMove(mActivity).getBackActivity()
+                    CustomDialog(mContext).errorDialog("",requireActivity()){
+                        PageMove(requireActivity()).getBackActivity()
                     }
                 }else{
                     GlobalVariable.auctionOption = data
@@ -103,7 +103,6 @@ class AuctionsFragment:Fragment() {
         spinnerSetting(aCategory1Sp,getAuctionHighCategory())
         aCategory1Sp.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                Log.d("auctions",parent.getItemAtPosition(position).toString())
                 val categoryName = parent.getItemAtPosition(position).toString()
                 val index = GlobalVariable.auctionOption!!.Categories.indexOfFirst { it.CodeName == categoryName }
                 if (GlobalVariable.auctionOption!!.Categories[index].Subs.isNotEmpty()){
@@ -175,7 +174,9 @@ class AuctionsFragment:Fragment() {
                     }
                 }
             }else{
-                CustomDialog(mContext).errorDialog("itemName",mActivity)
+                CustomDialog(mContext).errorDialog("itemName",mActivity){
+
+                }
             }
 
         }
@@ -237,7 +238,7 @@ class AuctionsFragment:Fragment() {
             highLevel = high
             return true
         }else{
-            CustomDialog(mContext).errorDialog("auctions_label",mActivity)
+            CustomDialog(mContext).errorDialog("auctions_label",mActivity){}
             return false
         }
     }

@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide
 import com.example.loasearch.R
 import com.example.loasearch.api.data.GlobalVariable
 import com.example.loasearch.databinding.FragmentInformationBinding
+import com.example.loasearch.login.LoginActivity
 import com.example.loasearch.main.MainActivity
 import com.example.loasearch.main.event.EventFragment
 import com.example.loasearch.main.information.adapter.abyss.AbyssAdapter
@@ -26,6 +27,8 @@ import com.example.loasearch.main.information.adapter.guardian.GuardianAdapter
 import com.example.loasearch.main.information.adapter.news.NewsAdapter
 import com.example.loasearch.main.information.viewmodel.InformationViewModel
 import com.example.loasearch.util.dialog.custom.CustomDialog
+import com.example.loasearch.util.page.PageMove
+import com.example.loasearch.util.shared.SharedPreference
 
 
 class InformationFragment : Fragment() {
@@ -77,7 +80,7 @@ class InformationFragment : Fragment() {
         }
 
         infoViewModel.error.observe(viewLifecycleOwner){
-            CustomDialog(mContext).errorDialog(it,mActivity)
+            CustomDialog(mContext).errorDialog(it,mActivity){}
         }
 
         binding.eventAll.setOnClickListener {
@@ -112,6 +115,10 @@ class InformationFragment : Fragment() {
                 binding.weeklyAbyssList.visibility = View.GONE
                 abyssFlag = 0
             }
+        }
+
+        binding.logoutTv.setOnClickListener {
+            loginMove()
         }
 
 
@@ -194,6 +201,12 @@ class InformationFragment : Fragment() {
             handler.postDelayed(updatePage, time)
             scrollFlag = true
         }
+    }
+
+    private fun loginMove(){
+        SharedPreference(mContext).deleteData()
+        PageMove(requireActivity()).nextActivateActivity(LoginActivity(),null)
+        requireActivity().finish()
     }
 
     private fun eventSlideStop() {

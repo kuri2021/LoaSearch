@@ -36,6 +36,7 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var pw:String
     private lateinit var api: String
 
+
     private val onBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
             PageMove(this@SignUpActivity).getBackActivity()
@@ -84,6 +85,7 @@ class SignUpActivity : AppCompatActivity() {
                 SharedPreference(this).saveType("normal")
                 SharedPreference(this).saveIdPw(id,pw)
                 Connect.accessToken = api
+
                 CustomDialog(this).defaultSetting(R.layout.signup_success_dialog){
                     PageMove(this).nextActivateActivity(MainActivity(),true,null)
                 }

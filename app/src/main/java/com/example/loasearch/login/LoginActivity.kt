@@ -59,13 +59,12 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel.login.observe(this){
             SharedPreference(this).saveIdPw(id,pw)
             SharedPreference(this).saveType("normal")
-            Toast.makeText(this,"로그인 성공",Toast.LENGTH_SHORT).show()
             PageMove(this).nextActivateActivity(MainActivity(),true,null)
         }
 
 //        카카오 로그인
         binding.loginKakao.setOnClickListener {
-            KakaoUtil(this).kakaoGetToken() { status, token ->
+            KakaoUtil(this).kakaoGetToken { status, token ->
                 if (status == "success"&&token!=null){
                     KakaoUtil(this).kakaoGetData{status2, kakaoId->
                         if (status2 == "success"&&kakaoId!=null){
@@ -84,7 +83,6 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel.kakaoLogin.observe(this){
             SharedPreference(this).saveKey(key)
             SharedPreference(this).saveType("kakao")
-            Toast.makeText(this,"로그인 성공",Toast.LENGTH_SHORT).show()
             PageMove(this).nextActivateActivity(MainActivity(),true,null)
         }
 

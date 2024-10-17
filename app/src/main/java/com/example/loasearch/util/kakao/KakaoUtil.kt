@@ -43,25 +43,21 @@ class KakaoUtil(val context:Context):KakaoUtilInterface {
     fun kakaoGetData(callback: (String, String?) -> Unit){
         UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
             if (error != null) {
-                Log.e("kakaoGetData", "토큰 정보 보기 실패", error)
                 callback("fail", error.toString())
             }
             else if (tokenInfo != null) {
                 callback("success", tokenInfo.id.toString())
-                Log.i("kakaoGetData", "토큰 정보 보기 성공" +
-                        "\n회원번호: ${tokenInfo.id}" +
-                        "\n만료시간: ${tokenInfo.expiresIn} 초")
             }
         }
     }
 
-    fun kakaoLogout(){
+    fun kakaoLogout(callback: (String) -> Unit){
         UserApiClient.instance.logout { error ->
             if (error != null) {
-                Log.e("KakaoUtil", "로그아웃 실패. SDK에서 토큰 삭제됨", error)
+                callback(error.toString())
             }
             else {
-                Log.i("KakaoUtil", "로그아웃 성공. SDK에서 토큰 삭제됨")
+                callback("success")
             }
         }
     }

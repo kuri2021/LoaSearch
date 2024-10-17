@@ -29,6 +29,7 @@ import com.example.loasearch.main.information.adapter.news.NewsAdapter
 import com.example.loasearch.main.information.viewmodel.InformationViewModel
 import com.example.loasearch.secession.SecessionActivity
 import com.example.loasearch.util.dialog.custom.CustomDialog
+import com.example.loasearch.util.kakao.KakaoUtil
 import com.example.loasearch.util.page.PageMove
 import com.example.loasearch.util.shared.SharedPreference
 
@@ -120,7 +121,7 @@ class InformationFragment : Fragment() {
         }
 
         binding.logoutTv.setOnClickListener {
-            loginMove()
+            logout()
         }
         binding.secessionTv.setOnClickListener {
             PageMove(mActivity).nextActivateActivity(SecessionActivity(),false,null)
@@ -208,10 +209,27 @@ class InformationFragment : Fragment() {
         }
     }
 
-    private fun loginMove(){
-        SharedPreference(mContext).deleteData()
-        Toast.makeText(mContext,"로그아웃 되었습니다", Toast.LENGTH_SHORT).show()
-        PageMove(requireActivity()).nextActivateActivity(LoginActivity(),true,null)
+    private fun logout(){
+        val type = SharedPreference(mContext).getType()
+        when(type){
+            "normal"->{
+                SharedPreference(mContext).deleteData()
+                Toast.makeText(mContext,"로그아웃 되었습니다", Toast.LENGTH_SHORT).show()
+                PageMove(requireActivity()).nextActivateActivity(LoginActivity(),true,null)
+            }
+            "kakao"->{
+                KakaoUtil(mContext).kakaoLogout {
+                    if (it=="success"){
+                        SharedPreference(mContext).deleteData()
+                        Toast.makeText(mContext,"로그아웃 되었습니다", Toast.LENGTH_SHORT).show()
+                        PageMove(requireActivity()).nextActivateActivity(LoginActivity(),true,null)
+                    }else{
+                        Toast.makeText(mContext,"로그아웃에 실패하였습니다\n다시 시도해 주세요", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+
     }
 
     private fun eventSlideStop() {

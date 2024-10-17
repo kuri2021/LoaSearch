@@ -49,7 +49,7 @@ class SignUpViewmodel: ViewModel() {
                                 }
                             })
                         }else{
-                            _toast.postValue("API가 맞지 않습니다. 다시 확인 후 시도해주세요")
+                            _toast.postValue("API가 맞지 않습니다\n다시 확인 후 시도해주세요")
                         }
                     }
 
@@ -85,7 +85,7 @@ class SignUpViewmodel: ViewModel() {
                         }
                     })
                 }else{
-                    _toast.postValue("API가 맞지 않습니다. 다시 확인 후 시도해주세요")
+                    _toast.postValue("API가 맞지 않습니다\n다시 확인 후 시도해주세요")
                 }
             }
         }else{

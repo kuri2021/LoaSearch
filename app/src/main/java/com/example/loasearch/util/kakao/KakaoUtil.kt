@@ -10,7 +10,7 @@ import com.kakao.sdk.user.UserApiClient
 
 class KakaoUtil(val context:Context):KakaoUtilInterface {
 
-    fun kakaoLogin(callback: (String, String?) -> Unit){
+    fun kakaoGetToken(callback: (String, String?) -> Unit){
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
             if (error != null) {
                 callback("fail", error.toString())
@@ -37,6 +37,21 @@ class KakaoUtil(val context:Context):KakaoUtilInterface {
             }
         } else {
             UserApiClient.instance.loginWithKakaoAccount(context, callback = callback)
+        }
+    }
+
+    fun kakaoGetData(callback: (String, String?) -> Unit){
+        UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
+            if (error != null) {
+                Log.e("kakaoGetData", "토큰 정보 보기 실패", error)
+                callback("fail", error.toString())
+            }
+            else if (tokenInfo != null) {
+                callback("success", tokenInfo.id.toString())
+                Log.i("kakaoGetData", "토큰 정보 보기 성공" +
+                        "\n회원번호: ${tokenInfo.id}" +
+                        "\n만료시간: ${tokenInfo.expiresIn} 초")
+            }
         }
     }
 

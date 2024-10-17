@@ -2,6 +2,7 @@ package com.example.loasearch.login
 
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,7 @@ import com.example.loasearch.util.page.PageMoveExtraData
 import com.example.loasearch.util.shared.SharedPreference
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.kakao.sdk.user.UserApiClient
 
 
 class LoginActivity : AppCompatActivity() {
@@ -63,10 +65,16 @@ class LoginActivity : AppCompatActivity() {
 
 //        카카오 로그인
         binding.loginKakao.setOnClickListener {
-            KakaoUtil(this).kakaoLogin { status, kakaKey ->
-                if (status == "success"&&kakaKey!=null){
-                    key = kakaKey
-                    loginViewModel.kakaoLogin(kakaKey)
+            KakaoUtil(this).kakaoGetToken() { status, token ->
+                if (status == "success"&&token!=null){
+                    KakaoUtil(this).kakaoGetData{status2, kakaoId->
+                        if (status2 == "success"&&kakaoId!=null){
+                            key = kakaoId
+                            loginViewModel.kakaoLogin(kakaoId)
+                        }else{
+                            Toast.makeText(this,"로그인 실패",Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 }else{
                     Toast.makeText(this,"로그인 실패",Toast.LENGTH_SHORT).show()
                 }
@@ -91,9 +99,9 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(this,it,Toast.LENGTH_SHORT).show()
         }
 
-//        binding.testbtn.setOnClickListener {
-//            KakaoUtil(this).kakaoLogout()
-//        }
+        binding.testbtn.setOnClickListener {
+            KakaoUtil(this).kakaoNotConnect()
+        }
     }
 
     private val onBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {

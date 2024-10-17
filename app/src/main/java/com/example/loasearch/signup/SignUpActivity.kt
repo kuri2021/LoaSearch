@@ -95,8 +95,8 @@ class SignUpActivity : AppCompatActivity() {
         signUpViewModel.kakaoCheck.observe(this){
             kakaoUserData.key = key
             kakaoUserData.api = api
-            database.child("users").child("kakao").child(key).setValue(userData).addOnSuccessListener {
-                SharedPreference(this).saveType("key")
+            database.child("users").child("kakao").child(key).setValue(kakaoUserData).addOnSuccessListener {
+                SharedPreference(this).saveType("kakao")
                 SharedPreference(this).saveKey(key)
                 Connect.accessToken = api
                 CustomDialog(this).defaultSetting(R.layout.signup_success_dialog){

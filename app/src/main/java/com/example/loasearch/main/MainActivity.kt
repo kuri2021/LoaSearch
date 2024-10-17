@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 R.id.nav_transaction ->{
-                    PageMove(this).nextActivateActivity(TransactionActivity(),null)
+                    PageMove(this).nextActivateActivity(TransactionActivity(),false,null)
                     true
                 }
 

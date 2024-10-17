@@ -14,6 +14,7 @@ import com.example.loasearch.api.data.post_auctions.skill_options.SkillOptions
 
 interface LoaApiInf {
     fun getCharacterData(name: String, callback: (GetCharacterData?, String) -> Unit)
+    fun checkApi(api:String,callback: (String) -> Unit)
     fun getNews(callback: (GetNewsData?,String) -> Unit)
     fun getEvents(callback: (GetEventsData?, String) -> Unit)
     fun getChallengeGuardian(callback: (GetChallengeGuardianData?, String) -> Unit)

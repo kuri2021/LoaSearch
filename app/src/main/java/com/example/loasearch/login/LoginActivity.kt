@@ -2,7 +2,6 @@ package com.example.loasearch.login
 
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
@@ -11,12 +10,12 @@ import com.example.loasearch.databinding.ActivityLoginBinding
 import com.example.loasearch.login.viewmodel.LoginViewModel
 import com.example.loasearch.main.MainActivity
 import com.example.loasearch.signup.SignUpActivity
+import com.example.loasearch.util.kakao.KakaoUtil
 import com.example.loasearch.util.page.PageMove
 import com.example.loasearch.util.page.PageMoveExtraData
 import com.example.loasearch.util.shared.SharedPreference
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.kakao.sdk.user.UserApiClient
 
 
 class LoginActivity : AppCompatActivity() {
@@ -25,10 +24,12 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding : ActivityLoginBinding
     private var backPressedTime: Long = 0
 
-    private var TAG = "LoginActivityTAG"
     private var signupKind  = ArrayList<PageMoveExtraData>()
     private lateinit var database: DatabaseReference
 
+    lateinit var id :String
+    lateinit var pw : String
+    lateinit var key : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,52 +37,65 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
-//        kakaoCheck()
 
         database = FirebaseDatabase.getInstance().getReference()
 
         binding.loginSignupNormalBtn.setOnClickListener {
             signupKind.add(PageMoveExtraData("kind","normal"))
-            PageMove(this).nextActivateActivity(SignUpActivity(),signupKind)
+            PageMove(this).nextActivateActivity(SignUpActivity(),false,signupKind)
         }
+
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+
+//        일반 로그인
         binding.loginBtn.setOnClickListener {
-            val id = binding.idEt.text.toString()
-            val pw = binding.pwEt.text.toString()
-            loginViewModel.login(id,pw)
+            id = binding.idEt.text.toString()
+            pw = binding.pwEt.text.toString()
+            loginViewModel.normalLogin(id,pw)
         }
+
         loginViewModel.login.observe(this){
-            PageMove(this).nextActivateActivity(MainActivity(),null)
-            finish()
+            SharedPreference(this).saveIdPw(id,pw)
+            SharedPreference(this).saveType("normal")
+            Toast.makeText(this,"로그인 성공",Toast.LENGTH_SHORT).show()
+            PageMove(this).nextActivateActivity(MainActivity(),true,null)
         }
+
+//        카카오 로그인
+        binding.loginKakao.setOnClickListener {
+            KakaoUtil(this).kakaoLogin { status, kakaKey ->
+                if (status == "success"&&kakaKey!=null){
+                    key = kakaKey
+                    loginViewModel.kakaoLogin(kakaKey)
+                }else{
+                    Toast.makeText(this,"로그인 실패",Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        loginViewModel.kakaoLogin.observe(this){
+            SharedPreference(this).saveKey(key)
+            SharedPreference(this).saveType("kakao")
+            Toast.makeText(this,"로그인 성공",Toast.LENGTH_SHORT).show()
+            PageMove(this).nextActivateActivity(MainActivity(),true,null)
+        }
+
+        loginViewModel.kakaoSignUp.observe(this){
+            signupKind.add(PageMoveExtraData("kind","kakao"))
+            signupKind.add(PageMoveExtraData("key",key))
+            PageMove(this).nextActivateActivity(SignUpActivity(),true,signupKind)
+        }
+
+//        알림 토스트
         loginViewModel.toast.observe(this){
             Toast.makeText(this,it,Toast.LENGTH_SHORT).show()
         }
+
+//        binding.testbtn.setOnClickListener {
+//            KakaoUtil(this).kakaoLogout()
+//        }
     }
 
-    private fun kakaoCheck(){
-        UserApiClient.instance.loginWithKakaoTalk(this) { token, error ->
-            if (error != null) {
-                Log.e(TAG, "로그인 실패", error)
-            }
-            else if (token != null) {
-                Log.i(TAG, "로그인 성공 ${token.accessToken}")
-            }
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        autoLogin()
-    }
-
-    private fun autoLogin(){
-        val id = SharedPreference(this).getId()
-        val pw = SharedPreference(this).getPw()
-        if (id!=""&&pw!=""){
-            loginViewModel.login(id,pw)
-        }
-    }
     private val onBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
             if (backPressedTime + 2000 > System.currentTimeMillis()) {
@@ -91,6 +105,11 @@ class LoginActivity : AppCompatActivity() {
                 backPressedTime = System.currentTimeMillis()
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        signupKind.clear()
     }
 
 }

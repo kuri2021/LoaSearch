@@ -11,6 +11,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
@@ -205,8 +206,8 @@ class InformationFragment : Fragment() {
 
     private fun loginMove(){
         SharedPreference(mContext).deleteData()
-        PageMove(requireActivity()).nextActivateActivity(LoginActivity(),null)
-        requireActivity().finish()
+        Toast.makeText(mContext,"로그아웃 되었습니다", Toast.LENGTH_SHORT).show()
+        PageMove(requireActivity()).nextActivateActivity(LoginActivity(),true,null)
     }
 
     private fun eventSlideStop() {

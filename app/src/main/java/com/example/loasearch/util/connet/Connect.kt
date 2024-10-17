@@ -34,6 +34,21 @@ class Connect : ConnectInf {
         return retrofit
     }
 
+    override fun signUpConnect(api:String): Retrofit {
+        val httpClient = OkHttpClient.Builder()
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
+        httpClient.addInterceptor {
+            val request: Request = it.request().newBuilder().addHeader("authorization", "Bearer $api").build()
+            it.proceed(request)
+        }
+
+        val gson: Gson = GsonBuilder().setLenient().create()
+        retrofit = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(gson)).baseUrl("https://developer-lostark.game.onstove.com").client(httpClient.build()).build()
+        return retrofit
+    }
+
     override fun connectStart(activity:Activity){
         activity.window?.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
     }

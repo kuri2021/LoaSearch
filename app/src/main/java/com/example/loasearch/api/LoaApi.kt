@@ -19,6 +19,7 @@ import retrofit2.Response
 class LoaApi : LoaApiInf {
     val api: LoaApiInterface = Connect().connect().create(LoaApiInterface::class.java)
 
+
     override fun getCharacterData(name: String, callback: (GetCharacterData?,String) -> Unit) {
         api.getCharacter(name).enqueue(object : Callback<GetCharacterData> {
             override fun onResponse(call: Call<GetCharacterData>, response: Response<GetCharacterData>) {
@@ -33,6 +34,21 @@ class LoaApi : LoaApiInf {
                 callback(null,t.toString())
             }
 
+        })
+    }
+
+    override fun checkApi(api:String,callback: (String) -> Unit) {
+        val signUpApi : LoaApiInterface = Connect().signUpConnect(api).create(LoaApiInterface::class.java)
+        signUpApi.getNews().enqueue(object : Callback<GetNewsData> {
+            override fun onResponse(call: Call<GetNewsData>, response: Response<GetNewsData>) {
+                val code = response.code()
+                callback(code.toString())
+            }
+
+            override fun onFailure(call: Call<GetNewsData>, t: Throwable) {
+                Log.d("getNews", "${call}/${t}")
+                callback(t.toString())
+            }
         })
     }
 

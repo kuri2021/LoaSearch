@@ -3,9 +3,11 @@ package com.example.loasearch.util.dialog.custom
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.util.Log
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +22,10 @@ class CustomDialog(var context: Context): AppCompatActivity(), CustomDialogInfor
         dialog.setCancelable(false)
         dialog.setContentView(layout)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.setLayout(
+            (Resources.getSystem().displayMetrics.widthPixels * 0.85).toInt(),  // 화면의 85% 너비로 설정
+            WindowManager.LayoutParams.WRAP_CONTENT  // 높이는 콘텐츠에 맞게 설정
+        )
         dialog.findViewById<Button>(R.id.result).setOnClickListener {
             callback("enter")
             dialog.dismiss()

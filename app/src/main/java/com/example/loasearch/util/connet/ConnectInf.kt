@@ -5,6 +5,7 @@ import retrofit2.Retrofit
 
 interface ConnectInf {
     fun connect(): Retrofit
+    fun signUpConnect(api:String): Retrofit
     fun connectStart(activity: Activity)
     fun connectEnd(activity: Activity)
 }

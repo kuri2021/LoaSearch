@@ -2,9 +2,15 @@ package com.example.loasearch.util.shared
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
-import com.example.loasearch.util.connet.Connect
 
 class SharedPreference(var context: Context):SharedPreferenceInterface {
+
+    override fun saveType(type:String){
+        val sharedPreference = context.getSharedPreferences("users", AppCompatActivity.MODE_PRIVATE)
+        val editor = sharedPreference.edit()
+        editor.putString("type", type)
+        editor.apply()
+    }
 
     override fun saveIdPw(id:String,pw:String){
         val sharedPreference = context.getSharedPreferences("users", AppCompatActivity.MODE_PRIVATE)
@@ -14,12 +20,11 @@ class SharedPreference(var context: Context):SharedPreferenceInterface {
         editor.apply()
     }
 
-    override fun saveApiKey(api:String){
+    override fun saveKey(key:String){
         val sharedPreference = context.getSharedPreferences("users", AppCompatActivity.MODE_PRIVATE)
         val editor = sharedPreference.edit()
-        editor.putString("api", api)
+        editor.putString("key", key)
         editor.apply()
-        Connect.accessToken = api
     }
 
     override fun getId():String{
@@ -32,9 +37,14 @@ class SharedPreference(var context: Context):SharedPreferenceInterface {
         return sharedPreference.getString("pw", "").toString()
     }
 
-    override fun getApiKey():String{
+    override fun getType():String{
         val sharedPreference = context.getSharedPreferences("users", AppCompatActivity.MODE_PRIVATE)
-        return sharedPreference.getString("api", "").toString()
+        return sharedPreference.getString("type", "").toString()
+    }
+
+    override fun getKey():String{
+        val sharedPreference = context.getSharedPreferences("users", AppCompatActivity.MODE_PRIVATE)
+        return sharedPreference.getString("key", "").toString()
     }
 
     override fun deleteData(){

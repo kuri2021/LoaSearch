@@ -31,5 +31,7 @@
     <string name="BadGateway">서버를 불러올수 없습니다.</string>
     <string name="ServiceUnavailable">현재 서버가 임시 점검중 입니다.</string>
     <string name="Unknown">알수 없는 문제가 발생하였습니다.</string>
+    
+    <string name="secession">탈퇴 하기</string>
 
 </resources>

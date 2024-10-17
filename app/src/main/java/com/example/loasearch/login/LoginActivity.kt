@@ -99,9 +99,6 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(this,it,Toast.LENGTH_SHORT).show()
         }
 
-        binding.testbtn.setOnClickListener {
-            KakaoUtil(this).kakaoNotConnect()
-        }
     }
 
     private val onBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {

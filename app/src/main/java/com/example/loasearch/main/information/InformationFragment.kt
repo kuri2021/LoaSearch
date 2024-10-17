@@ -27,6 +27,7 @@ import com.example.loasearch.main.information.adapter.event.EventAdapter
 import com.example.loasearch.main.information.adapter.guardian.GuardianAdapter
 import com.example.loasearch.main.information.adapter.news.NewsAdapter
 import com.example.loasearch.main.information.viewmodel.InformationViewModel
+import com.example.loasearch.secession.SecessionActivity
 import com.example.loasearch.util.dialog.custom.CustomDialog
 import com.example.loasearch.util.page.PageMove
 import com.example.loasearch.util.shared.SharedPreference
@@ -120,6 +121,9 @@ class InformationFragment : Fragment() {
 
         binding.logoutTv.setOnClickListener {
             loginMove()
+        }
+        binding.secessionTv.setOnClickListener {
+            PageMove(mActivity).nextActivateActivity(SecessionActivity(),false,null)
         }
 
 

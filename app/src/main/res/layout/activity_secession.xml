@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".secession.SecessionActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/secession_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:padding="7dp"
+        android:backgroundTint="@color/main"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <ImageView
+            android:id="@+id/secession_back"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="21dp"
+            android:background="@drawable/arrow_back"
+            android:contentDescription="@string/error" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/secession"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/secession_toolbar"
+        android:background="@color/normal"/>
+
+    <TextView
+        android:id="@+id/secession_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="정말 탈퇴를 진행하시겠습니까?"
+        android:layout_centerInParent="true"
+        android:textSize="28sp"/>
+
+    <TextView
+        android:id="@+id/secession_done"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="7dp"
+        android:layout_alignParentBottom="true"
+        android:textSize="21sp"
+        android:text="@string/secession"
+        android:gravity="center"
+        android:padding="14dp"
+        android:background="@drawable/signup_btn"/>
+
+</RelativeLayout>

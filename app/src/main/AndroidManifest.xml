@@ -16,6 +16,9 @@
         android:theme="@style/Theme.LoaSearch"
         tools:targetApi="31">
         <activity
+            android:name=".secession.SecessionActivity"
+            android:exported="false" />
+        <activity
             android:name=".start.StartActivity"
             android:exported="true"
             android:screenOrientation="fullSensor">
@@ -36,9 +39,7 @@
         <activity
             android:name=".login.LoginActivity"
             android:exported="true"
-            android:screenOrientation="fullSensor">
-
-        </activity>
+            android:screenOrientation="fullSensor"></activity>
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">

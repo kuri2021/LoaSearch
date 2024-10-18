@@ -17,6 +17,10 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class LoaApi : LoaApiInf {
+    companion object {
+
+    }
+
     val api: LoaApiInterface = Connect().connect().create(LoaApiInterface::class.java)
 
 

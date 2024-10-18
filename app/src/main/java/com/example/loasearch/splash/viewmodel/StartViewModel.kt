@@ -1,4 +1,4 @@
-package com.example.loasearch.start.viewmodel
+package com.example.loasearch.splash.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData

@@ -19,7 +19,7 @@
             android:name=".secession.SecessionActivity"
             android:exported="false" />
         <activity
-            android:name=".start.StartActivity"
+            android:name=".splash.SplashActivity"
             android:exported="true"
             android:screenOrientation="fullSensor">
             <intent-filter>

@@ -1,23 +1,23 @@
-package com.example.loasearch.start
+package com.example.loasearch.splash
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.example.loasearch.databinding.ActivityStartBinding
+import com.example.loasearch.databinding.ActivitySplashBinding
 import com.example.loasearch.login.LoginActivity
 import com.example.loasearch.main.MainActivity
-import com.example.loasearch.start.viewmodel.StartViewModel
+import com.example.loasearch.splash.viewmodel.StartViewModel
 import com.example.loasearch.util.page.PageMove
 import com.example.loasearch.util.shared.SharedPreference
 
-class StartActivity : AppCompatActivity() {
+class SplashActivity : AppCompatActivity() {
 
     private lateinit var startViewModel : StartViewModel
-    lateinit var binding : ActivityStartBinding
+    lateinit var binding : ActivitySplashBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityStartBinding.inflate(layoutInflater)
+        binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
         startViewModel = ViewModelProvider(this)[StartViewModel::class.java]
 

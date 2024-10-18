@@ -1,8 +1,10 @@
 package com.example.loasearch.signup.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.loasearch.api.LoaApi
+import com.example.loasearch.util.regular_expression.RegularExpression
 import com.google.firebase.Firebase
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -21,6 +23,15 @@ class SignUpViewmodel: ViewModel() {
 
     private val _kakaoCheck = MutableLiveData<String>()
     val kakaoCheck: MutableLiveData<String> get() = _kakaoCheck
+
+    private val _idCheck = MutableLiveData<Boolean>()
+    val idCheck: MutableLiveData<Boolean> get() = _idCheck
+
+    private val _pwCheck = MutableLiveData<Boolean>()
+    val pwCheck: MutableLiveData<Boolean> get() = _pwCheck
+
+    private val _pwSameCheck = MutableLiveData<Boolean>()
+    val pwSameCheck: MutableLiveData<Boolean> get() = _pwSameCheck
 
 
     private val _error = MutableLiveData<String>()
@@ -52,7 +63,6 @@ class SignUpViewmodel: ViewModel() {
                             _toast.postValue("API가 맞지 않습니다\n다시 확인 후 시도해주세요")
                         }
                     }
-
                 }else{
                     _toast.postValue("API를 입력해 주세요")
                 }
@@ -61,6 +71,32 @@ class SignUpViewmodel: ViewModel() {
             }
         }else{
             _toast.postValue("아이디를 입력해 주세요")
+        }
+    }
+
+    fun idCheck(id:String){
+        val check = RegularExpression().idCheck(id)
+        if (check!=null){
+            _idCheck.postValue(true)
+        }else{
+            _idCheck.postValue(false)
+        }
+    }
+
+    fun pwCheck(pw:String){
+        val check = RegularExpression().pwCheck(pw)
+        if (check!=null){
+            _pwCheck.postValue(true)
+        }else{
+            _pwCheck.postValue(false)
+        }
+    }
+
+    fun pwSameCheck(pw1:String,pw2:String){
+        if (pw1==pw2){
+            _pwSameCheck.postValue(true)
+        }else{
+            _pwSameCheck.postValue(false)
         }
     }
 

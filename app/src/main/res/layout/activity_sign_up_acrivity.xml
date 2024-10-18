@@ -61,7 +61,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="아이디"
-
                     android:textSize="21sp" />
 
                 <EditText
@@ -79,7 +78,7 @@
                     android:id="@+id/signup_id_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="아이디는 최소 7자에서 15자 사이로 가능합니다."
+                    android:text="아이디는 영문대소문자와 숫자 조합으로 최소 7자에서 15자 사이로 가능합니다."
                     android:textSize="10sp"
                     android:visibility="invisible" />
             </LinearLayout>
@@ -112,7 +111,38 @@
                     android:id="@+id/signup_pw_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="비밀번호는 최소 7자에서 15자 사이로 가능합니다."
+                    android:text="비밀번호는 영문대소문자와 숫자 조합으로 최소 7자에서 15자 사이로 가능합니다."
+                    android:textSize="10sp"
+                    android:visibility="invisible" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/signup_pw_check_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="비밀번호 확인"
+                    android:textSize="21sp" />
+
+                <EditText
+                    android:id="@+id/signup_pw_check_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="8"
+                    android:background="@drawable/et_back"
+                    android:inputType="textPassword"
+                    android:padding="4dp"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+
+                <TextView
+                    android:id="@+id/signup_pw_check_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="비밀번호가 일치하지 않습니다."
                     android:textSize="10sp"
                     android:visibility="invisible" />
             </LinearLayout>

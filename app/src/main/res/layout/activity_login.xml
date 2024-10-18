@@ -34,6 +34,7 @@
                 android:gravity="top"
                 android:inputType="text"
                 android:padding="7dp"
+                android:maxEms="30"
                 android:hint="ID"/>
             <EditText
                 android:id="@+id/pwEt"
@@ -45,6 +46,7 @@
                 android:hint="PW"
                 android:inputType="textPassword"
                 android:layout_marginTop="7dp"
+                android:maxEms="30"
                 android:padding="7dp"/>
             <Button
                 android:id="@+id/login_btn"

@@ -2,7 +2,6 @@ package com.example.loasearch.login
 
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
@@ -11,13 +10,13 @@ import com.example.loasearch.databinding.ActivityLoginBinding
 import com.example.loasearch.login.viewmodel.LoginViewModel
 import com.example.loasearch.main.MainActivity
 import com.example.loasearch.signup.SignUpActivity
+import com.example.loasearch.signup.UserData
 import com.example.loasearch.util.kakao.KakaoUtil
 import com.example.loasearch.util.page.PageMove
 import com.example.loasearch.util.page.PageMoveExtraData
 import com.example.loasearch.util.shared.SharedPreference
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.kakao.sdk.user.UserApiClient
 
 
 class LoginActivity : AppCompatActivity() {
@@ -29,6 +28,7 @@ class LoginActivity : AppCompatActivity() {
     private var signupKind  = ArrayList<PageMoveExtraData>()
     private lateinit var database: DatabaseReference
 
+    private var userData = UserData()
     lateinit var id :String
     lateinit var pw : String
     lateinit var key : String
@@ -116,3 +116,17 @@ class LoginActivity : AppCompatActivity() {
     }
 
 }
+
+//            val json = JsonObject()
+//            json.addProperty("id", id)
+//            json.addProperty("pw", pw)
+//            userData.id = id
+//            userData.pw = pw
+//            userData.api = "api"
+//            Log.d("암호","userInfo => ${Gson().toJson(userData)}")
+//            Log.d("암호","userInfo => $id")
+//            binding.test.text = id.toString()
+//            val encId = AES256().encryptCBC(userData)
+//            Log.d("암호","암호화 => $encId")
+//            val decId = AES256().decryptCBC(encId)
+//            Log.d("암호","복호화 => $decId")

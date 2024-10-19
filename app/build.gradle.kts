@@ -5,11 +5,13 @@ plugins {
 }
 
 android {
-    namespace = "com.example.loasearch"
+
+
+    namespace = "com.kuri2024.loasearch"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.loasearch"
+        applicationId = "com.kuri2024.loasearch"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -45,7 +47,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -65,21 +66,21 @@ dependencies {
     annotationProcessor (libs.compiler)
     implementation(kotlin("script-runtime"))
 
+//    jsoup
     implementation (libs.jsoup)
 
+//    mvvm
     implementation (libs.androidx.lifecycle.viewmodel.ktx)
-
     implementation (libs.jetbrains.kotlinx.coroutines.core)
     implementation (libs.kotlinx.coroutines.android)
-    // 카카오 로그인 API 모듈
+
+//     카카오 로그인 API 모듈
     implementation (libs.v2.user)
 
+//    파이어베이스
     implementation(platform(libs.firebase.bom))
-
     implementation (platform(libs.firebase.bom.v3210))
     implementation (libs.firebase.auth.ktx)
     implementation (libs.play.services.auth)
     implementation(libs.firebase.database)
-
-
 }
